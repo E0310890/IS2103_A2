@@ -16,7 +16,6 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long paymentID;
     private Double amount;
-    
     @OneToOne
     @JoinColumn(name = "lendID")
     private Lend lend;

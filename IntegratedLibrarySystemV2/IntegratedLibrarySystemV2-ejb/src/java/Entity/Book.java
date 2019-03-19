@@ -1,11 +1,15 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.Queue;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,19 +19,26 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookID;
+    @Column(length = 128, nullable = false)
     private String title;
+    @Column(length = 16, nullable = false)
     private String isbn;
+    @Column(length = 4, nullable = false)
     private String year;
-    
     @OneToOne
     @JoinColumn(name = "lendID")
     private Lend lend;
-    
-    @OneToOne
-    @JoinColumn(name ="reservationID")
-    private Reservation reservation;
+    @OneToMany(mappedBy="book")
+    private Queue<Reservation> reservationQueue;
 
     public Book() {
+        reservationQueue = new LinkedList<>();
+    }
+    
+    public Book(String title, String isbn, String year){
+        this.title = title;
+        this.isbn = isbn;
+        this.year = year;
     }
 
     @Override
@@ -35,12 +46,6 @@ public class Book implements Serializable {
         int hash = 0;
         hash += (bookID != null ? bookID.hashCode() : 0);
         return hash;
-    }
-    
-    public Book(String title, String isbn, String year){
-        this.title = title;
-        this.isbn = isbn;
-        this.year = year;
     }
 
     @Override
@@ -101,12 +106,12 @@ public class Book implements Serializable {
         this.lend = lend;
     }
 
-    public Reservation getReservation() {
-        return reservation;
+    public Queue<Reservation> getReservationQueue() {
+        return reservationQueue;
     }
 
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
+    public void setReservationQueue(Queue<Reservation> reservationQueue) {
+        this.reservationQueue = reservationQueue;
     }
-    
+
 }

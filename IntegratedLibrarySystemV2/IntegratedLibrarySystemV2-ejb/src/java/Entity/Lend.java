@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Lend implements Serializable {
@@ -17,15 +19,13 @@ public class Lend implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long lendID;
+    @Temporal(TemporalType.DATE)
     private Date lendDate;
-    
     @OneToOne(mappedBy = "lend")
     private Book book; 
-    
     @ManyToOne
     @JoinColumn(name = "memberID")
     private Member member;
-    
     @OneToOne(mappedBy = "lend")
     private Payment payment;
 

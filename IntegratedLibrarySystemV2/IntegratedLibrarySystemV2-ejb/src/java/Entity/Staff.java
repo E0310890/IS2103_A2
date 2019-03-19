@@ -1,6 +1,7 @@
 package Entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +14,19 @@ public class Staff implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long staffID;
-    private String staffRole;
+    @Column(length = 128, nullable = false)
     private String firstName;
+    @Column(length = 128, nullable = false)
     private String lastName;
+    @Column(unique = true, length = 64, nullable = false)
     private String userName;
+    @Column(length = 128, nullable = false)
     private String password;
 
     public Staff() {
     }
 
-    public Staff(String staffRole, String firstName, String lastName, String userName, String password){
-        this.staffRole = staffRole;
+    public Staff(String firstName, String lastName, String userName, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -61,14 +64,6 @@ public class Staff implements Serializable {
 
     public void setStaffID(Long staffID) {
         this.staffID = staffID;
-    }
-    
-    public String getStaffRole() {
-        return staffRole;
-    }
-
-    public void setStaffRole(String staffRole) {
-        this.staffRole = staffRole;
     }
 
     public String getFirstName() {

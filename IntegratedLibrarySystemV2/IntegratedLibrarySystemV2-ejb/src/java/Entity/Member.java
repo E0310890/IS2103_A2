@@ -3,6 +3,7 @@ package Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,22 +18,30 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long memberID;
+    @Column(unique = true, nullable = false, length = 9)
     private String identityNumber;
+    @Column(length = 64)
     private String firstName;
+    @Column(length = 64, nullable = false)
     private String lastName;
+    @Column(length = 32, nullable = false)
     private String gender;
+    @Column(length = 128, nullable = false)
     private Integer age;
+    @Column(length = 8, nullable = false)
     private String phone;
+    @Column(length = 256, nullable = false)
     private String address;
+    @Column(length = 32, nullable = false)
     private String securityCode;
-    
     @OneToMany(mappedBy = "member")
-    private List<Lend> lendList = new ArrayList<Lend> ();
-   
+    private List<Lend> lendList;
     @OneToMany (mappedBy = "member")
-    private List<Reservation> reservationList = new ArrayList<Reservation>();
+    private List<Reservation> reservationList;
 
     public Member() {
+        lendList = new ArrayList<Lend> ();
+        reservationList = new ArrayList<Reservation>();
     }
 
     public Member(String identityNumber, String firstName, String lastName, String gender, Integer age,

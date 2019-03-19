@@ -16,12 +16,11 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long reservationID;
-    
     @ManyToOne
     @JoinColumn(name="memberID")
     private Member member;
-    
-    @OneToOne(mappedBy = "reservation")
+    @ManyToOne
+    @JoinColumn(name="bookID")
     private Book book;
 
     public Reservation() {
