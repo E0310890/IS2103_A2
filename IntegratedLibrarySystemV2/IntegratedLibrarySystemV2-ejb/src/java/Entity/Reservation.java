@@ -5,27 +5,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ReservationEntity implements Serializable {
+public class Reservation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long reservationID;
     @ManyToOne
-    private MemberEntity memberID;
-    @OneToOne
-    private BookEntity bookID;
+    @JoinColumn(name="memberID")
+    private Member member;
+    @ManyToOne
+    @JoinColumn(name="bookID")
+    private Book book;
 
-    public Long getReservationID() {
-        return reservationID;
+    public Reservation() {
     }
 
-    public void setReservationID(Long reservationID) {
-        this.reservationID = reservationID;
+    public Reservation(Member member, Book book) {
+        this.member = member;
+        this.book = book;
     }
 
     @Override
@@ -38,10 +41,10 @@ public class ReservationEntity implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the reservationID fields are not set
-        if (!(object instanceof ReservationEntity)) {
+        if (!(object instanceof Reservation)) {
             return false;
         }
-        ReservationEntity other = (ReservationEntity) object;
+        Reservation other = (Reservation) object;
         if ((this.reservationID == null && other.reservationID != null) || (this.reservationID != null && !this.reservationID.equals(other.reservationID))) {
             return false;
         }
@@ -51,6 +54,30 @@ public class ReservationEntity implements Serializable {
     @Override
     public String toString() {
         return "Entity.ReservationEntity[ id=" + reservationID + " ]";
+    }
+
+    public Long getReservationID() {
+        return reservationID;
+    }
+
+    public void setReservationID(Long reservationID) {
+        this.reservationID = reservationID;
+    }
+    
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBookID(Book book) {
+        this.book = book;
     }
 
 }
