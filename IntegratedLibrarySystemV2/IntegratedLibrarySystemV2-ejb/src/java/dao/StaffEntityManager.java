@@ -46,7 +46,7 @@ public class StaffEntityManager {
     
     
     public StaffEntity retrieveStaffByUsername(String username) throws StaffNotFoundException{
-        Query query = entityManager.createQuery("SELECT s FROM staffentity s WHERE s.username = :inUsername");
+        Query query = entityManager.createQuery("SELECT s FROM StaffEntity s WHERE s.userName = :inUsername");
         query.setParameter("inUsername", username);
         
         try{
