@@ -12,12 +12,18 @@ import util.exception.StaffNotFoundException;
 import ejb.session.stateless.StaffEntityControllerLocal;
 import ejb.session.stateless.MemberEntityControllerLocal;
 import ejb.session.stateless.BookEntityControllerLocal;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 @Singleton
 @LocalBean
 @Startup
 public class InitApp {
+    
+    
+    @PersistenceContext(unitName = "IntegratedLibrarySystemV2-ejbPU") 
+    private EntityManager em;
 
     @EJB
     private StaffEntityControllerLocal staffEntityControllerLocal;
@@ -31,16 +37,22 @@ public class InitApp {
     
     @PostConstruct
     public void postConstruct(){
-        try{
-            staffEntityControllerLocal.retrieveStaffByUsername("manager");
-        }catch(StaffNotFoundException ex){
+        if(em.find(StaffEntity.class, 1l) == null)
+        {
             initializeData();
         }
     }
     
     private void initializeData(){
-        staffEntityControllerLocal.createNewStaff( new StaffEntity("Linda", "Chua", "manager","password"));
-        staffEntityControllerLocal.createNewStaff( new StaffEntity("Barbara", "Durham", "assistant", "password"));
+        StaffEntity staff = new StaffEntity("Linda", "Chua", "manager","password");
+        em.persist(staff);
+        em.flush();     
+        staff = new StaffEntity("Barbara", "Durham", "assistant", "password");        
+        em.persist(staff);
+        em.flush();        
+       
+        /* staffEntityControllerLocal.createNewStaff( new StaffEntity("Linda", "Chua", "manager","password"));
+        staffEntityControllerLocal.createNewStaff( new StaffEntity("Barbara", "Durham", "assistant", "password")); */
                 
         //bookEntityControllerLocal.createNewBook( new BookEntity("The Lord of the Rings","S18018","1954"));
         //bookEntityControllerLocal.createNewBook( new BookEntity("Le Petit Prince","S64921","1943"));
