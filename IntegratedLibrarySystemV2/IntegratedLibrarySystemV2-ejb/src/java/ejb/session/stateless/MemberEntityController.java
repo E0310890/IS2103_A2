@@ -1,10 +1,20 @@
 package ejb.session.stateless;
 
+import Entity.MemberEntity;
+import dao.MemberEntityManager;
 import javax.ejb.Stateless;
 
 @Stateless
 public class MemberEntityController implements MemberEntityControllerRemote, MemberEntityControllerLocal {
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+private final MemberEntityManager memberEntityManager;
+    
+    public MemberEntityController(){
+        memberEntityManager = new MemberEntityManager();
+    }
+    
+    @Override 
+    public MemberEntity createNewMember(MemberEntity memberEntity){
+        return memberEntityManager.createNewMember(memberEntity);
+    }
 }

@@ -3,8 +3,10 @@ package dao;
 import Entity.StaffEntity;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import util.exception.InvalidLoginCredentialException;
@@ -13,14 +15,15 @@ import util.exception.StaffNotFoundException;
 
 public class StaffEntityManager {
     
-    @PersistenceContext(unitName = "IntegratedLibrarySystemV2-ejbPU")
-    private EntityManager entityManager;
+    //Code when need to use Entity manager outside of container
+    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("IntegratedLibrarySystemV2-ejbPU");
+    private final EntityManager entityManager = factory.createEntityManager();
     
     public StaffEntityManager(){
     }
     
     public StaffEntity createNewStaff(StaffEntity newStaffEntity){
-        entityManager.persist(newStaffEntity);
+        entityManager.persist((StaffEntity)newStaffEntity);
         entityManager.flush();
         
         return newStaffEntity;
@@ -28,7 +31,7 @@ public class StaffEntityManager {
     
     
     public List<StaffEntity> retrieveAllStaffs(){
-        Query query = entityManager.createQuery("SELECT s FROM staffentity s");
+        Query query = entityManager.createQuery("SELECT s FROM StaffEntity s");
         
         return query.getResultList();
     }
