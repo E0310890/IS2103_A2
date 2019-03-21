@@ -44,6 +44,7 @@ public class InitApp {
     }
     
     private void initializeData(){
+        /* Staff Initializing */
         StaffEntity staff = new StaffEntity("Linda", "Chua", "manager","password");
         em.persist(staff);
         em.flush();     
@@ -51,20 +52,35 @@ public class InitApp {
         em.persist(staff);
         em.flush();        
        
-        /* staffEntityControllerLocal.createNewStaff( new StaffEntity("Linda", "Chua", "manager","password"));
-        staffEntityControllerLocal.createNewStaff( new StaffEntity("Barbara", "Durham", "assistant", "password")); */
-                
-        //bookEntityControllerLocal.createNewBook( new BookEntity("The Lord of the Rings","S18018","1954"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("Le Petit Prince","S64921","1943"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("Harry Potter and the Philosopher's Stone","S38101","1997"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("The Hobbit","S19527","1937"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("And Then There Were None","S63288","1939"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("Dream of the Red Chamber","S32187","1791"));
-        //bookEntityControllerLocal.createNewBook( new BookEntity("The Lion, the Witch and the Wardrobe","S74569","1950"));
-               
-        //memberEntityControllerLocal.createNewMember( new MemberEntity("S7483027A", "Tony", "Teo", "Male", 44, "87297373", "11 Tampines Ave 3", "123456"));
-        //memberEntityControllerLocal.createNewMember( new MemberEntity("S8381028X", "Wendy", "Tan", "Female", 35, "97502837", "15 Computing Dr", "654321"));
-       
-    }
-    
+        /* Book Initializing */
+        BookEntity book = new BookEntity("The Lord of the Rings","S18018","1954");
+        em.persist(book);
+        em.flush();  
+        book = new BookEntity("Le Petit Prince","S64921","1943");
+        em.persist(book);
+        em.flush();
+        book = new BookEntity("Harry Potter and the Philosopher's Stone","S38101","1997");
+        em.persist(book);
+        em.flush();                
+        book = new BookEntity("The Hobbit","S19527","1937");
+        em.persist(book);
+        em.flush(); 
+        book = new BookEntity("And Then There Were None","S63288","1939");
+        em.persist(book);
+        em.flush();         
+        book = new BookEntity("Dream of the Red Chamber","S32187","1791");
+        em.persist(book);
+        em.flush(); 
+        book = new BookEntity("The Lion, the Witch and the Wardrobe","S74569","1950");
+        em.persist(book);
+        em.flush();         
+
+        /* Member Initializing */
+        MemberEntity member = new MemberEntity("S7483027A", "Tony", "Teo", "Male", 44, "87297373", "11 Tampines Ave 3", "123456");
+        em.persist(member);
+        em.flush();     
+        member = new MemberEntity("S8381028X", "Wendy", "Tan", "Female", 35, "97502837", "15 Computing Dr", "654321");
+        em.persist(member);
+        em.flush();                   
+    }    
 }
