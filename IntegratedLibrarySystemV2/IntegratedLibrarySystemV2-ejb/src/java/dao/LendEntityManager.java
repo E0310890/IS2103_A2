@@ -47,6 +47,17 @@ public class LendEntityManager {
         }
     }
 
+    public void update(LendingEntity le) throws PersistenceException {
+        try {
+            if (le.getLendID() != null) {
+                em.joinTransaction();
+                em.merge(le);
+            }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+
     @Remove
     public void destroy() {
         em.close();

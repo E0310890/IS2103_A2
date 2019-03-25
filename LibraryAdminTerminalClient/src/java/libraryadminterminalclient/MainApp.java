@@ -7,7 +7,7 @@ package libraryadminterminalclient;
 
 import java.util.Scanner;
 import javax.ejb.EJB;
-import operationModules.LATRootModule;
+import rootOperationModule.LATRootModule;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;

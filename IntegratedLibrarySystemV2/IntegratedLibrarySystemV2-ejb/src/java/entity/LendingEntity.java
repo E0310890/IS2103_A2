@@ -42,7 +42,7 @@ public class LendingEntity implements Serializable {
     @JoinColumn(unique = true, nullable = false)
     private BookEntity book;
     
-    @OneToOne
+    @OneToOne(mappedBy = "lending")
     private PaymentEntity payment;
 
     public LendingEntity() {
@@ -69,6 +69,11 @@ public class LendingEntity implements Serializable {
     public BookEntity getBook() {
         return book;
     }
+
+    public void setLendDate(Date lendDate) {
+        this.lendDate = lendDate;
+    }
+    
 
     public Date getLendDate() {
         return lendDate;

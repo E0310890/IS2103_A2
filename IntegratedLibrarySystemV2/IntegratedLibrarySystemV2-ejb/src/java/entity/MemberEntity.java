@@ -15,6 +15,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -54,7 +55,7 @@ public class MemberEntity implements Serializable {
     @Column(nullable = false, length = 32, unique = true)
     private String securityCode;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<LendingEntity> lending;
     @OneToMany(mappedBy = "member")
     private List<ReservationEntity> reservation;

@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author lester
  */
 public class Lend implements Serializable {
-    
+
     private Long lendID;
     private Book book;
     private Date lendDate;
@@ -38,9 +39,12 @@ public class Lend implements Serializable {
     public Date getLendDate() {
         return lendDate;
     }
-    
-    
-    
-    
-    
+
+    public Date getDueDate() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(this.lendDate);
+        c.add(Calendar.DATE, 14);
+        return c.getTime();
+    }
+
 }

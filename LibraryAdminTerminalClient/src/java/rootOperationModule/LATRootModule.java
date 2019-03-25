@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operationModules;
+package rootOperationModule;
 
 import java.util.Scanner;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -52,7 +52,8 @@ public class LATRootModule {
     public void startRoot() {
         displayMenu();
         getInput();
-
+        
+        setBackInstance();
         navigate(this.input);
     }
 
@@ -63,6 +64,9 @@ public class LATRootModule {
             case 2:
                 System.exit(0);
         }
+    }
 
+    private void setBackInstance() {
+        loginOps.setLATRootModIn(this);
     }
 }

@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operationModules;
+package rootOperationModule;
 
+import adminOperationModule.AdminModule;
+import libraryOperationModule.LibraryModule;
+import registrationOperationModule.RegistrationModule;
 import java.util.Scanner;
-import model.Member;
 import model.Staff;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -27,7 +29,10 @@ public class MainMenuModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
+    private LoginOperation loginOpsIn;
     private RegistrationModule registerMod;
+    private LibraryModule libMod;
+    private AdminModule adminMod;
     //fields
     private int input;
     private Staff staff;
@@ -38,8 +43,10 @@ public class MainMenuModule {
         this.BEC = BEC;
         this.LEC = LEC;
         registerMod = new RegistrationModule(SEC, MEC, BEC, LEC);
+        libMod = new LibraryModule(SEC, MEC, BEC, LEC);
+        adminMod = new AdminModule(SEC, MEC, BEC, LEC);
     }
-    
+
     private void displayMenu() {
         System.out.println("*** ILS :: Main ***");
         System.out.println("You are login as " + staff.getFirstName() + " " + staff.getLastName());
@@ -70,17 +77,33 @@ public class MainMenuModule {
             case 1:
                 registerMod.start();
             case 2:
-                System.exit(0);
+                libMod.start();
+            case 3:
+                adminMod.start();
+            case 4:
+                loginOpsIn.getLATRootModIn().startRoot();
+
         }
 
     }
-    
-    private void setBackInstance(){
-        registerMod.setMainMemuMod(this);
+
+    private void setBackInstance() {
+        registerMod.setMainMemuModIn(this);
+        libMod.setMainMenuModIn(this);
+        adminMod.setMainMenuModIn(this);
     }
 
+    //    Settter ..........
     public void setMember(Staff staff) {
         this.staff = staff;
+    }
+
+    public void setLoginOpsIn(LoginOperation loginOpsIn) {
+        this.loginOpsIn = loginOpsIn;
+    }
+
+    public LoginOperation getLoginOpsIn() {
+        return loginOpsIn;
     }
 
 }

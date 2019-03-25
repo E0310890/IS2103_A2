@@ -21,7 +21,7 @@ public interface MemberEntityControllerRemote {
     public Member viewMember (long id) throws MemberNotFoundException;
     public List<Member> viewMember();
     public boolean updateMember(Member member) throws InvalidInputException;
-    public boolean deleteMember(Member member);
+    public void deleteMember(long id) throws MemberNotFoundException;
     
     public Member memberLogin(String identityNumber, String securityCode) throws InvalidLoginCredentialException;
 }

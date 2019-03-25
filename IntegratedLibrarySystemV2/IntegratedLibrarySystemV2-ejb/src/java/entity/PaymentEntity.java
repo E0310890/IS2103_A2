@@ -32,7 +32,7 @@ public class PaymentEntity implements Serializable {
     @Column(nullable = false)
     private boolean paid = false;
 
-    @OneToOne(mappedBy = "payment")
+    @OneToOne
     private LendingEntity lending;
 
     public Long getPaymentID() {

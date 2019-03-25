@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operationModules;
+package registrationOperationModule;
 
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Member;
 import model.Staff;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -16,7 +14,6 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
 import util.exception.InvalidInputException;
-import util.exception.InvalidLoginCredentialException;
 
 /**
  *
@@ -32,7 +29,7 @@ public class RegistrationOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private RegistrationModule registerMod;
+    private RegistrationModule registerModIn;
 
     //fields
     private Member member;
@@ -83,8 +80,8 @@ public class RegistrationOperation {
             onOperationFailNavigate();
         }
     }
-    
-    private void successDisplay(){
+
+    private void successDisplay() {
         System.out.println("Member has been registered successfully!");
     }
 
@@ -102,15 +99,18 @@ public class RegistrationOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.registerMod.start();
+        this.registerModIn.start();
     }
 
     private void onOperationFailNavigate() {
         start();
     }
 
-    public void setRegisterMod(RegistrationModule registerMod) {
-        this.registerMod = registerMod;
+    //    Settter ..........
+
+    public void setRegisterModIn(RegistrationModule registerModIn) {
+        this.registerModIn = registerModIn;
     }
+
 
 }

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operationModules;
+package registrationOperationModule;
 
 import java.util.Scanner;
 import model.Staff;
+import rootOperationModule.MainMenuModule;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
@@ -27,7 +28,7 @@ public class RegistrationModule {
     private LendEntityControllerRemote LEC;
     //modules
     private RegistrationOperation registerOps;
-    private MainMenuModule mainMemuMod;
+    private MainMenuModule mainMemuModIn;
 
     //fields
     private int input;
@@ -67,17 +68,25 @@ public class RegistrationModule {
             case 1:
                 registerOps.start();
             case 2:
-                this.mainMemuMod.start();
+                this.mainMemuModIn.start();
         }
 
     }
 
     private void setBackInstance() {
-        registerOps.setRegisterMod(this);
+        registerOps.setRegisterModIn(this);
     }
 
-    public void setMainMemuMod(MainMenuModule mainMemuMod) {
-        this.mainMemuMod = mainMemuMod;
+    //    Settter ..........
+    
+    public MainMenuModule getMainMemuModIn() {
+        return mainMemuModIn;
     }
+
+    public void setMainMemuModIn(MainMenuModule mainMemuModIn) {
+        this.mainMemuModIn = mainMemuModIn;
+    }
+
+    
 
 }

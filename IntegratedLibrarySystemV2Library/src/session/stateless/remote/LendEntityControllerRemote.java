@@ -22,8 +22,8 @@ import util.exception.MemberNotFoundException;
  */
 public interface LendEntityControllerRemote {
     
-    public boolean lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;
-    public boolean lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;
+    public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;
+    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;
     public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException;
     public List<Lend> ViewLendBooks(String identityNumber) throws MemberNotFoundException;
     public boolean ReturnLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException;

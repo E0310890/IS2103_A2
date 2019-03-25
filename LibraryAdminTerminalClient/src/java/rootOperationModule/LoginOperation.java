@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operationModules;
+package rootOperationModule;
 
 import java.util.Scanner;
 import model.Staff;
@@ -28,6 +28,7 @@ public class LoginOperation {
     private LendEntityControllerRemote LEC;
     //modules
     private final MainMenuModule mainMenuMod;
+    private LATRootModule LATRootModIn;
     //fields
     private String username;
     private String password;
@@ -57,6 +58,7 @@ public class LoginOperation {
 
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
+            setBackInstance();
             onOperationSuccessNavigate();
         } else {
             onOperationFailNavigate();
@@ -75,6 +77,10 @@ public class LoginOperation {
         }
     }
 
+    private void setBackInstance() {
+        mainMenuMod.setLoginOpsIn(this);
+    }
+
     private void setField(Staff staff) {
         this.mainMenuMod.setMember(staff);
     }
@@ -86,5 +92,15 @@ public class LoginOperation {
     private void onOperationFailNavigate() {
         start();
     }
+    
+//    Settter ..........
 
+    public void setLATRootModIn(LATRootModule LATRootModIn) {
+        this.LATRootModIn = LATRootModIn;
+    }
+    
+    public LATRootModule getLATRootModIn() {
+        return LATRootModIn;
+    }
+    
 }

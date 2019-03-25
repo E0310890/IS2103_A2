@@ -86,12 +86,12 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     }
 
     @Override
-    public boolean deleteMember(Member member) {
+    public void deleteMember(long id) throws MemberNotFoundException{
         try {
-            mem.remove(new MemberEntity(member));
-            return true;
+            MemberEntity memberE = mem.retrieve(id);
+            mem.remove(memberE);
         } catch (PersistenceException ex) {
-            return false;
+            throw new MemberNotFoundException("No such member with id: " + id);
         }
     }
 
