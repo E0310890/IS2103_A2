@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rootOperationModule;
 
 import adminOperationModule.AdminModule;
@@ -15,10 +10,6 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
-/**
- *
- * @author lester
- */
 public class MainMenuModule {
 
     private final Scanner sc = new Scanner(System.in);
@@ -64,7 +55,7 @@ public class MainMenuModule {
         this.input = sc.nextInt();
     }
 
-    public void start() {
+    public void start() throws InterruptedException{
         displayMenu();
         getInput();
 
@@ -72,7 +63,7 @@ public class MainMenuModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) {
+    private void navigate(int input) throws InterruptedException{
         switch (input) {
             case 1:
                 registerMod.start();

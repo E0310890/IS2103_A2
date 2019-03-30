@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -23,10 +18,6 @@ import model.Member;
 import model.Staff;
 import util.enumeration.Gender;
 
-/**
- *
- * @author lester
- */
 @Entity
 public class MemberEntity implements Serializable {
 
@@ -52,9 +43,11 @@ public class MemberEntity implements Serializable {
     private String phone;
     @Column(nullable = false, length = 128)
     private String address;
-    @Column(nullable = false, length = 32, unique = true)
+    @Column(nullable = false, length = 32)
     private String securityCode;
 
+    @OneToMany
+    private List<PaymentEntity> payment;
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<LendingEntity> lending;
     @OneToMany(mappedBy = "member")
@@ -101,9 +94,11 @@ public class MemberEntity implements Serializable {
     public String getFirstName() {
         return firstName;
     }
-    
-    
 
+    public List<PaymentEntity> getPayment() {
+        return payment;
+    }
+    
     public List<LendingEntity> getLending() {
         return lending;
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rootOperationModule;
 
 import java.util.Scanner;
@@ -11,10 +6,6 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
-/**
- *
- * @author lester
- */
 public class LATRootModule {
 
     private Scanner sc = new Scanner(System.in);
@@ -40,7 +31,7 @@ public class LATRootModule {
 
     private void displayMenu() {
         System.out.println("*** Welcome to Library Admin Terminal ***");
-        System.out.println("1: Login\n" + "2: Exit");
+        System.out.println("1: Login\n" + "2: Exit\n");
 
         System.out.print(">");
     }
@@ -49,7 +40,7 @@ public class LATRootModule {
         this.input = sc.nextInt();
     }
 
-    public void startRoot() {
+    public void startRoot() throws InterruptedException {
         displayMenu();
         getInput();
         
@@ -57,7 +48,7 @@ public class LATRootModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) {
+    private void navigate(int input) throws InterruptedException {
         switch (input) {
             case 1:
                 loginOps.start();

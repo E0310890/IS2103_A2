@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package libraryOperationModule;
 
 import java.util.List;
@@ -17,10 +12,6 @@ import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 public class ReturnBookOperation {
 
     private Scanner sc = new Scanner(System.in);
@@ -60,11 +51,11 @@ public class ReturnBookOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter Book to Return> ");
+        System.out.print("Enter Book to Return> ");
         this.bookId = sc.nextLong();
     }
 
-    public void start() {
+    public void start() throws InterruptedException{
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -89,18 +80,22 @@ public class ReturnBookOperation {
         boolean result = false;
         try {
             result = LEC.ReturnLendBook(this.identityNumber, this.bookId);
+            if(result == false)
+                System.err.println("Book is overdue. Please pay fine first before borrowing again!");
+                result = true;
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException{
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() {
-        start();
+    private void onOperationFailNavigate() throws InterruptedException{
+        Thread.sleep(1000);
+        this.LibModIn.start();
     }
 
     //    Settter ..........

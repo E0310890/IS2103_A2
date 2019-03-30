@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rootOperationModule;
 
 import java.util.Scanner;
@@ -13,10 +8,6 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.InvalidLoginCredentialException;
 
-/**
- *
- * @author lester
- */
 public class LoginOperation {
 
     private Scanner sc = new Scanner(System.in);
@@ -52,7 +43,7 @@ public class LoginOperation {
         this.password = sc.next();
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         getInput();
 
@@ -85,11 +76,11 @@ public class LoginOperation {
         this.mainMenuMod.setMember(staff);
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.mainMenuMod.start();
     }
 
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
     

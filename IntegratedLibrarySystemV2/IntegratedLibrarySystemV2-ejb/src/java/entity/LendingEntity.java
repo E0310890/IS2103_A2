@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -19,10 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author lester
- */
 @Entity
 public class LendingEntity implements Serializable {
 
@@ -41,9 +32,6 @@ public class LendingEntity implements Serializable {
     @OneToOne
     @JoinColumn(unique = true, nullable = false)
     private BookEntity book;
-    
-    @OneToOne(mappedBy = "lending")
-    private PaymentEntity payment;
 
     public LendingEntity() {
     }
@@ -85,12 +73,6 @@ public class LendingEntity implements Serializable {
         c.add(Calendar.DATE, 14);
         return c.getTime();
     }
-
-    public PaymentEntity getPayment() {
-        return payment;
-    }
-    
-    
 
     @Override
     public int hashCode() {

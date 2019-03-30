@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-import entity.MemberEntity;
 import entity.PaymentEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
-/**
- *
- * @author lester
- */
 public class PaymentEntityManager {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("IntegratedLibrarySystemV2-ejbPU");
@@ -23,6 +13,17 @@ public class PaymentEntityManager {
 
     public PaymentEntityManager() {
     }
+    
+    public void create(PaymentEntity pe) throws PersistenceException {
+        try {
+            if (pe.getPaymentID() == null) {
+                em.joinTransaction();
+                em.persist(pe);
+            }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    } 
 
     public void update(PaymentEntity pe) throws PersistenceException {
         try {
@@ -31,6 +32,15 @@ public class PaymentEntityManager {
                 em.joinTransaction();
                 em.merge(pe);
             }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+    
+    public void delete(PaymentEntity pe) throws PersistenceException{
+         try {
+            em.joinTransaction();
+            em.remove(pe);
         } catch (PersistenceException ex) {
             throw ex;
         }

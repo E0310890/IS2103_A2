@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.stateless;
 
 import dao.BookEntityManager;
@@ -22,10 +17,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import util.exception.BookNotFoundException;
 import util.exception.InvalidInputException;
 
-/**
- *
- * @author lester
- */
 @Stateless
 @LocalBean
 @Remote(BookEntityControllerRemote.class)

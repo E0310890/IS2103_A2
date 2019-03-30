@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.stateless;
 
 import dao.StaffEntityManager;
@@ -21,10 +16,6 @@ import util.exception.InvalidInputException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.StaffNotFoundException;
 
-/**
- *
- * @author lester
- */
 @Stateless
 @LocalBean
 @Remote(StaffEntityControllerRemote.class)

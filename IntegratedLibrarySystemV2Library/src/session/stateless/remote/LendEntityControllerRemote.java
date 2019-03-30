@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.stateless.remote;
 
 import java.util.Date;
@@ -16,10 +11,6 @@ import util.exception.BookOverDueException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 public interface LendEntityControllerRemote {
     
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;

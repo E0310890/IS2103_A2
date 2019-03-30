@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entity;
 
 import java.io.Serializable;
@@ -12,13 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import model.Fine;
 
-/**
- *
- * @author lester
- */
 @Entity
 public class PaymentEntity implements Serializable {
 
@@ -27,13 +19,20 @@ public class PaymentEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentID;
 
-    private Double paidAmount;
-    
-    @Column(nullable = false)
-    private boolean paid = false;
+    private Integer amount;
+    @Column(unique = true)
+    private Long lendID;
 
-    @OneToOne
-    private LendingEntity lending;
+    public PaymentEntity() {
+    }
+    
+    public PaymentEntity(Long lendID, Date dueDate) {
+        this.lendID = lendID;
+        
+        Date curr = new Date();
+        double daysOver = (dueDate.getTime() - curr.getTime()) / (1000 * 60 * 60 * 24);
+        amount = (int) Math.floor(daysOver);
+    }
 
     public Long getPaymentID() {
         return paymentID;
@@ -41,38 +40,19 @@ public class PaymentEntity implements Serializable {
 
     public void setPaymentID(Long paymentID) {
         this.paymentID = paymentID;
-    }
+    } 
 
-    public boolean isPaid() {
-        return paid;
-    }
+    public Integer getAmount() {
+        return amount;
+    }  
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
+    public Long getLendID() {
+        return lendID;
     }
-
     
-
-    public LendingEntity getLending() {
-        return lending;
-    }
-
+    
     public Fine toFine() {
-        return new Fine(this.lending.getLendID(), this.getFineAmount());
-    }
-
-    public double getFineAmount() {
-        Date nowDate = new Date();
-        long dateDiff = this.lending.getDueDate().getTime() - nowDate.getTime();
-        long diffHours = dateDiff / (60 * 60 * 1000) % 24;
-        if (dateDiff <= 0) {
-            return 0;
-        }
-        return (double) diffHours;
-    }
-    
-    public boolean fineExist(){
-        return this.getFineAmount() > 0 && !this.isPaid();
+        return new Fine(this.getLendID(), this.getAmount());
     }
 
     @Override

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package registrationOperationModule;
 
 import java.util.Scanner;
@@ -15,10 +10,6 @@ import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
 import util.exception.InvalidInputException;
 
-/**
- *
- * @author lester
- */
 public class RegistrationOperation {
 
     private Scanner sc = new Scanner(System.in);
@@ -42,33 +33,34 @@ public class RegistrationOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Login ***\n");
+        System.out.println("*** ILS :: Registration Operation :: Register New Member ***\n");
     }
 
     private void getInput() {
         System.out.print("Enter Identity Number> ");
-        String identityNum = sc.next();
+        String identityNum = sc.nextLine();
         System.out.print("Enter Security Code> ");
-        String secCode = sc.next();
+        String secCode = sc.nextLine();
         System.out.print("Enter First Name> ");
-        String firstName = sc.next();
+        String firstName = sc.nextLine();
         System.out.print("Enter Last Name> ");
-        String lastName = sc.next();
+        String lastName = sc.nextLine();
         System.out.print("Enter Gender> ");
-        String gen = sc.next();
+        String gen = sc.nextLine();
         System.out.print("Enter Age> ");
         int age = sc.nextInt();
+        sc.nextLine();
         System.out.print("Enter Phone> ");
-        String phone = sc.next();
+        String phone = sc.nextLine();
         System.out.print("Enter Address> ");
-        String address = sc.next();
+        String address = sc.nextLine();
 
         Gender gender = Gender.getEnumGender(gen);
 
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         getInput();
 
@@ -82,15 +74,15 @@ public class RegistrationOperation {
     }
 
     private void successDisplay() {
-        System.out.println("Member has been registered successfully!");
+        System.out.println("Member has been registered successfully!\n");
     }
 
     private boolean executeOperation() {
         boolean result = false;
         try {
             result = MEC.registerMember(this.member);
-        } catch (InvalidInputException ex) {
-            System.err.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.err.println("Member registeration fail. Please Enter correct information.\n");
         }
         return result;
     }
@@ -98,12 +90,13 @@ public class RegistrationOperation {
     private void setField(Staff staff) {
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.registerModIn.start();
     }
 
-    private void onOperationFailNavigate() {
-        start();
+    private void onOperationFailNavigate() throws InterruptedException {
+        Thread.sleep(1000);
+        this.registerModIn.start();
     }
 
     //    Settter ..........

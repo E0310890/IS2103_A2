@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.stateless;
 
 import dao.LendEntityManager;
 import entity.BookEntity;
 import entity.LendingEntity;
 import entity.MemberEntity;
+import entity.PaymentEntity;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,17 +27,15 @@ import model.Member;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
+import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.remote.LendEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
 import util.exception.BookOverDueException;
+import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 @Stateless
 @LocalBean
 @Remote(LendEntityControllerRemote.class)
@@ -51,23 +46,31 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private MemberEntityControllerLocal MEC;
     @EJB
     private BookEntityControllerLocal BEC;
+    @EJB
+    private PaymentEntityControllerLocal PEC;
 
     private final LendEntityManager lem = new LendEntityManager();
-
+    
+    private Date currentDate;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final int lendThreshold = 3;
-
+    
     @Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException {
+    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, FineNotPaidException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             BookEntity bookE = BEC.getBook(bookId);
             LendingEntity lendingE = new LendingEntity(new Date(), memberE, bookE);
-
+            
+            if(memberE.getPayment() != null){
+                throw new FineNotPaidException("Fail to borrow. You need to pay your outstanding fines first!");
+            }
+            
             if (validateLend(lendingE)) {
                 lem.create(lendingE);
                 return lendingE.getDueDate();
@@ -118,11 +121,18 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
             // if book have overdued
-            //**implement here...
-            
-
-            lem.remove(currentLendCtx);
-            return true;
+            Date dueDate = currentLendCtx.getDueDate();
+            currentDate = new Date();
+            // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
+            System.out.println(sdf.format(dueDate) + "         TEST MARK");
+            if(sdf.format(dueDate).compareTo("2019-08-08"/*sdf.format(currentDate)*/) < 0){
+                PaymentEntity paymentE = PEC.createFine(currentLendCtx); 
+                lem.remove(currentLendCtx);
+                return false;
+            }else{
+                lem.remove(currentLendCtx);
+                return true;
+            }
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             throw ex;
         } catch (PersistenceException ex) {

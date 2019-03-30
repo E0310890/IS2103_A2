@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package libraryOperationModule;
 
 import java.text.SimpleDateFormat;
@@ -18,10 +13,6 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 public class ViewLentBooksOperation {
 
     private Scanner sc = new Scanner(System.in);
@@ -50,11 +41,11 @@ public class ViewLentBooksOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter Member Identity Number> ");
+        System.out.print("Enter Member Identity Number> ");
         this.identityNumber = sc.next();
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         getInput();
 
@@ -83,12 +74,13 @@ public class ViewLentBooksOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() {
-        start();
+    private void onOperationFailNavigate() throws InterruptedException {
+        Thread.sleep(1000);
+        this.LibModIn.start();
     }
 
     //    Settter ..........

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session.stateless;
 
 import dao.MemberEntityManager;
@@ -23,10 +18,6 @@ import util.exception.InvalidInputException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 @Stateless
 @LocalBean
 @Remote(MemberEntityControllerRemote.class)
@@ -42,7 +33,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
             return true;
         } catch (PersistenceException ex) {
             return false;
-        } catch (ConstraintViolationException cex){
+        } catch (Exception cex){
             throw new InvalidInputException();
         }
     }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package libraryOperationModule;
 
 import java.util.Scanner;
@@ -11,10 +6,6 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
-/**
- *
- * @author lester
- */
 public class ManageReservationsOperation {
        private Scanner sc = new Scanner(System.in);
 
@@ -42,7 +33,7 @@ public class ManageReservationsOperation {
 
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         getInput();
 
@@ -69,11 +60,11 @@ public class ManageReservationsOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
 

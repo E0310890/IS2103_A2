@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rootOperationModule;
 
 import libraryOperationModule.ViewLentBooksOperation;
@@ -20,10 +15,6 @@ import util.exception.BookOverDueException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
-/**
- *
- * @author lester
- */
 public class ExtendBookOperation {
     
     private Scanner sc = new Scanner(System.in);
@@ -67,7 +58,7 @@ public class ExtendBookOperation {
         this.bookId = sc.nextLong();
     }
     
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -99,11 +90,11 @@ public class ExtendBookOperation {
         return result;
     }
     
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.LibModIn.start();
     }
     
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
 
