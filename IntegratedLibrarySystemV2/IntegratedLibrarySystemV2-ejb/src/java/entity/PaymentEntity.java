@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import model.Fine;
 
@@ -23,6 +24,9 @@ public class PaymentEntity implements Serializable {
     @Column(unique = true)
     private Long lendID;
 
+    @ManyToOne
+    private MemberEntity member;    
+    
     public PaymentEntity() {
     }
     
@@ -50,7 +54,14 @@ public class PaymentEntity implements Serializable {
         return lendID;
     }
     
+    public MemberEntity getMember() {
+        return member;
+    }
     
+    public void setMember (MemberEntity member) {
+        this.member = member;
+    }
+        
     public Fine toFine() {
         return new Fine(this.getLendID(), this.getAmount());
     }

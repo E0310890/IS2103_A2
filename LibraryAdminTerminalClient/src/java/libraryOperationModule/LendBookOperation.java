@@ -89,11 +89,11 @@ public class LendBookOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
         Thread.sleep(1000);
         this.LibModIn.start();
     }

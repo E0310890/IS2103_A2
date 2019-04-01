@@ -16,7 +16,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import session.stateless.local.PaymentEntityControllerLocal;
+import session.stateless.local.MemberEntityControllerLocal;
 import util.enumeration.Gender;
 
 @Singleton
@@ -28,7 +28,7 @@ public class InitApp {
     private EntityManager em;
     private static LendEntityManager lem;
     private static PaymentEntityManager pem;
-    private static PaymentEntityControllerLocal pec;
+    private static MemberEntityControllerLocal mec;
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
@@ -49,11 +49,11 @@ public class InitApp {
         Date currDate = new Date();
         
         for(LendingEntity le : lendList){
-            //if overdue
-            if(sdf.format(le.getDueDate()).compareTo(sdf.format(currDate)) < 0){
+            //if overdue // DEBUGGING SET CURRENT DATE, yyyy-MM-dd
+            if(sdf.format(le.getDueDate()).compareTo("2019-04-01"/*sdf.format(currDate)*/) < 0){
                 if(paymentList.stream()
                               .noneMatch(p -> p.getLendID().equals(le.getLendID()))){
-                    pec.createFine(le);
+                    mec.createFine(le);
                 }
             };
         }

@@ -11,10 +11,12 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.BookNotFoundException;
 import util.exception.BookOverDueException;
 import util.exception.FineNotFoundException;
 import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
+import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
 import util.exception.ReservedByOthersException;
 
@@ -61,7 +63,7 @@ public class ExtendBookOperation {
         this.bookId = sc.nextLong();
     }
     
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -93,12 +95,12 @@ public class ExtendBookOperation {
         return result;
     }
     
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
         Thread.sleep(1000);
         this.LibModIn.start();
     }
     
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
         Thread.sleep(1000);
         this.LibModIn.start();
     }

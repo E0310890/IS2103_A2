@@ -1,7 +1,9 @@
 package session.stateless;
 
 import dao.MemberEntityManager;
+import entity.LendingEntity;
 import entity.MemberEntity;
+import entity.PaymentEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,9 +101,6 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         return member;
     }
     
-    
-    
-    
    @Override
    public MemberEntity viewMember(String identityNumber) throws MemberNotFoundException{
         try {
@@ -111,9 +110,14 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         }
    }
 
-//    @Override
-//    public int numBookLended(MemberEntity memberE) {
-//        return memberE.getLending().size();
-//    }
-
+    @Override
+    public PaymentEntity createFine(LendingEntity lending){
+        MemberEntity memberE = lending.getMember();
+        PaymentEntity pe = new PaymentEntity(lending.getLendID(), lending.getDueDate());
+        memberE.addPayment(pe);
+        return pe;
+    }
+   
+   
+   
 }

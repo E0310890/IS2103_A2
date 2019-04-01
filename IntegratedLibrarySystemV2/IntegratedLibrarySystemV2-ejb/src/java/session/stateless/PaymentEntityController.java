@@ -35,13 +35,6 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
 
     private final PaymentEntityManager pem = new PaymentEntityManager();
 
-    @Override
-    public PaymentEntity createFine(LendingEntity lending){
-        MemberEntity memberE = lending.getMember();
-        PaymentEntity pe = new PaymentEntity(lending.getLendID(), lending.getDueDate());
-        memberE.addPayment(pe);
-        return pe;
-    }
     
     @Override
     public boolean payFine(Member member, Long lendId) throws MemberNotFoundException, FineNotFoundException {

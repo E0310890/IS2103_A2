@@ -9,6 +9,10 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import staffOperationModule.StaffManagementModule;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
+import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class AdminModule {
     
@@ -53,7 +57,7 @@ public class AdminModule {
         this.input = sc.nextInt();
     }
 
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         displayMenu();
         getInput();
 
@@ -61,7 +65,7 @@ public class AdminModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException {
+    private void navigate(int input) throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         switch (input) {
             case 1:
                 memManageMod.start();

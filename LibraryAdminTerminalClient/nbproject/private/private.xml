@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/libraryadminterminalclient/Main.java</file>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/registrationOperationModule/RegistrationOperation.java</file>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/rootOperationModule/LATRootModule.java</file>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/rootOperationModule/MainMenuModule.java</file>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/registrationOperationModule/RegistrationModule.java</file>
-            <file>file:/D:/IS2103/Assignment2/IS2103_A2/LibraryAdminTerminalClient/src/java/libraryadminterminalclient/MainApp.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

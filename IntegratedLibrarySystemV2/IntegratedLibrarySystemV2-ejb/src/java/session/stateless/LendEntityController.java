@@ -150,7 +150,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             
             //overdued
             if(isOverDue(currentLendCtx)){
-                PaymentEntity paymentE = PEC.createFine(currentLendCtx); 
+                PaymentEntity paymentE = MEC.createFine(currentLendCtx); 
                 lem.remove(currentLendCtx);
                 return false;
             }
