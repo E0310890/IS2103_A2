@@ -52,7 +52,7 @@ public class DeleteMemberOperation {
         this.idToDel = sc.nextLong();
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -84,11 +84,11 @@ public class DeleteMemberOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
 

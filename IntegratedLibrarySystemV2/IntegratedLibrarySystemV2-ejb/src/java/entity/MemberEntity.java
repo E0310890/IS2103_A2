@@ -106,8 +106,15 @@ public class MemberEntity implements Serializable {
     public void setLending(List<LendingEntity> lending) {
         this.lending = lending;
     }
+
+    public String getIdentityNumber() {
+        return identityNumber;
+    }
     
-    
+    public void addPayment(PaymentEntity pe) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     @Override
     public int hashCode() {
@@ -133,5 +140,6 @@ public class MemberEntity implements Serializable {
     public String toString() {
         return "Entity.MemberEntity[ id=" + memberID + " ]";
     }
+
 
 }

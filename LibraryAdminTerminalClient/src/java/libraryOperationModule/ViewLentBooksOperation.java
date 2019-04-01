@@ -11,7 +11,10 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class ViewLentBooksOperation {
 
@@ -45,7 +48,7 @@ public class ViewLentBooksOperation {
         this.identityNumber = sc.next();
     }
 
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         displayMenu();
         getInput();
 
@@ -74,11 +77,11 @@ public class ViewLentBooksOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         Thread.sleep(1000);
         this.LibModIn.start();
     }

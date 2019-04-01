@@ -1,14 +1,22 @@
 package session.singleton;
 
+import dao.LendEntityManager;
+import dao.PaymentEntityManager;
 import entity.BookEntity;
+import entity.LendingEntity;
 import entity.MemberEntity;
+import entity.PaymentEntity;
 import entity.StaffEntity;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import session.stateless.local.PaymentEntityControllerLocal;
 import util.enumeration.Gender;
 
 @Singleton
@@ -18,6 +26,10 @@ public class InitApp {
 
     @PersistenceContext
     private EntityManager em;
+    private static LendEntityManager lem;
+    private static PaymentEntityManager pem;
+    private static PaymentEntityControllerLocal pec;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
     public void postConstruct() {
@@ -26,6 +38,28 @@ public class InitApp {
                 initializeData();
             }
         } catch (Exception ex) {
+        }
+        
+        updateOverdue();
+    }
+    
+    private void updateOverdue(){
+        List<LendingEntity> lendList = lem.retrieveAll();
+        List<PaymentEntity> paymentList = pem.retrieveAll();
+        Date currDate = new Date();
+        
+        for(LendingEntity le : lendList){
+            //if overdue
+            if(sdf.format(le.getDueDate()).compareTo(sdf.format(currDate)) < 0){
+                if(paymentList.stream()
+                              .noneMatch(p -> p.getLendID().equals(le.getLendID()))){
+                    pec.createFine(le);
+                }
+            };
+        }
+        
+        for(PaymentEntity pe : paymentList){
+            
         }
     }
 

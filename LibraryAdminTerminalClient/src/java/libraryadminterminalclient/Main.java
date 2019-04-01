@@ -17,17 +17,9 @@ public class Main {
     @EJB
     private static LendEntityControllerRemote LEC;
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
         MainApp app = new MainApp(SEC, MEC, BEC, LEC);
         app.runApp();
-        
-        
-//        try {
-//            System.out.println(SEC.staffLogin("dssd", "dssd"));
-//        } catch (InvalidLoginCredentialException ex) {
-//            System.err.print(ex.getMessage());
-//        }
     }
 
 }

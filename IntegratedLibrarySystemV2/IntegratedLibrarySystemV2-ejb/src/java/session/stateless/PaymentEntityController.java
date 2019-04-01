@@ -37,29 +37,29 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
 
     @Override
     public PaymentEntity createFine(LendingEntity lending){
+        MemberEntity memberE = lending.getMember();
         PaymentEntity pe = new PaymentEntity(lending.getLendID(), lending.getDueDate());
-        pem.create(pe);
+        memberE.addPayment(pe);
         return pe;
     }
     
     @Override
-    public boolean payFine(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException {
+    public boolean payFine(Member member, Long lendId) throws MemberNotFoundException, FineNotFoundException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean payFine(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException {
+    public boolean payFine(String identityNumber, Long lendId) throws MemberNotFoundException, FineNotFoundException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             List<PaymentEntity> paymentList = memberE.getPayment(); 
-            LendingEntity currentLendCtx = LEC.getMemberLendCtx(memberE, lendId);
             
             return pay((PaymentEntity) paymentList.stream()
                         .filter(pe -> pe.getLendID().equals(lendId))
                         .findFirst()
                         .get());
             
-        } catch (MemberNotFoundException | LendNotFoundException ex) {
+        } catch (MemberNotFoundException ex) {
             throw ex;
         }
     }

@@ -9,8 +9,11 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class ReturnBookOperation {
 
@@ -55,7 +58,7 @@ public class ReturnBookOperation {
         this.bookId = sc.nextLong();
     }
 
-    public void start() throws InterruptedException{
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -81,7 +84,7 @@ public class ReturnBookOperation {
         try {
             result = LEC.ReturnLendBook(this.identityNumber, this.bookId);
             if(result == false)
-                System.err.println("Book is overdue. Please pay fine first before borrowing again!");
+                System.out.println("Book is overdue. Please pay fine first before borrowing again!");
                 result = true;
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             System.err.println(ex.getMessage());
@@ -89,11 +92,12 @@ public class ReturnBookOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException{
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
+        Thread.sleep(1000);
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException{
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
         Thread.sleep(1000);
         this.LibModIn.start();
     }

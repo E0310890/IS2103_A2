@@ -5,6 +5,10 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
+import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class ManageReservationsOperation {
        private Scanner sc = new Scanner(System.in);
@@ -16,6 +20,8 @@ public class ManageReservationsOperation {
     private LendEntityControllerRemote LEC;
     //modules
     private LibraryModule LibModIn;
+    
+    private int option;
 
     //fields
     public ManageReservationsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -27,13 +33,18 @@ public class ManageReservationsOperation {
 
     private void displayMenu() {
         System.out.println("*** ILS :: Library Operation :: Manage Reservations ***\n");
+        System.out.println("1: View Reservations for Book");
+        System.out.println("2: Delete Reservation");
+        System.out.println("3: Back");
+        System.out.println();
+        System.out.print("> ");
     }
 
     private void getInput() {
-
+        option = sc.nextInt();
     }
 
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         displayMenu();
         getInput();
 
@@ -60,11 +71,12 @@ public class ManageReservationsOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+        Thread.sleep(1000);
         start();
     }
 

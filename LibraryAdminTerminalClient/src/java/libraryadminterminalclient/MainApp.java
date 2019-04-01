@@ -23,7 +23,7 @@ public class MainApp {
         rootModule = new LATRootModule(SEC, MEC, BEC, LEC);
     }
 
-    public void runApp() {
+    public void runApp() throws InterruptedException {
         while (true) {
             rootModule.startRoot();
         }

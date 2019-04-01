@@ -2,11 +2,13 @@ package dao;
 
 import entity.LendingEntity;
 import java.sql.SQLException;
+import java.util.List;
 import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 
 public class LendEntityManager {
@@ -47,6 +49,18 @@ public class LendEntityManager {
         } catch (PersistenceException ex) {
             throw ex;
         }
+    }
+    
+    public List<LendingEntity> retrieveAll() throws PersistenceException {
+        String jpql = "SELECT l FROM LendEntity l";
+        TypedQuery<LendingEntity> query = em.createQuery(jpql, LendingEntity.class);
+        List<LendingEntity> lendList;
+        try {
+            lendList = query.getResultList();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return lendList;
     }
 
     @Remove

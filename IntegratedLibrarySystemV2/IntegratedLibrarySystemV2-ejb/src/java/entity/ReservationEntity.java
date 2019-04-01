@@ -25,10 +25,18 @@ public class ReservationEntity implements Serializable {
     private MemberEntity member;
 //    @OneToOne
 //    private BookEntity book;
-    @ManyToOne
-    private BookEntity reservedBook;
+//    @ManyToOne
+//    private BookEntity reservedBook;
 
-
+    
+    public ReservationEntity(){
+    }
+    
+    public ReservationEntity(Date reserveDate, MemberEntity member) {
+        this.reserveDate = reserveDate;
+        this.member = member;
+    }
+    
     public Long getReservationID() {
         return reservationID;
     }
@@ -37,6 +45,10 @@ public class ReservationEntity implements Serializable {
         this.reservationID = reservationID;
     }
 
+    public MemberEntity getMember() {
+        return member;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

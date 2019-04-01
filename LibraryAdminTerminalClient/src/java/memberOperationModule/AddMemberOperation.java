@@ -59,7 +59,7 @@ public class AddMemberOperation {
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         getInput();
 
@@ -86,11 +86,11 @@ public class AddMemberOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
 

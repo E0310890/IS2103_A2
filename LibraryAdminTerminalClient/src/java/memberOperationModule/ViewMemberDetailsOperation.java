@@ -55,7 +55,7 @@ public class ViewMemberDetailsOperation {
         this.id = sc.nextLong();
     }
 
-    public void start() {
+    public void start() throws InterruptedException {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -87,11 +87,11 @@ public class ViewMemberDetailsOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate() throws InterruptedException {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() {
+    private void onOperationFailNavigate() throws InterruptedException {
         start();
     }
 

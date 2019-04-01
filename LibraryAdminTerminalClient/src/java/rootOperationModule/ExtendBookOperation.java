@@ -12,8 +12,11 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookOverDueException;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class ExtendBookOperation {
     
@@ -58,7 +61,7 @@ public class ExtendBookOperation {
         this.bookId = sc.nextLong();
     }
     
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -79,7 +82,7 @@ public class ExtendBookOperation {
         System.out.println("Book successfully extended. New due date: " + Helper.dateToFormattedDateString(this.dueDate));
     }
     
-    private boolean executeOperation() {
+    private boolean executeOperation() throws FineNotPaidException, ReservedByOthersException {
         boolean result = false;
         try {
             this.dueDate = LEC.ExtendLendBook(this.identityNumber, this.bookId);
@@ -90,12 +93,14 @@ public class ExtendBookOperation {
         return result;
     }
     
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+        Thread.sleep(1000);
         this.LibModIn.start();
     }
     
-    private void onOperationFailNavigate() throws InterruptedException {
-        start();
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+        Thread.sleep(1000);
+        this.LibModIn.start();
     }
 
     //    Settter ..........

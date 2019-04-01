@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJBException;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -12,7 +15,11 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
+import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class LendBookOperation {
 
@@ -49,7 +56,7 @@ public class LendBookOperation {
         this.bookId = sc.nextLong();
     }
 
-    public void start() throws InterruptedException{
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
         displayMenu();
         getInput();
 
@@ -68,28 +75,25 @@ public class LendBookOperation {
 
     }
 
-    private boolean executeOperation() {
+    private boolean executeOperation() throws FineNotPaidException, LoanLimitHitException, ReservedByOthersException, MemberNotFoundException, BookNotFoundException {
         boolean result = false;
         try {
             this.dueDate = LEC.lendBook(this.identityNumber, this.bookId);
             return true;
-        } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException ex) {
+        } catch (FineNotPaidException | LoanLimitHitException | ReservedByOthersException | BookAlreadyLendedException ex) {
             System.err.println(ex.getMessage());
-        } catch (Exception e) {
-            System.err.println("Failed to Lend deal to:\n"
-                    + "1) Book already lended to someone or yourself\n"
-                    + "2) You have lend more than 3 books\n"
-                    + "3) Fines not cleared \n");
+        } catch (Exception ex){ 
+            System.err.println("This book is currently lended by someone.");
         }
-
+        
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException{
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException{
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException{
         Thread.sleep(1000);
         this.LibModIn.start();
     }

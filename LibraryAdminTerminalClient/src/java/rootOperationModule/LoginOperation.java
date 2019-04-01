@@ -6,7 +6,11 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class LoginOperation {
 
@@ -43,7 +47,7 @@ public class LoginOperation {
         this.password = sc.next();
     }
 
-    public void start() throws InterruptedException {
+    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         displayMenu();
         getInput();
 
@@ -60,7 +64,6 @@ public class LoginOperation {
         try {
             Staff staff = SEC.staffLogin(this.username, this.password);
             setField(staff);
-
             return true;
         } catch (InvalidLoginCredentialException ex) {
             System.err.println(ex.getMessage());
@@ -76,11 +79,12 @@ public class LoginOperation {
         this.mainMenuMod.setMember(staff);
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
         this.mainMenuMod.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
+    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+        Thread.sleep(1000);
         start();
     }
     
