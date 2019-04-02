@@ -6,9 +6,11 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.BookNotFoundException;
 import util.exception.FineNotFoundException;
 import util.exception.FineNotPaidException;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
 import util.exception.ReservedByOthersException;
 
@@ -47,7 +49,7 @@ public class LoginOperation {
         this.password = sc.next();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -65,7 +67,7 @@ public class LoginOperation {
             Staff staff = SEC.staffLogin(this.username, this.password);
             setField(staff);
             return true;
-        } catch (InvalidLoginCredentialException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return false;
         }
@@ -79,12 +81,19 @@ public class LoginOperation {
         this.mainMenuMod.setMember(staff);
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
-        this.mainMenuMod.start();
+    private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+            this.mainMenuMod.start();
+        }catch (InterruptedException ex){
+        }
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
-        Thread.sleep(1000);
+    private void onOperationFailNavigate(){
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         start();
     }
     

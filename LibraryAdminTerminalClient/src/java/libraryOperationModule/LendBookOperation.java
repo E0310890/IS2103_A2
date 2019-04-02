@@ -56,7 +56,7 @@ public class LendBookOperation {
         this.bookId = sc.nextLong();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
+    public void start(){
         displayMenu();
         getInput();
 
@@ -75,7 +75,7 @@ public class LendBookOperation {
 
     }
 
-    private boolean executeOperation() throws FineNotPaidException, LoanLimitHitException, ReservedByOthersException, MemberNotFoundException, BookNotFoundException {
+    private boolean executeOperation(){
         boolean result = false;
         try {
             this.dueDate = LEC.lendBook(this.identityNumber, this.bookId);
@@ -89,12 +89,11 @@ public class LendBookOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
+    private void onOperationSuccessNavigate(){
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
-        Thread.sleep(1000);
+    private void onOperationFailNavigate(){
         this.LibModIn.start();
     }
 

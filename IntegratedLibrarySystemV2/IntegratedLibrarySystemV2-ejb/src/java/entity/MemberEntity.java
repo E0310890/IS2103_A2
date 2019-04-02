@@ -112,7 +112,7 @@ public class MemberEntity implements Serializable {
     }
     
     public void addPayment(PaymentEntity pe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       payment.add(pe);
     }
 
 

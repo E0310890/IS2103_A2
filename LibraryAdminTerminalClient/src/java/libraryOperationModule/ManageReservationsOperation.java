@@ -5,12 +5,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class ManageReservationsOperation {
        private Scanner sc = new Scanner(System.in);
@@ -46,7 +40,7 @@ public class ManageReservationsOperation {
         option = sc.nextInt();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -73,13 +67,20 @@ public class ManageReservationsOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
-        this.LibModIn.start();
+    private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
-        Thread.sleep(1000);
-        start();
+    private void onOperationFailNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
     //    Settter ..........

@@ -60,7 +60,7 @@ public class ReturnBookOperation {
         this.bookId = sc.nextLong();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
+    public void start(){
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -94,14 +94,20 @@ public class ReturnBookOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
-        Thread.sleep(1000);
-        this.LibModIn.start();
+    private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
-        Thread.sleep(1000);
-        this.LibModIn.start();
+    private void onOperationFailNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
     //    Settter ..........

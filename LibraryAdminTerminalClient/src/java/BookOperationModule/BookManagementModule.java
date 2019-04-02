@@ -7,6 +7,7 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
+
 public class BookManagementModule {
 
     private final Scanner sc = new Scanner(System.in);
@@ -46,16 +47,16 @@ public class BookManagementModule {
         this.input = sc.nextInt();
     }
 
-    public void start() throws InterruptedException {
+    public void start(){
         displayMenu();
         getInput();
 
-        setBackInstance();
+        //setBackInstance();
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException {
-        switch (input) {
+    private void navigate(int input){
+        switch(input){    
             case 1:
             case 2:
             case 3:

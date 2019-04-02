@@ -57,7 +57,7 @@ public class MemberManagementModule {
         this.input = sc.nextInt();
     }
 
-    public void start() throws InterruptedException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -65,7 +65,7 @@ public class MemberManagementModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException {
+    private void navigate(int input) {
         switch (input) {
             case 1:
                 addMemOps.start();

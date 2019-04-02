@@ -115,6 +115,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         MemberEntity memberE = lending.getMember();
         PaymentEntity pe = new PaymentEntity(lending.getLendID(), lending.getDueDate());
         memberE.addPayment(pe);
+        mem.update(memberE);
         return pe;
     }
    

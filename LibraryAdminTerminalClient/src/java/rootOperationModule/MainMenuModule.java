@@ -61,7 +61,7 @@ public class MainMenuModule {
         this.input = sc.nextInt();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
+    public void start(){
         displayMenu();
         getInput();
 
@@ -69,7 +69,7 @@ public class MainMenuModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException{
+    private void navigate(int input){
         switch (input) {
             case 1:
                 registerMod.start();

@@ -8,7 +8,13 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
+import util.exception.BookNotFoundException;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.InvalidInputException;
+import util.exception.LoanLimitHitException;
+import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class RegistrationOperation {
 
@@ -60,7 +66,7 @@ public class RegistrationOperation {
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
-    public void start() throws InterruptedException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -90,13 +96,22 @@ public class RegistrationOperation {
     private void setField(Staff staff) {
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
-        this.registerModIn.start();
+    private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+            this.registerModIn.start();
+        }catch (InterruptedException ex){
+        }
+        
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
-        Thread.sleep(1000);
-        this.registerModIn.start();
+    private void onOperationFailNavigate() {
+        try{
+            Thread.sleep(1000);
+            this.registerModIn.start();
+        }catch (InterruptedException ex){
+        }
+        
     }
 
     //    Settter ..........

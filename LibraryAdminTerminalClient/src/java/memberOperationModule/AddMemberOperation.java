@@ -8,7 +8,13 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
+import util.exception.BookNotFoundException;
+import util.exception.FineNotFoundException;
+import util.exception.FineNotPaidException;
 import util.exception.InvalidInputException;
+import util.exception.LoanLimitHitException;
+import util.exception.MemberNotFoundException;
+import util.exception.ReservedByOthersException;
 
 public class AddMemberOperation {
 
@@ -59,7 +65,7 @@ public class AddMemberOperation {
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
-    public void start() throws InterruptedException {
+    public void start() {
         displayMenu();
         getInput();
 
@@ -80,18 +86,18 @@ public class AddMemberOperation {
         boolean result = false;
         try {
             result = MEC.registerMember(this.member);
-        } catch (InvalidInputException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate(){
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
-        start();
+    private void onOperationFailNavigate(){
+        this.memManageModIn.start();
     }
 
     //    Settter ..........

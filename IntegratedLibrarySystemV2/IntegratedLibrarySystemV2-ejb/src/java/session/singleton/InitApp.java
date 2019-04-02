@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
@@ -26,9 +27,11 @@ public class InitApp {
 
     @PersistenceContext
     private EntityManager em;
-    private static LendEntityManager lem;
-    private static PaymentEntityManager pem;
-    private static MemberEntityControllerLocal mec;
+    @EJB
+    private LendEntityManager lem;
+    @EJB
+    private PaymentEntityManager pem;
+    
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @PostConstruct
@@ -39,13 +42,12 @@ public class InitApp {
             }
         } catch (Exception ex) {
         }
-        
         updateOverdue();
     }
     
     private void updateOverdue(){
-        List<LendingEntity> lendList = lem.retrieveAll();
         List<PaymentEntity> paymentList = pem.retrieveAll();
+        List<LendingEntity> lendList = lem.retrieveAll();
         Date currDate = new Date();
         
         for(LendingEntity le : lendList){
@@ -53,7 +55,7 @@ public class InitApp {
             if(sdf.format(le.getDueDate()).compareTo("2019-04-01"/*sdf.format(currDate)*/) < 0){
                 if(paymentList.stream()
                               .noneMatch(p -> p.getLendID().equals(le.getLendID()))){
-                    mec.createFine(le);
+                    
                 }
             };
         }

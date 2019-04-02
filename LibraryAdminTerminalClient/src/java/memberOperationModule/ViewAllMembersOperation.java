@@ -38,7 +38,7 @@ public class ViewAllMembersOperation {
     private void getInput() {
     }
 
-    public void start() throws InterruptedException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -69,12 +69,12 @@ public class ViewAllMembersOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate(){
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
-        start();
+    private void onOperationFailNavigate(){
+        this.memManageModIn.start();
     }
 
     public boolean displayAllMembers() {

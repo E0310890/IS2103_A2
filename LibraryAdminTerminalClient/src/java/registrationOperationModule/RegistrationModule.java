@@ -7,8 +7,10 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.BookNotFoundException;
 import util.exception.FineNotFoundException;
 import util.exception.FineNotPaidException;
+import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
 import util.exception.ReservedByOthersException;
 
@@ -50,7 +52,7 @@ public class RegistrationModule {
         this.input = sc.nextInt();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    public void start() {
         displayMenu();
         getInput();
 
@@ -58,7 +60,7 @@ public class RegistrationModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    private void navigate(int input){
         switch (input) {
             case 1:
                 registerOps.start();

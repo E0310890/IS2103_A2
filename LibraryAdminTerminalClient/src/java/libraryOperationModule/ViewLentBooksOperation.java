@@ -50,7 +50,7 @@ public class ViewLentBooksOperation {
         this.identityNumber = sc.next();
     }
 
-    public void start() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
+    public void start(){
         displayMenu();
         getInput();
 
@@ -73,18 +73,17 @@ public class ViewLentBooksOperation {
         try {
             this.lendList = LEC.ViewLendBooks(this.identityNumber);
             return true;
-        } catch (MemberNotFoundException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
+    private void onOperationSuccessNavigate(){
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
-        Thread.sleep(1000);
+    private void onOperationFailNavigate(){
         this.LibModIn.start();
     }
 

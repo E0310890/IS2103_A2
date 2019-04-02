@@ -44,7 +44,7 @@ public class LATRootModule {
         this.input = sc.nextInt();
     }
 
-    public void startRoot() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    public void startRoot() {
         displayMenu();
         getInput();
         
@@ -52,7 +52,7 @@ public class LATRootModule {
         navigate(this.input);
     }
 
-    private void navigate(int input) throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException {
+    private void navigate(int input) {
         switch (input) {
             case 1:
                 loginOps.start();

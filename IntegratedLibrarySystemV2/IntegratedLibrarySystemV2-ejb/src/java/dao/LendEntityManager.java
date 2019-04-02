@@ -19,7 +19,7 @@ public class LendEntityManager {
     public LendEntityManager() {
     }
 
-    public void create(LendingEntity le) throws PersistenceException, ConstraintViolationException {
+    public void create(LendingEntity le) {
         try {
             if (le.getLendID() == null) {
                 em.joinTransaction();
@@ -30,7 +30,7 @@ public class LendEntityManager {
         }
     }
 
-    public void remove(LendingEntity le) throws PersistenceException {
+    public void remove(LendingEntity le){
         try {
             em.joinTransaction();
             le = em.find(LendingEntity.class, le.getLendID());
@@ -40,7 +40,7 @@ public class LendEntityManager {
         }
     }
 
-    public void update(LendingEntity le) throws PersistenceException {
+    public void update(LendingEntity le){
         try {
             if (le.getLendID() != null) {
                 em.joinTransaction();
@@ -51,7 +51,7 @@ public class LendEntityManager {
         }
     }
     
-    public List<LendingEntity> retrieveAll() throws PersistenceException {
+    public List<LendingEntity> retrieveAll() {
         String jpql = "SELECT l FROM LendEntity l";
         TypedQuery<LendingEntity> query = em.createQuery(jpql, LendingEntity.class);
         List<LendingEntity> lendList;

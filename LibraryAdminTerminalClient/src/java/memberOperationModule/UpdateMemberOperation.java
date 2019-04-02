@@ -101,7 +101,7 @@ public class UpdateMemberOperation {
 
     }
 
-    public void start() throws InterruptedException {
+    public void start(){
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -126,18 +126,18 @@ public class UpdateMemberOperation {
         boolean result = false;
         try {
             result = MEC.updateMember(member);
-        } catch (InvalidInputException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException {
+    private void onOperationSuccessNavigate(){
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate() throws InterruptedException {
-        start();
+    private void onOperationFailNavigate(){
+        this.memManageModIn.start();
     }
 
     //    Settter ..........

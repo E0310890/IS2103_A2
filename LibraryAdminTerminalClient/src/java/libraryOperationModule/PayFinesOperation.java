@@ -53,7 +53,7 @@ public class PayFinesOperation {
         sc.nextLine();      
     }
 
-    public void start() throws InterruptedException, MemberNotFoundException, FineNotFoundException, FineNotPaidException, ReservedByOthersException, LoanLimitHitException, BookNotFoundException{
+    public void start(){
         displayMenu();
         getInput();
 
@@ -70,24 +70,30 @@ public class PayFinesOperation {
         System.out.println("Fine successfully paid.");
     }
 
-    private boolean executeOperation() throws MemberNotFoundException,FineNotFoundException {
+    private boolean executeOperation(){
         boolean result = false;
         try {
             result = PEC.payFine(identityNumber, lendId);
-        } catch (MemberNotFoundException | FineNotFoundException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
-        Thread.sleep(1000);
-        this.LibModIn.start();
+    private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
-    private void onOperationFailNavigate() throws InterruptedException, FineNotPaidException, ReservedByOthersException, MemberNotFoundException, FineNotFoundException, LoanLimitHitException, BookNotFoundException {
-        Thread.sleep(1000);
-        this.LibModIn.start();
+    private void onOperationFailNavigate(){
+        try{
+            Thread.sleep(1000);
+            this.LibModIn.start();
+        }catch(InterruptedException ex){
+        }
     }
 
     //    Settter ..........
