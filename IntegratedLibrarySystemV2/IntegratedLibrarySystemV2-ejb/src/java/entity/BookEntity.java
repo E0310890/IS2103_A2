@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.OrderColumn;
 import model.Book;
 
 @Entity
@@ -28,7 +30,10 @@ public class BookEntity implements Serializable {
     private String year;
     
     @OneToMany
-    private LinkedList<ReservationEntity> reservedList;
+    @OrderColumn
+    private List<ReservationEntity> reservedList;
+    @OneToOne(mappedBy = "book")
+    private LendingEntity lending;
 
     public BookEntity() {
     }
@@ -65,7 +70,7 @@ public class BookEntity implements Serializable {
         return title;
     }
 
-    public LinkedList<ReservationEntity> getReservedList() {
+    public List<ReservationEntity> getReservedList() {
         return reservedList;
     }
     

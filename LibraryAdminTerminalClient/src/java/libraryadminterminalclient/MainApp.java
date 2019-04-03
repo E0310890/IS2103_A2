@@ -5,10 +5,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class MainApp {
 

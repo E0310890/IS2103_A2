@@ -81,11 +81,11 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             }
             
             //check for not reserved 
-            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember() != memberE){
-                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
-            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember() == memberE){
-                bookE.getReservedList().removeFirst();
-            }
+//            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
+//                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
+//            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
+//                bookE.getReservedList().removeFirst();
+//            }
             
             //check for book not already lend
             //use the table unqiue propety to check this
@@ -96,7 +96,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             
         } catch (MemberNotFoundException | BookNotFoundException ex) {
             throw ex;
-        } catch (FineNotPaidException | LoanLimitHitException | ReservedByOthersException ex){
+        } catch (FineNotPaidException | LoanLimitHitException /*| ReservedByOthersException*/ ex){
             throw ex;
         } catch (Exception e) {
             throw new BookAlreadyLendedException("This book is currently lended by someone.");
@@ -189,15 +189,15 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             }
 
             // The book is reserved by another member
-            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember() != memberE ){
-                throw new ReservedByOthersException("Unable to extend.This book had been reserved!");
-            }
+//            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember() != memberE ){
+//                throw new ReservedByOthersException("Unable to extend.This book had been reserved!");
+//            }
 
             currentLendCtx.setLendDate(currentLendCtx.getDueDate());
             lem.update(currentLendCtx);
             return currentLendCtx.getDueDate();
 
-        } catch (MemberNotFoundException | LendNotFoundException | FineNotPaidException | ReservedByOthersException | BookOverDueException ex) {
+        } catch (MemberNotFoundException | LendNotFoundException | FineNotPaidException | /*ReservedByOthersException |*/ BookOverDueException ex) {
             throw ex;
         } catch(PersistenceException ex){
             throw new BookOverDueException("Failed to Extend.");

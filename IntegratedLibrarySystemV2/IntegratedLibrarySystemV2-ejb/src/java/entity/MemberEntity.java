@@ -46,11 +46,11 @@ public class MemberEntity implements Serializable {
     @Column(nullable = false, length = 32)
     private String securityCode;
 
-    @OneToMany
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<PaymentEntity> payment;
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<LendingEntity> lending;
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<ReservationEntity> reservation;
 
     public MemberEntity() {

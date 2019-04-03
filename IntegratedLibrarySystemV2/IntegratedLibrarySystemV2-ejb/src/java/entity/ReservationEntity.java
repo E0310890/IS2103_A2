@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class ReservationEntity implements Serializable {
@@ -19,15 +21,13 @@ public class ReservationEntity implements Serializable {
     private Long reservationID;
     
     @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date reserveDate;
     
     @ManyToOne
     private MemberEntity member;
-//    @OneToOne
-//    private BookEntity book;
-//    @ManyToOne
-//    private BookEntity reservedBook;
-
+    @ManyToOne
+    private BookEntity book;
     
     public ReservationEntity(){
     }
@@ -47,6 +47,10 @@ public class ReservationEntity implements Serializable {
 
     public MemberEntity getMember() {
         return member;
+    }
+    
+    public BookEntity getBook(){
+        return book;
     }
     
     @Override

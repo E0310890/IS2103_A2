@@ -27,6 +27,7 @@ public class LendingEntity implements Serializable {
     private Date lendDate;
 
     @ManyToOne
+    @JoinColumn
     private MemberEntity member;
 
     @OneToOne

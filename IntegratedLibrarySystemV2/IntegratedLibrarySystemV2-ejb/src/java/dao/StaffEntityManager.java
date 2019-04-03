@@ -74,22 +74,30 @@ public class StaffEntityManager {
         return staffs;
     }
 
-    public StaffEntity login(String username, String password) throws PersistenceException {
+    public StaffEntity login(String username, String password){
 
         String jpql = "SELECT s FROM StaffEntity s WHERE s.userName = :usr AND s.password = :pass";
         Query query = em.createQuery(jpql);
         query.setParameter("usr", username);
         query.setParameter("pass", password);
         StaffEntity staffE = new StaffEntity();
+        System.out.println("Classloader of STAFFENTITY:"+ StaffEntity.class.getClassLoader()); //debug
         try {
+            System.out.println(query.getSingleResult().getClass() + "   SSSSSSSSSSSSSSSSSSSSS"); //debug
+            System.out.println(query.getSingleResult().toString()); //debug
+            
+             System.out.println("Classloader QUERY :" + query.getSingleResult().getClass().getClassLoader()); //debug
+            
             staffE = (StaffEntity) query.getSingleResult();
+            System.out.println("XXXXXXXXXXXXX"); //debug
         } catch (PersistenceException ex) {
+            System.out.println("persistence exception     TTTTTTTTTTTTTTTTTTTTT"); //debug
             throw ex;
         }
         return staffE;
     }
 
-    @Remove
+    @Remove 
     public void destroy() {
         em.close();
     }

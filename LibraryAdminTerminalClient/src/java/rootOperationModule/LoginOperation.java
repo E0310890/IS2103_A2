@@ -6,13 +6,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.InvalidLoginCredentialException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class LoginOperation {
 
@@ -44,9 +37,9 @@ public class LoginOperation {
 
     private void getInput() {
         System.out.print("Enter username> ");
-        this.username = sc.next();
+        this.username = sc.next().trim();
         System.out.print("Enter password> ");
-        this.password = sc.next();
+        this.password = sc.next().trim();
     }
 
     public void start(){
@@ -65,9 +58,11 @@ public class LoginOperation {
     private boolean executeOperation() {
         try {
             Staff staff = SEC.staffLogin(this.username, this.password);
+            System.out.println(staff.getUserName() +"    SSSSSSSSSSSSSSSSS");
             setField(staff);
             return true;
         } catch (Exception ex) {
+            
             System.err.println(ex.getMessage());
             return false;
         }

@@ -28,6 +28,7 @@ public class StaffEntityController implements StaffEntityControllerRemote {
         Staff staff = new Staff();
         try {
             StaffEntity se = sem.login(username, password);
+            System.out.println(se.getUserName() + " sec testtesttetst");
             staff = se.toStaff();
         } catch (PersistenceException ex) {
             throw new InvalidLoginCredentialException("Invalid credentials");

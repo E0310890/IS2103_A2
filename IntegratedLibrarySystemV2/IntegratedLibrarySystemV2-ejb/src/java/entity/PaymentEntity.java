@@ -19,7 +19,7 @@ public class PaymentEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentID;
-
+    
     private Integer amount;
     @Column(unique = true)
     private Long lendID;
