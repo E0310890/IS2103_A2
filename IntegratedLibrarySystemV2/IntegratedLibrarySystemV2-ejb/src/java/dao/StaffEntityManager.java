@@ -6,6 +6,7 @@ import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -13,6 +14,7 @@ public class StaffEntityManager {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("IntegratedLibrarySystemV2-ejbPU");
     private final EntityManager em = emf.createEntityManager();
+
 
     public StaffEntityManager() {
     }
@@ -81,6 +83,7 @@ public class StaffEntityManager {
         query.setParameter("usr", username);
         query.setParameter("pass", password);
         StaffEntity staffE = new StaffEntity();
+        System.out.println("em to.String() :     " + em.toString()); //debug
         System.out.println("Classloader of STAFFENTITY:"+ StaffEntity.class.getClassLoader()); //debug
         try {
             System.out.println(query.getSingleResult().getClass() + "   SSSSSSSSSSSSSSSSSSSSS"); //debug
