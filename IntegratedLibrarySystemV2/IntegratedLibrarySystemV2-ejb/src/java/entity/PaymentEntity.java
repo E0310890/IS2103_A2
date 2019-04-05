@@ -30,7 +30,8 @@ public class PaymentEntity implements Serializable {
     public PaymentEntity() {
     }
     
-    public PaymentEntity(Long lendID, Date dueDate) {
+    public PaymentEntity(MemberEntity member, Long lendID, Date dueDate) {
+        this.member = member;
         this.lendID = lendID;
         
         Date curr = new Date();

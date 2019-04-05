@@ -18,6 +18,11 @@ public class StaffManagementModule {
     private LendEntityControllerRemote LEC;
     //modules
     private AdminModule adminModIn;
+    private AddStaffOperation addStaffOps;
+    private DeleteStaffOperation deleteStaffOps;
+    private UpdateStaffOperation updateStaffOps;
+    private ViewStaffDetailsOperation viewStaffDetailsOps;
+    private ViewAllStaffOperation viewAllStaffOps;
     //fields
     private int input;
 
@@ -56,19 +61,21 @@ public class StaffManagementModule {
 
     private void navigate(int input) {
         switch (input) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                adminModIn.start();
-
+            case 1: addStaffOps.start(); break;
+            case 2: viewStaffDetailsOps.start(); break;
+            case 3: updateStaffOps.start(); break;
+            case 4: deleteStaffOps.start(); break;
+            case 5: viewAllStaffOps.start(); break;
+            case 6: adminModIn.start();
         }
-
     }
 
     private void setBackInstance() {
+        addStaffOps.setMemManageModIn(this);
+        viewStaffDetailsOps.setMemManageModIn(this);
+        updateStaffOps.setMemManageModIn(this);
+        deleteStaffOps.setMemManageModIn(this);
+        viewAllStaffOps.setMemManageModIn(this);
     }
 
 //    Settter ..........

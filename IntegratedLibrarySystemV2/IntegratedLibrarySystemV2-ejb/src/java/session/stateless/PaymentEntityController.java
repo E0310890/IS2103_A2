@@ -16,6 +16,7 @@ import model.Fine;
 import model.Member;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
+import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.remote.PaymentEntityControllerRemote;
 import util.exception.FineNotFoundException;
 import util.exception.LendNotFoundException;
@@ -24,14 +25,12 @@ import util.exception.MemberNotFoundException;
 @Stateless
 @LocalBean
 @Remote(PaymentEntityControllerRemote.class)
-public class PaymentEntityController implements PaymentEntityControllerRemote {
+public class PaymentEntityController implements PaymentEntityControllerRemote, PaymentEntityControllerLocal {
 
     @EJB
     private MemberEntityControllerLocal MEC;
     @EJB
     private LendEntityControllerLocal LEC;
-
-    // private final PaymentEntityManager pem = new PaymentEntityManager();
     
     @PersistenceContext
     private EntityManager em;
@@ -39,13 +38,25 @@ public class PaymentEntityController implements PaymentEntityControllerRemote {
 
     public void update(PaymentEntity pe) throws PersistenceException {
         try {
-            
             if (pe.getPaymentID() != null) {
                 em.merge(pe);
             }
         } catch (PersistenceException ex) {
             throw ex;
         }
+    }
+    
+    @Override
+    public PaymentEntity createFine(LendingEntity lendingE){
+        MemberEntity memberE = lendingE.getMember();
+        PaymentEntity paymentE = new PaymentEntity(lendingE.getMember(), lendingE.getLendID(), lendingE.getDueDate());
+        try{
+            em.persist(paymentE);
+            em.flush();
+        }catch(Exception ex){
+            System.out.println("ADMIN MESSAGE: THIS FINE HAS BEEN CREATED DURING SET UP --> " + lendingE.getLendID());
+        }
+        return paymentE;
     }
     
     @Override

@@ -2,7 +2,6 @@ package memberOperationModule;
 
 import java.util.Scanner;
 import model.Member;
-import model.Staff;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
@@ -93,12 +92,20 @@ public class AddMemberOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){
+        }
         this.memManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        start();
+         try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){
+        }
+        this.memManageModIn.start();
     }
 
     //    Settter ..........

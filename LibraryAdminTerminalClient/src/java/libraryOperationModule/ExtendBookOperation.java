@@ -12,6 +12,7 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookOverDueException;
+import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
@@ -84,7 +85,7 @@ public class ExtendBookOperation {
         try {
             this.dueDate = LEC.ExtendLendBook(this.identityNumber, this.bookId);
             return true;
-        } catch (MemberNotFoundException | LendNotFoundException | BookOverDueException ex) {
+        } catch (MemberNotFoundException | LendNotFoundException | BookOverDueException | FineNotPaidException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
