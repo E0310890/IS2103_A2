@@ -9,12 +9,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class MainMenuModule {
 
@@ -45,7 +39,7 @@ public class MainMenuModule {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Main ***");
+        System.out.println("\n*** ILS :: Main ***");
         System.out.println("You are login as " + staff.getFirstName() + " " + staff.getLastName());
         System.out.println();
         System.out.println(
@@ -61,7 +55,7 @@ public class MainMenuModule {
         this.input = sc.nextInt();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -69,7 +63,7 @@ public class MainMenuModule {
         navigate(this.input);
     }
 
-    private void navigate(int input){
+    private void navigate(int input) {
         switch (input) {
             case 1:
                 registerMod.start();
@@ -79,9 +73,7 @@ public class MainMenuModule {
                 adminMod.start();
             case 4:
                 loginOpsIn.getLATRootModIn().startRoot();
-
         }
-
     }
 
     private void setBackInstance() {

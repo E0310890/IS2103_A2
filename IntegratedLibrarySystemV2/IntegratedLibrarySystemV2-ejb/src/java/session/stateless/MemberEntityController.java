@@ -1,9 +1,6 @@
 package session.stateless;
 
-import dao.MemberEntityManager;
-import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +8,12 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
+import javax.ejb.Remove;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 import model.Member;
 import session.stateless.local.MemberEntityControllerLocal;
@@ -26,17 +28,20 @@ import util.exception.MemberNotFoundException;
 @Local(MemberEntityControllerLocal.class)
 public class MemberEntityController implements MemberEntityControllerRemote, MemberEntityControllerLocal {
 
-    private final MemberEntityManager mem = new MemberEntityManager();
-
+    @PersistenceContext
+    private EntityManager em;
+    
     @Override
     public boolean registerMember(Member member) throws InvalidInputException{
+        MemberEntity me = new MemberEntity(member);
         try {
-            mem.create(new MemberEntity(member));
+            if (me.getMemberID() == null) {
+                em.persist(me);
+                em.flush();
+            }
             return true;
-        } catch (PersistenceException ex) {
-            return false;
-        } catch (Exception cex){
-            throw new InvalidInputException();
+        } catch (Exception ex) {
+            throw new InvalidInputException("Please input correct personal details");
         }
     }
 
@@ -44,7 +49,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     public Member viewMember(long id) throws MemberNotFoundException {
         Member member = new Member();
         try {
-            MemberEntity me = mem.retrieve(id);
+            MemberEntity me = retrieve(id);
             member = me.toMember();
         } catch (PersistenceException ex) {
             throw new MemberNotFoundException("No such member with id: " + id);
@@ -56,7 +61,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     public List<Member> viewMember() {
         List<Member> members;
         try {
-            members = mem.retrieveAll()
+            members = retrieveAll()
                     .stream()
                     .map(m -> m.toMember())
                     .collect(Collectors.toList());
@@ -69,7 +74,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     @Override
     public boolean updateMember(Member member) throws InvalidInputException{
         try {
-            mem.update(new MemberEntity(member));
+            update(new MemberEntity(member));
             return true;
         } catch (PersistenceException ex) {
             return false;
@@ -81,8 +86,8 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     @Override
     public void deleteMember(long id) throws MemberNotFoundException{
         try {
-            MemberEntity memberE = mem.retrieve(id);
-            mem.remove(memberE);
+            MemberEntity memberE = retrieve(id);
+            remove(memberE);
         } catch (PersistenceException ex) {
             throw new MemberNotFoundException("No such member with id: " + id);
         }
@@ -93,32 +98,100 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
 
         Member member = new Member();
         try {
-            MemberEntity me = mem.login(identityNumber, securityCode);
+            MemberEntity me = login(identityNumber, securityCode);
             member = me.toMember();
         } catch (PersistenceException ex) {
             throw new InvalidLoginCredentialException("Invalid credentials");
         }
         return member;
     }
-    
+     
    @Override
    public MemberEntity viewMember(String identityNumber) throws MemberNotFoundException{
         try {
-            return mem.retrieve(identityNumber);
+            return retrieve(identityNumber);
         } catch (PersistenceException ex) {
             throw new MemberNotFoundException("No such member with identity Number: " + identityNumber);
         }
    }
+   
 
-    @Override
-    public PaymentEntity createFine(LendingEntity lending){
-        MemberEntity memberE = lending.getMember();
-        PaymentEntity pe = new PaymentEntity(lending.getLendID(), lending.getDueDate());
-        memberE.addPayment(pe);
-        mem.update(memberE);
-        return pe;
+    public void remove(MemberEntity me) throws PersistenceException {
+        try {
+            me = em.find(MemberEntity.class, me.getMemberID());
+            em.remove(me);
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
     }
-   
-   
-   
+
+    public void update(MemberEntity me) throws PersistenceException {
+        try {
+            if (me.getMemberID() != null) {
+                em.merge(me);
+            }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+
+    public MemberEntity retrieve(long id) throws PersistenceException {
+        String jpql = "SELECT m FROM MemberEntity m WHERE m.memberID = :id";
+        Query query = em.createQuery(jpql);
+        query.setParameter("id", id);
+        MemberEntity memberE = new MemberEntity();
+        try {
+            memberE = (MemberEntity) query.getSingleResult();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return memberE;
+    }
+
+    public MemberEntity retrieve(String identityNumber) throws PersistenceException {
+        String jpql = "SELECT m FROM MemberEntity m WHERE m.identityNumber = :idn";
+        TypedQuery query = em.createQuery(jpql, MemberEntity.class);
+        query.setParameter("idn", identityNumber);
+        MemberEntity memberE = new MemberEntity();
+        try {
+            memberE = (MemberEntity) query.getSingleResult();
+            em.refresh(memberE);
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return memberE;
+    }
+
+    public List<MemberEntity> retrieveAll() throws PersistenceException {
+        String jpql = "SELECT m FROM MemberEntity m";
+        Query query = em.createQuery(jpql);
+        List<MemberEntity> members;
+        try {
+            members = query.getResultList();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return members;
+    }
+
+    public MemberEntity login(String identityNumber, String securityCode) throws PersistenceException {
+
+        String jpql = "SELECT m FROM MemberEntity m WHERE m.identityNumber = :idn AND m.securityCode = :sc";
+        Query query = em.createQuery(jpql);
+        query.setParameter("idn", identityNumber);
+        query.setParameter("sc", securityCode);
+        MemberEntity memberE = new MemberEntity();
+        try {
+            memberE = (MemberEntity) query.getSingleResult();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return memberE;
+    }
+    
+    @Remove
+    public void destroy() {
+        em.close();
+    }
+
 }

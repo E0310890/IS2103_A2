@@ -9,12 +9,6 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import staffOperationModule.StaffManagementModule;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class AdminModule {
     
@@ -59,7 +53,7 @@ public class AdminModule {
         this.input = sc.nextInt();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 

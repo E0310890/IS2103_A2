@@ -1,6 +1,5 @@
 package util.exception;
 
-
 public class BookAlreadyLendedException extends Exception{
 
     public BookAlreadyLendedException() {

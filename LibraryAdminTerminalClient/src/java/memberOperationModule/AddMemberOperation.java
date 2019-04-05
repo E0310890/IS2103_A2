@@ -8,13 +8,7 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
 import util.exception.InvalidInputException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class AddMemberOperation {
 
@@ -43,25 +37,32 @@ public class AddMemberOperation {
     }
 
     private void getInput() {
-        System.out.print("Enter Identity Number> ");
+        System.out.println("Enter Identity Number> ");
         String identityNum = sc.next();
-        System.out.print("Enter Security Code> ");
+        
+        System.out.println("Enter Security Code> ");
         String secCode = sc.next();
-        System.out.print("Enter First Name> ");
+        
+        System.out.println("Enter First Name> ");
         String firstName = sc.next();
-        System.out.print("Enter Last Name> ");
+        
+        System.out.println("Enter Last Name> ");
         String lastName = sc.next();
-        System.out.print("Enter Gender> ");
+        
+        System.out.println("Enter Gender> ");
         String gen = sc.next();
-        System.out.print("Enter Age> ");
+     
+        System.out.println("Enter Age> ");
         int age = sc.nextInt();
-        System.out.print("Enter Phone> ");
+        
+        System.out.println("Enter Phone> ");
         String phone = sc.next();
-        System.out.print("Enter Address> ");
+        
+        System.out.println("Enter Address> ");
         String address = sc.next();
 
         Gender gender = Gender.getEnumGender(gen);
-
+        
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
@@ -86,18 +87,18 @@ public class AddMemberOperation {
         boolean result = false;
         try {
             result = MEC.registerMember(this.member);
-        } catch (Exception ex) {
+        } catch (InvalidInputException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
+    private void onOperationSuccessNavigate() {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        this.memManageModIn.start();
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........
@@ -105,6 +106,4 @@ public class AddMemberOperation {
     public void setMemManageModIn(MemberManagementModule memManageModIn) {
         this.memManageModIn = memManageModIn;
     }
-
-
 }

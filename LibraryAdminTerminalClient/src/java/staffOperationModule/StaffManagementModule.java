@@ -6,12 +6,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class StaffManagementModule {
 
@@ -52,7 +46,7 @@ public class StaffManagementModule {
         this.input = sc.nextInt();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -60,7 +54,7 @@ public class StaffManagementModule {
         navigate(this.input);
     }
 
-    private void navigate(int input){
+    private void navigate(int input) {
         switch (input) {
             case 1:
             case 2:

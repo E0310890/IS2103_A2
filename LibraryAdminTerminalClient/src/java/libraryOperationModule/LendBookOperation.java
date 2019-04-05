@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJBException;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -15,11 +12,7 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class LendBookOperation {
 
@@ -50,13 +43,13 @@ public class LendBookOperation {
     }
 
     private void getInput() {
-        System.out.print("Enter Member Identity Number> ");
+        System.out.println("Enter Member Identity Number> ");
         this.identityNumber = sc.next();
-        System.out.print("Enter Book ID: ");
+        System.out.println("Enter Book ID: ");
         this.bookId = sc.nextLong();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -71,29 +64,34 @@ public class LendBookOperation {
 
     private void successDisplay() {
         System.out.println("Successfully lent book to member. Due Date: "
-                + Helper.dateToFormattedDateString(this.dueDate) + ".\n");
-
+                + Helper.dateToFormattedDateString(this.dueDate) + ".");
     }
 
-    private boolean executeOperation(){
+    private boolean executeOperation() {
         boolean result = false;
         try {
             this.dueDate = LEC.lendBook(this.identityNumber, this.bookId);
             return true;
-        } catch (FineNotPaidException | LoanLimitHitException | ReservedByOthersException | BookAlreadyLendedException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
-        } catch (Exception ex){ 
-            System.err.println("This book is currently lended by someone.");
         }
-        
+
         return result;
     }
 
     private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate(){
+    private void onOperationFailNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.LibModIn.start();
     }
 

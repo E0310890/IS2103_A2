@@ -13,6 +13,9 @@
             </test-roots>
             <included-library dirs="200">reference.IntegratedLibrarySystemV2Library.jar</included-library>
         </data>
+        <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
+            <definitions>./lib/nblibraries.properties</definitions>
+        </libraries>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
                 <foreign-project>IntegratedLibrarySystemV2Library</foreign-project>

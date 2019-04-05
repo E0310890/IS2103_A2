@@ -1,7 +1,6 @@
 package libraryOperationModule;
 
 import java.util.Scanner;
-import rootOperationModule.ExtendBookOperation;
 import rootOperationModule.MainMenuModule;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -60,7 +59,7 @@ public class LibraryModule {
         this.input = sc.nextInt();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -68,7 +67,7 @@ public class LibraryModule {
         navigate(this.input);
     }
 
-    private void navigate(int input){
+    private void navigate(int input) {
         switch (input) {
             case 1:
                 lendBookOps.start();

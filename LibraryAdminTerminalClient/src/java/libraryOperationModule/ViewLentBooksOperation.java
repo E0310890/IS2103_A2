@@ -11,12 +11,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class ViewLentBooksOperation {
 
@@ -46,11 +41,11 @@ public class ViewLentBooksOperation {
     }
 
     private void getInput() {
-        System.out.print("Enter Member Identity Number> ");
+        System.out.println("Enter Member Identity Number> ");
         this.identityNumber = sc.next();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -73,18 +68,18 @@ public class ViewLentBooksOperation {
         try {
             this.lendList = LEC.ViewLendBooks(this.identityNumber);
             return true;
-        } catch (Exception ex) {
+        } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
+    private void onOperationSuccessNavigate() {
         this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        this.LibModIn.start();
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........

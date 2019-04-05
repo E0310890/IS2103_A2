@@ -9,13 +9,8 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
-import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class ReturnBookOperation {
 
@@ -56,11 +51,11 @@ public class ReturnBookOperation {
     }
 
     private void getInput() {
-        System.out.print("Enter Book to Return> ");
+        System.out.println("Enter Book to Return> ");
         this.bookId = sc.nextLong();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -85,29 +80,18 @@ public class ReturnBookOperation {
         boolean result = false;
         try {
             result = LEC.ReturnLendBook(this.identityNumber, this.bookId);
-            if(result == false)
-                System.out.println("Book is overdue. Please pay fine first before borrowing again!");
-                result = true;
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-            this.LibModIn.start();
-        }catch(InterruptedException ex){
-        }
+    private void onOperationSuccessNavigate() {
+        this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        try{
-            Thread.sleep(1000);
-            this.LibModIn.start();
-        }catch(InterruptedException ex){
-        }
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........

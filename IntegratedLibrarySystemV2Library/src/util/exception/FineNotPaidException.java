@@ -1,6 +1,5 @@
 package util.exception;
-
-
+        
 public class FineNotPaidException extends Exception{
 
     public FineNotPaidException() {

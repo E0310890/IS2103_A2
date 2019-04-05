@@ -8,13 +8,7 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
 import util.exception.InvalidInputException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class RegistrationOperation {
 
@@ -66,7 +60,7 @@ public class RegistrationOperation {
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -88,7 +82,7 @@ public class RegistrationOperation {
         try {
             result = MEC.registerMember(this.member);
         } catch (Exception ex) {
-            System.err.println("Member registeration fail. Please Enter correct information.\n");
+            System.err.println("Please input correct personal details");
         }
         return result;
     }
@@ -97,21 +91,11 @@ public class RegistrationOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        try{
-            Thread.sleep(1000);
-            this.registerModIn.start();
-        }catch (InterruptedException ex){
-        }
-        
+        this.registerModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        try{
-            Thread.sleep(1000);
-            this.registerModIn.start();
-        }catch (InterruptedException ex){
-        }
-        
+        this.registerModIn.start();
     }
 
     //    Settter ..........

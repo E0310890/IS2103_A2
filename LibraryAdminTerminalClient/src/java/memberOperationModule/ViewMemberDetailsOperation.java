@@ -8,12 +8,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class ViewMemberDetailsOperation {
 
@@ -60,7 +55,7 @@ public class ViewMemberDetailsOperation {
         this.id = sc.nextLong();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -86,18 +81,18 @@ public class ViewMemberDetailsOperation {
         try {
             this.member = MEC.viewMember(this.id);
             return true;
-        } catch (Exception ex) {
+        } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
+    private void onOperationSuccessNavigate() {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        this.memManageModIn.start();
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........

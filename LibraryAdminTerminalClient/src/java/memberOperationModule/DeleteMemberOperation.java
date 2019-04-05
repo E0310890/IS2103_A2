@@ -52,7 +52,7 @@ public class DeleteMemberOperation {
         this.idToDel = sc.nextLong();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         if (!executeViewOperation()) {
             onOperationFailNavigate();
@@ -78,18 +78,18 @@ public class DeleteMemberOperation {
         try {
             MEC.deleteMember(this.idToDel);
             return true;
-        } catch (Exception ex) {
+        } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
+    private void onOperationSuccessNavigate() {
         this.memManageModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        this.memManageModIn.start();
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........

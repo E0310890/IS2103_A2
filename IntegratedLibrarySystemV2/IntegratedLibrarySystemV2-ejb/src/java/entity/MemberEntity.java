@@ -140,6 +140,4 @@ public class MemberEntity implements Serializable {
     public String toString() {
         return "Entity.MemberEntity[ id=" + memberID + " ]";
     }
-
-
 }

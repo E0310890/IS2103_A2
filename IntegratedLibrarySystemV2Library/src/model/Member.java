@@ -120,8 +120,5 @@ public class Member implements Serializable{
     @Override
     public String toString() {
         return "Member{" + "memberID=" + memberID + ", identityNumber=" + identityNumber + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", age=" + age + ", phone=" + phone + ", address=" + address + ", securityCode=" + securityCode + '}';
-    }
-    
-    
-    
+    } 
 }

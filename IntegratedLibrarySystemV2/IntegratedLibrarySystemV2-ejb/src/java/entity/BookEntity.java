@@ -1,17 +1,11 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.OrderColumn;
 import model.Book;
 
 @Entity
@@ -28,12 +22,6 @@ public class BookEntity implements Serializable {
     private String isbn;
     @Column(nullable = false, length = 4)
     private String year;
-    
-    @OneToMany
-    @OrderColumn
-    private List<ReservationEntity> reservedList;
-    @OneToOne(mappedBy = "book")
-    private LendingEntity lending;
 
     public BookEntity() {
     }
@@ -43,14 +31,12 @@ public class BookEntity implements Serializable {
         this.isbn = book.getIsbn();
         this.title = book.getTitle();
         this.year = book.getYear();
-        this.reservedList = new LinkedList<>();
     }
 
     public BookEntity(String title, String isbn, String year) {
         this.title = title;
         this.isbn = isbn;
         this.year = year;
-        this.reservedList = new LinkedList<>();
     }
     
     public Book toBook(){
@@ -69,11 +55,8 @@ public class BookEntity implements Serializable {
     public String getTitle() {
         return title;
     }
-
-    public List<ReservationEntity> getReservedList() {
-        return reservedList;
-    }
     
+
     @Override
     public int hashCode() {
         int hash = 0;

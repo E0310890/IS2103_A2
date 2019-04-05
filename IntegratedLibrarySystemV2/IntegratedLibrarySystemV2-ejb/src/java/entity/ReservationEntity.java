@@ -77,5 +77,4 @@ public class ReservationEntity implements Serializable {
     public String toString() {
         return "Entity.ReservationEntity[ id=" + reservationID + " ]";
     }
-
 }

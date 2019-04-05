@@ -48,6 +48,5 @@ public class Helper {
                     + simpleDateFormat.format(l.getDueDate())
             );
         }
-        System.out.println();
     }
 }

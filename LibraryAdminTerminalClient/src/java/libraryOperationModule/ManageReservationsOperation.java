@@ -16,8 +16,6 @@ public class ManageReservationsOperation {
     private LendEntityControllerRemote LEC;
     //modules
     private LibraryModule LibModIn;
-    
-    private int option;
 
     //fields
     public ManageReservationsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -29,18 +27,13 @@ public class ManageReservationsOperation {
 
     private void displayMenu() {
         System.out.println("*** ILS :: Library Operation :: Manage Reservations ***\n");
-        System.out.println("1: View Reservations for Book");
-        System.out.println("2: Delete Reservation");
-        System.out.println("3: Back");
-        System.out.println();
-        System.out.print("> ");
     }
 
     private void getInput() {
-        option = sc.nextInt();
+
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -67,20 +60,12 @@ public class ManageReservationsOperation {
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-            this.LibModIn.start();
-        }catch(InterruptedException ex){
-        }
+    private void onOperationSuccessNavigate() {
+        this.LibModIn.start();
     }
 
-    private void onOperationFailNavigate(){
-        try{
-            Thread.sleep(1000);
-            this.LibModIn.start();
-        }catch(InterruptedException ex){
-        }
+    private void onOperationFailNavigate() {
+        start();
     }
 
     //    Settter ..........

@@ -5,10 +5,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class LATRootModule {
 
@@ -35,9 +31,9 @@ public class LATRootModule {
 
     private void displayMenu() {
         System.out.println("*** Welcome to Library Admin Terminal ***");
-        System.out.println("1: Login\n" + "2: Exit\n");
+        System.out.println("1: Login\n" + "2: Exit");
 
-        System.out.print(">");
+        System.out.print("> ");
     }
 
     private void getInput() {

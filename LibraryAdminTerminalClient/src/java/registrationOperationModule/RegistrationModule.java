@@ -1,18 +1,11 @@
 package registrationOperationModule;
 
 import java.util.Scanner;
-import model.Staff;
 import rootOperationModule.MainMenuModule;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class RegistrationModule {
 
@@ -60,7 +53,7 @@ public class RegistrationModule {
         navigate(this.input);
     }
 
-    private void navigate(int input){
+    private void navigate(int input) {
         switch (input) {
             case 1:
                 registerOps.start();
@@ -73,7 +66,6 @@ public class RegistrationModule {
     private void setBackInstance() {
         registerOps.setRegisterModIn(this);
     }
-
     //    Settter ..........
     
     public MainMenuModule getMainMemuModIn() {
@@ -83,7 +75,4 @@ public class RegistrationModule {
     public void setMainMemuModIn(MainMenuModule mainMemuModIn) {
         this.mainMemuModIn = mainMemuModIn;
     }
-
-    
-
 }

@@ -86,7 +86,7 @@ public class StaffEntity implements Serializable{
     public void setStaffID(Long staffID) {
         this.staffID = staffID;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,5 +111,4 @@ public class StaffEntity implements Serializable{
     public String toString() {
         return "Entity.StaffEntity[ id=" + staffID + " ]";
     }
-
 }

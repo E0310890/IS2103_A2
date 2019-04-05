@@ -1,12 +1,8 @@
 package session.stateless;
 
-import dao.LendEntityManager;
 import entity.BookEntity;
 import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,20 +10,20 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
+import javax.ejb.Remove;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
-import model.Book;
 import model.Lend;
 import model.Member;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
-import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.remote.LendEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
@@ -36,7 +32,6 @@ import util.exception.FineNotPaidException;
 import util.exception.LendNotFoundException;
 import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 @Stateless
 @LocalBean
@@ -48,14 +43,37 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private MemberEntityControllerLocal MEC;
     @EJB
     private BookEntityControllerLocal BEC;
-    @EJB
-    private PaymentEntityControllerLocal PEC;
 
-    private final LendEntityManager lem = new LendEntityManager();
-    
-    private Date currentDate;
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private final int lendThreshold = 3;
+
+    @PersistenceContext
+    private EntityManager em;    
+
+    public void remove(LendingEntity le) throws PersistenceException {
+        try {
+            em.joinTransaction();
+            le = em.find(LendingEntity.class, le.getLendID());
+            em.remove(le);
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+
+    public void update(LendingEntity le) throws PersistenceException {
+        try {
+            if (le.getLendID() != null) {
+                em.joinTransaction();
+                em.merge(le);
+            }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+
+    @Remove
+    public void destroy() {
+        em.close();
+    }
     
     @Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException {
@@ -63,13 +81,13 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     }
 
     @Override
-    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException,  
-    FineNotPaidException, LoanLimitHitException, ReservedByOthersException{
+    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
+            LoanLimitHitException, FineNotPaidException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             BookEntity bookE = BEC.getBook(bookId);
             LendingEntity lendingE = new LendingEntity(new Date(), memberE, bookE);
-            
+
             //check for outstanding fine
             if(!memberE.getPayment().isEmpty()){
                 throw new FineNotPaidException("Fail to borrow. You need to pay your outstanding fines first!");
@@ -88,15 +106,14 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 //            }
             
             //check for book not already lend
-            //use the table unqiue propety to check this
+            //use the table unqiue propety to check this, catched with Exceptio
             
             //no problem, lend book
-            lem.create(lendingE);
+            em.persist(lendingE);
+            em.flush();
             return lendingE.getDueDate();
-            
-        } catch (MemberNotFoundException | BookNotFoundException ex) {
-            throw ex;
-        } catch (FineNotPaidException | LoanLimitHitException /*| ReservedByOthersException*/ ex){
+
+        } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException /*| ReservedByOthersException*/ ex){
             throw ex;
         } catch (Exception e) {
             throw new BookAlreadyLendedException("This book is currently lended by someone.");
@@ -104,20 +121,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     }
 
     @Override
-    public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException{        
-        try {
-            List<Lend> lList;
-            lList = new ArrayList<>();
-            MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
-            List<LendingEntity> leList = memberE.getLending();
-
-            leList.forEach((le) -> {
-                lList.add(new Lend(le.getLendID(), le.getBook().toBook(), le.getLendDate()));
-            });
-            return lList;
-        } catch (MemberNotFoundException ex) {
-            throw ex;
-        }
+    public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -146,17 +151,13 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     public boolean ReturnLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
+
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
+            // if book have overdued
+            //**implement here...
             
-            //overdued
-            if(isOverDue(currentLendCtx)){
-                PaymentEntity paymentE = MEC.createFine(currentLendCtx); 
-                lem.remove(currentLendCtx);
-                return false;
-            }
-            
-            // not overdue
-            lem.remove(currentLendCtx);
+
+            remove(currentLendCtx);
             return true;
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             throw ex;
@@ -171,38 +172,40 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     }
 
     @Override
-    public Date ExtendLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException,  
-            FineNotPaidException, ReservedByOthersException{
+    public Date ExtendLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
-            BookEntity bookE = currentLendCtx.getBook();
-            
-            // Check If the book is already overdue
-            if(isOverDue(currentLendCtx)){
-                throw new BookOverDueException("Unable to extend. Book already overdue.");
-            }
+//        Check If the book is already overdue
+            validateLendOverDue(currentLendCtx);
 
-            // Member has unpaid fines
-            if(!memberE.getPayment().isEmpty()){
-                throw new FineNotPaidException("Fail to extend. You need to pay your outstanding fines first!");
-            }
-
-            // The book is reserved by another member
-//            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember() != memberE ){
-//                throw new ReservedByOthersException("Unable to extend.This book had been reserved!");
-//            }
+//        Member has unpaid fines
+//        The book is reserved by another member
+//        **implement here...
 
             currentLendCtx.setLendDate(currentLendCtx.getDueDate());
-            lem.update(currentLendCtx);
+            update(currentLendCtx);
             return currentLendCtx.getDueDate();
 
-        } catch (MemberNotFoundException | LendNotFoundException | FineNotPaidException | /*ReservedByOthersException |*/ BookOverDueException ex) {
+        } catch (MemberNotFoundException | LendNotFoundException | BookOverDueException ex) {
             throw ex;
         } catch(PersistenceException ex){
             throw new BookOverDueException("Failed to Extend.");
         }
 
+    }
+
+    private boolean validateLend(LendingEntity le) {
+
+        // Borrowed > 3
+        int currentBookAmt = (le.getMember().getLending()).size();
+        if (currentBookAmt >= this.lendThreshold) {
+            return false;
+        }
+        // Have Unpaid fines validation
+        //**implement here...
+
+        return true;
     }
 
     @Override
@@ -219,14 +222,12 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         }
     }
 
-    private boolean isOverDue(LendingEntity currentLendCtx){
+    private void validateLendOverDue(LendingEntity currentLendCtx) throws BookOverDueException {
         Date dueDate = currentLendCtx.getDueDate();
-        currentDate = new Date();  
-        // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
-        System.out.println(sdf.format(dueDate) + "         TEST DATE");
-        if(sdf.format(dueDate).compareTo("2019-08-08"/*sdf.format(currentDate)*/) < 0){
-            return true;
+        Date currentDate = new Date();
+        Boolean isOverDue = currentDate.after(dueDate);
+        if (isOverDue) {
+            throw new BookOverDueException("Book: '" + currentLendCtx.getBook().getTitle() + "' is Overdue.");
         }
-        return false;
     }
 }

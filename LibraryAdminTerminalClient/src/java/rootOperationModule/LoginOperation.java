@@ -6,6 +6,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.InvalidLoginCredentialException;
 
 public class LoginOperation {
 
@@ -37,12 +38,12 @@ public class LoginOperation {
 
     private void getInput() {
         System.out.print("Enter username> ");
-        this.username = sc.next().trim();
+        this.username = sc.next();
         System.out.print("Enter password> ");
-        this.password = sc.next().trim();
+        this.password = sc.next();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 
@@ -58,11 +59,9 @@ public class LoginOperation {
     private boolean executeOperation() {
         try {
             Staff staff = SEC.staffLogin(this.username, this.password);
-            System.out.println(staff.getUserName() +"    SSSSSSSSSSSSSSSSS");
             setField(staff);
             return true;
-        } catch (Exception ex) {
-            
+        } catch (InvalidLoginCredentialException ex) {
             System.err.println(ex.getMessage());
             return false;
         }
@@ -77,18 +76,10 @@ public class LoginOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        try{
-            Thread.sleep(1000);
-            this.mainMenuMod.start();
-        }catch (InterruptedException ex){
-        }
+        this.mainMenuMod.start();
     }
 
-    private void onOperationFailNavigate(){
-        try{
-            Thread.sleep(1000);
-        }catch (InterruptedException ex){
-        }
+    private void onOperationFailNavigate() {
         start();
     }
     

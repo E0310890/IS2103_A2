@@ -57,7 +57,7 @@ public class MemberManagementModule {
         this.input = sc.nextInt();
     }
 
-    public void start(){
+    public void start() {
         displayMenu();
         getInput();
 

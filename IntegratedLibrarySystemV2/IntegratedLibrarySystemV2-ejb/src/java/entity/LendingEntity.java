@@ -99,5 +99,4 @@ public class LendingEntity implements Serializable {
     public String toString() {
         return "Entity.LendingEntity[ id=" + lendID + " ]";
     }
-
 }

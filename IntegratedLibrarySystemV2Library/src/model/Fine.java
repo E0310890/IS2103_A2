@@ -3,21 +3,23 @@ package model;
 import java.io.Serializable;
 
 public class Fine implements Serializable {
-    private Integer amount;
     private Long lendID;
+    private double fineAmount;
 
     public Fine() {
     }
     
-    public Fine(Long lendID, Integer amount) {
-        this.amount = amount;
+    public Fine(Long lendID, double fineAmount) {
         this.lendID = lendID;
+        this.fineAmount = fineAmount;
     }
 
-    
-    
-    public double getamount() {
-        return amount;
+    public Long getLendID() {
+        return lendID;
+    }
+
+    public double getFineAmount() {
+        return fineAmount;
     }
     
     
