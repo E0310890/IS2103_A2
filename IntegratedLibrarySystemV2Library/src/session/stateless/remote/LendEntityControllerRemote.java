@@ -14,7 +14,8 @@ import util.exception.MemberNotFoundException;
 
 public interface LendEntityControllerRemote {
     
-    public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException;
+    public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
+            LoanLimitHitException, FineNotPaidException;
     public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
             MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, LoanLimitHitException, FineNotPaidException;
     public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException;

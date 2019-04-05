@@ -1,5 +1,6 @@
 package rootOperationModule;
 
+import memberOperationModule.MemberMenuModule;
 import java.util.Scanner;
 import model.Member;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -39,7 +40,7 @@ public class LoginOperation {
     }
 
     public void displayMenu() {
-        System.out.println("*** Self-Service Kiosk :: Login ***\n");
+        System.out.println("\n*** Self-Service Kiosk :: Login ***\n");
     }
 
     private void getInput() {
@@ -85,7 +86,7 @@ public class LoginOperation {
         try{
             System.out.print("Login successful!\n");
             Thread.sleep(1000);
-            this.memberMenuMod.start();
+                this.memberMenuMod.start();
         }catch (InterruptedException ex){
         }
     }

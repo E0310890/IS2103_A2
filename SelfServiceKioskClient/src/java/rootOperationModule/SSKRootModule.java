@@ -32,7 +32,7 @@ public class SSKRootModule {
     }
 
     private void displayMenu() {
-        System.out.println("*** Welcome to Self-Service Kiosk ***");
+        System.out.println("\n*** Welcome to Self-Service Kiosk ***\n");
         System.out.println("1: Register\n" + "2: Login\n" + "3: Exit\n");
 
         System.out.print(">");
@@ -62,6 +62,7 @@ public class SSKRootModule {
     }
 
     private void setBackInstance() {
-        loginOps.setSSKRootModIn(this);
+        registerOps.setSSKRootModIn(this);        
+        loginOps.setSSKRootModIn(this);    
     }
 }

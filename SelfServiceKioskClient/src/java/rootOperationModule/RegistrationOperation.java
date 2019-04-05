@@ -98,24 +98,16 @@ public class RegistrationOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        try{
-            Thread.sleep(1000);
-            this.sskRootModIn.startRoot();
-        }catch (InterruptedException ex){
-        }        
+        this.sskRootModIn.startRoot();
     }
 
     private void onOperationFailNavigate() {
-        try{
-            Thread.sleep(1000);
-            this.sskRootModIn.startRoot();
-        }catch (InterruptedException ex){
-        }
+        start();
     }
 
     //    Settter ..........
 
-    public void setRegisterModIn(SSKRootModule sskRootModIn) {
+    public void setSSKRootModIn(SSKRootModule sskRootModIn) {
         this.sskRootModIn = sskRootModIn;
     }
 }

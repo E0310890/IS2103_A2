@@ -75,9 +75,11 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         em.close();
     }
     
-    @Override
-    public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+@Override
+    public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
+        LoanLimitHitException, FineNotPaidException{
+        String nric = member.getIdentityNumber();
+        return lendBook(nric, bookId);
     }
 
     @Override
