@@ -58,7 +58,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private Date currentDate;
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
-@Override
+    @Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
         LoanLimitHitException, FineNotPaidException{
         String identityNumber = member.getIdentityNumber();

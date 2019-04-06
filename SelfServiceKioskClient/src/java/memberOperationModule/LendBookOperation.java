@@ -40,7 +40,7 @@ public class LendBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** Self-Service Kiosk :: Main ***\n");     
+        System.out.println("*** ILS :: Library Operation :: Lend Book ***\n");     
     }
 
     private void getInput() {
