@@ -34,7 +34,7 @@ public class PayFinesOperation {
     }
 
     private void getInput() {
-
+        this.member.getIdentityNumber();
     }
 
     public void start() {

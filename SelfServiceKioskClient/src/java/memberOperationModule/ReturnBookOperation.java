@@ -42,11 +42,12 @@ public class ReturnBookOperation {
 
     private void displayMenu() {
         System.out.println("*** Self-Service Kiosk :: Return Book ***\n");
+        // System.out.println(member.getIdentityNumber());
     }
 
     private boolean executeViewOperation() {
         viewLentBookOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
-        return viewLentBookOps.viewLendBooks(this.member);
+        return viewLentBookOps.viewLendBooks();
     }
 
     /* private void transferRequiredFields() {
@@ -60,15 +61,15 @@ public class ReturnBookOperation {
 
     public void start() {
         displayMenu();
-        if (!executeViewOperation()) {
+        /* if (!executeViewOperation()) {
             onOperationFailNavigate();
-        }
+        } */
         // transferRequiredFields();
         
         getInput();
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
-            successDisplay();
+            // successDisplay();
             onOperationSuccessNavigate();
         } else {
             onOperationFailNavigate();
@@ -83,6 +84,7 @@ public class ReturnBookOperation {
         boolean result = false;
         try {
             result = LEC.ReturnLendBook(this.member, this.bookId);
+            successDisplay();
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
