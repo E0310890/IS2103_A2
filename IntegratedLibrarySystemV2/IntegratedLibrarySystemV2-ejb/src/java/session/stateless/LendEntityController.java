@@ -221,7 +221,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         currentDate = new Date();  
         // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
         System.out.println(sdf.format(dueDate) + "         TEST DATE");
-        if(sdf.format(dueDate).compareTo("2019-08-08"/*sdf.format(currentDate)*/) < 0){
+        if (sdf.format(dueDate).compareTo("2019-08-08"/*sdf.format(currentDate)*/) < 0){
             return true;
         }
         return false;

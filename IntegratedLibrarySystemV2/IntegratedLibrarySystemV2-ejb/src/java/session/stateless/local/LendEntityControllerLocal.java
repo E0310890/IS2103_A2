@@ -9,6 +9,7 @@ import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
 public interface LendEntityControllerLocal {
+    
     public LendingEntity getMemberLendCtx(MemberEntity memberE, Long lendId) throws LendNotFoundException;
     public Date ExtendLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException, FineNotPaidException;
 }

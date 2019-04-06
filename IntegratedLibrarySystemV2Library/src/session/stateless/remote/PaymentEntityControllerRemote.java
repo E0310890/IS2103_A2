@@ -13,5 +13,4 @@ public interface PaymentEntityControllerRemote {
     public boolean payFine(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException;
     public List<Fine> ViewFine(Member member) throws MemberNotFoundException;
     public List<Fine> ViewFine(String identityNumber) throws MemberNotFoundException;
-
 }

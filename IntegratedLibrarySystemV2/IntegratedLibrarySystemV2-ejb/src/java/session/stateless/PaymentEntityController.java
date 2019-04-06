@@ -6,6 +6,7 @@ import entity.PaymentEntity;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
@@ -14,9 +15,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import model.Fine;
 import model.Member;
+import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
 import session.stateless.local.PaymentEntityControllerLocal;
+import session.stateless.local.ReservationEntityControllerLocal;
+import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.PaymentEntityControllerRemote;
 import util.exception.FineNotFoundException;
 import util.exception.LendNotFoundException;
@@ -25,6 +29,7 @@ import util.exception.MemberNotFoundException;
 @Stateless
 @LocalBean
 @Remote(PaymentEntityControllerRemote.class)
+@Local(PaymentEntityControllerLocal.class)
 public class PaymentEntityController implements PaymentEntityControllerRemote, PaymentEntityControllerLocal {
 
     @EJB
