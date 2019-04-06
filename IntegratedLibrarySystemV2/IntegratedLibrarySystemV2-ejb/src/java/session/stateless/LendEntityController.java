@@ -58,11 +58,12 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private Date currentDate;
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
-    @Override
+@Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
         LoanLimitHitException, FineNotPaidException{
-        String nric = member.getIdentityNumber();
-        return lendBook(nric, bookId);
+        String identityNumber = member.getIdentityNumber();
+        System.out.println(identityNumber);
+        return lendBook(identityNumber, bookId);
     }
 
     @Override
@@ -107,7 +108,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
     @Override
     public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String identityNumber = member.getIdentityNumber();
+        return ViewLendBooks(identityNumber);        
     }
 
     @Override
@@ -129,7 +131,19 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
     @Override
     public boolean ReturnLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates
+        try {
+            MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
+
+            LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
+            // if book have overdued
+            //**implement here...          
+            remove(currentLendCtx);
+            return true;
+        } catch (MemberNotFoundException | LendNotFoundException ex) {
+            throw ex;
+        } catch (PersistenceException ex) {
+            return false;
+        }
     }
 
     @Override
