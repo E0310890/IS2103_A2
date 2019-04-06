@@ -17,17 +17,19 @@ public class UpdateMemberOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberManagementModule memberManageModIn;
-    //Dependecies
-    private ViewAllMembersOperation vam;
+    
+    // Dependecies
+    private ViewAllMembersOperation viewAllMembersOps;
 
-    //fields
+    // Fields
     private List<Member> memberList;
     private Member member;
 
@@ -39,25 +41,25 @@ public class UpdateMemberOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Member Management :: Update Member ***\n");
+        System.out.println("*** ILS :: Administration Operation :: Member Management :: Update Member Details ***\n");
     }
 
     private boolean executeViewOperation() {
-        vam = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
-        return vam.displayAllMembers();
+        viewAllMembersOps = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
+        return viewAllMembersOps.displayAllMembers();
     }
 
     private void transferRequiredFields() {
-        this.memberList = vam.getMemberList();
+        this.memberList = viewAllMembersOps.getMemberList();
     }
 
     private void getInput() {
         System.out.println("Enter Member ID of member to update> ");
-        Long id = sc.nextLong();
+        Long memberID = sc.nextLong();
 
-        //for validation, check if the id choosen is in 'memberList';
+        // For validation, check if the ID choosen is in 'memberList';
         this.member = memberList.stream()
-                .filter(m -> m.getMemberID().equals(id))
+                .filter(m -> m.getMemberID().equals(memberID))
                 .findFirst()
                 .get();
 
@@ -98,7 +100,6 @@ public class UpdateMemberOperation {
         } else if (fieldSelectId == 8) {
             this.member.setSecurityCode(sc.next());
         }
-
     }
 
     public void start() {

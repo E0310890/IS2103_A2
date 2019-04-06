@@ -13,15 +13,16 @@ public class AddMemberOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberManagementModule memberManageModIn;
 
-    //fields
+    // Fields
     private Member member;
 
     public AddMemberOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {

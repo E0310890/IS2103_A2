@@ -15,16 +15,21 @@ import util.exception.MemberNotFoundException;
 public class UpdateStaffOperation {
     
     private Scanner sc = new Scanner(System.in);
-    //API
+    
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private StaffManagementModule staffManageModIn;
 
-    //fields
-    private long id;
+    // Dependecies
+    private ViewAllStaffsOperation viewAllStaffsOps;
+    
+    // Fields
+    private List<Staff> staffList;
     private Staff staff;
 
     public UpdateStaffOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -38,15 +43,60 @@ public class UpdateStaffOperation {
         System.out.println("*** ILS :: Administration Operation :: Staff Management :: Update Staff Details***\n");
     }
 
+    private boolean executeViewOperation() {
+        viewAllStaffsOps = new ViewAllStaffsOperation(SEC, MEC, BEC, LEC);
+        return viewAllStaffsOps.displayAllStaffs();
+    }
+
+    private void transferRequiredFields() {
+        this.staffList = viewAllStaffsOps.getStaffList();
+    }
+    
     private void getInput() {
-        System.out.println("Enter staff Id to Update Details> ");
-        this.id = sc.nextLong();
+        System.out.println("Enter Staff ID of staff to update> ");
+        Long staffID = sc.nextLong();
+
+        // For validation, check if the ID choosen is in 'staffList';
+        this.staff = staffList.stream()
+                .filter(m -> m.getStaffID().equals(staffID))
+                .findFirst()
+                .get();
+
+        updateInput();
+    }
+ 
+    private void updateInput() {
+        System.out.println("Select the field to update: \n");
+        System.out.println(
+                "1: First Name\n"
+                + "2: Last Name\n"
+                + "3: Username\n"
+                + "4: Password"
+        );
+        System.out.print(">");    
+        int fieldSelectId = sc.nextInt();
+
+        System.out.print("Update to: ");
+
+        if (fieldSelectId == 1) {
+            this.staff.setFirstName(sc.next());
+        } else if (fieldSelectId == 2) {
+            this.staff.setLastName(sc.next());
+        } else if (fieldSelectId == 3) {
+            this.staff.setUserName(sc.next());
+        } else if (fieldSelectId == 4) {
+            this.staff.setPassword(sc.next());
+        }
     }
 
     public void start() {
         displayMenu();
-        getInput();
+        if (!executeViewOperation()) {
+            onOperationFailNavigate();
+        }
+        transferRequiredFields();
 
+        getInput();
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
             successDisplay();
@@ -54,70 +104,32 @@ public class UpdateStaffOperation {
         } else {
             onOperationFailNavigate();
         }
-    }
-
+    }    
+    
     private void successDisplay() {
-        System.out.println(staff.toString());
+        System.out.println("Staff have been successfully updated.");
     }
 
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.staff = SEC.retrieve(this.id);
-            updateInput();
-            this.staff = SEC.updateStaff(staff);
-        } catch (Exception ex) {
+            result = SEC.updateStaff(staff);
+        } catch (InvalidInputException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
-    
-    private void updateInput(){
-        System.out.println("Select the field to Update: \n");
-        System.out.println(
-                "1: First Name\n"
-                + "2: Last Name\n"
-                + "3: Username\n"
-                + "4: Password\n"
-                + "5: Back\n"
-        );
-        System.out.println("> ");
-        int fieldID = sc.nextInt();
 
-        System.out.println("Update to: ");
-
-         switch (fieldID) {
-             case 1:
-                 this.staff.setFirstName(sc.nextLine().trim()); break;
-             case 2:
-                 this.staff.setLastName(sc.nextLine().trim()); break;
-             case 3:
-                 this.staff.setUserName(sc.nextLine().trim()); break;
-             case 4:
-                 this.staff.setPassword(sc.nextLine().trim()); break;
-             default: start(); break;
-         }
-    }
-
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
+    private void onOperationSuccessNavigate() {
         this.staffManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-         try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
-        this.staffManageModIn.start();
+        start();
     }
 
     //    Settter ..........
-
     public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
         this.staffManageModIn = staffManageModIn;
-    }
+    }    
 }

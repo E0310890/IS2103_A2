@@ -8,17 +8,11 @@ import util.exception.InvalidLoginCredentialException;
 import util.exception.StaffNotFoundException;
 
 public interface StaffEntityControllerRemote {
-    /* public boolean registerStaff(Staff staff) throws InvalidInputException;
-    public Staff viewStaff (long id) throws StaffNotFoundException;
+    
+    public boolean registerStaff(Staff staff) throws InvalidInputException;
+    public Staff viewStaff (long staffID) throws StaffNotFoundException;
     public List<Staff> viewStaff();
     public boolean updateStaff(Staff staff) throws InvalidInputException;
-    public boolean deleteStaff(Staff staff); */
-   
-    public Staff staffLogin (String username, String password) throws InvalidLoginCredentialException;
-    public boolean registerStaff(Staff staff) throws InvalidInputException;    
-    // public Staff createStaff(Staff staff) throws PersistenceException ;
-    public List<Staff> retrieveAll() throws PersistenceException; 
-    public Staff retrieve(long id) throws StaffNotFoundException;
-    public Staff updateStaff(Staff staff) throws InvalidInputException;
-    public Staff deleteStaff(Long id) throws StaffNotFoundException;
+    public void deleteStaff(long staffID) throws StaffNotFoundException;
+    public Staff staffLogin(String username, String password) throws InvalidLoginCredentialException;    
 }

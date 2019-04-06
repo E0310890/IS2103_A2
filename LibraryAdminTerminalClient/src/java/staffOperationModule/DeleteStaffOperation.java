@@ -13,19 +13,19 @@ public class DeleteStaffOperation {
     
     private Scanner sc = new Scanner(System.in);
     
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     
-    //Modules
+    // Modules
     private StaffManagementModule staffManageModIn;
    
-    //Dependecies
+    // Dependecies
     private ViewAllStaffsOperation viewAllStaffsOps;    
 
-    //fields
+    // Fields
     private List<Staff> staffList;
     private Long staffID;
 

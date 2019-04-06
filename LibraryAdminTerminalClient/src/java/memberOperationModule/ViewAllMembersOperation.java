@@ -13,15 +13,15 @@ public class ViewAllMembersOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    // Modules
     private MemberManagementModule memberManageModIn;
 
-    //fields
+    // Fields
     private List<Member> memberList;
 
     public ViewAllMembersOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -54,7 +54,7 @@ public class ViewAllMembersOperation {
     private void successDisplay() {
         memberList.forEach(m
                 -> System.out.println("Member ID: " + m.getMemberID()
-                        + " | Name: " + m.getFirstName() + " " + m.getLastName())
+                        + " | Full Name: " + m.getFirstName() + " " + m.getLastName())
         );
     }
 

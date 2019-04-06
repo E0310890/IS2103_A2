@@ -13,19 +13,19 @@ public class DeleteMemberOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     
-    //Modules
+    // Modules
     private MemberManagementModule memberManageModIn;
     
-    //Dependecies
+    // Dependecies
     private ViewAllMembersOperation viewAllMembersOps;
 
-    //Fields
+    // Fields
     private List<Member> memberList;
     private Long memberID;
 

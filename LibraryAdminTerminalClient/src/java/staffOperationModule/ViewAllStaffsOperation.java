@@ -13,15 +13,15 @@ public class ViewAllStaffsOperation {
     
     private Scanner sc = new Scanner(System.in);
     
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    // Modules
     private StaffManagementModule staffManageModIn;
 
-    //fields
+    // Fields
     private List<Staff> staffList;
 
     public ViewAllStaffsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -32,7 +32,7 @@ public class ViewAllStaffsOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Staff Management :: View All Staff***\n");
+        System.out.println("*** ILS :: Administration Operation :: Staff Management :: View All Staffs***\n");
     }
 
     private void getInput() {
@@ -53,46 +53,46 @@ public class ViewAllStaffsOperation {
 
     private void successDisplay() {
         staffList.forEach(m
-                -> System.out.println("ID: " + m.getStaffID()
-                        + " | Name: " + m.getFirstName() + " " + m.getLastName())
+                -> System.out.println("Staff ID: " + m.getStaffID()
+                        + " | Full Name: " + m.getFirstName() + " " + m.getLastName())
         );
     }
 
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.staffList = SEC.retrieveAll();
+            this.staffList = SEC.viewStaff();
             result = true;
         } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            result = false;
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
+    private void onOperationSuccessNavigate() {
         this.staffManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-         try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
-        this.staffManageModIn.start();
-    }
-
-    //    Settter ..........
-
-    public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
-        this.staffManageModIn = staffManageModIn;
+        start();
     }
     
-    public List<Staff> getStaffList(){
-        executeOperation();
-        return this.staffList;
+    public boolean displayAllStaffs() {
+        boolean executeSuccess = executeOperation();
+        if (executeSuccess) {
+            successDisplay();
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    //    Settter ..........
+    public void setStaffrManageModIn(StaffManagementModule staffManageModIn) {
+        this.staffManageModIn = staffManageModIn;
+    }
+
+    public List<Staff> getStaffList() {
+        return staffList;
     }
 }

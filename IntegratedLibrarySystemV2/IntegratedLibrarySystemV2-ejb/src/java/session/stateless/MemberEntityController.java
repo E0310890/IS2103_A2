@@ -46,13 +46,13 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     }
 
     @Override
-    public Member viewMember(long id) throws MemberNotFoundException {
+    public Member viewMember(long memberID) throws MemberNotFoundException {
         Member member = new Member();
         try {
-            MemberEntity me = retrieve(id);
+            MemberEntity me = retrieve(memberID);
             member = me.toMember();
         } catch (PersistenceException ex) {
-            throw new MemberNotFoundException("No such member with ID: " + id);
+            throw new MemberNotFoundException("No such member with ID: " + memberID);
         }
         return member;
     }
@@ -84,34 +84,37 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     }
 
     @Override
-    public void deleteMember(long id) throws MemberNotFoundException{
+    public void deleteMember(long memberID) throws MemberNotFoundException{
         try {
-            MemberEntity memberE = retrieve(id);
+            MemberEntity memberE = retrieve(memberID);
             remove(memberE);
         } catch (PersistenceException ex) {
-            throw new MemberNotFoundException("No such member with id: " + id);
+            throw new MemberNotFoundException("No such member with ID: " + memberID);
         }
     }
 
     @Override
-    public Member memberLogin(String identityNumber, String securityCode) throws InvalidLoginCredentialException {
-
+    public Member memberLogin(String username, String password) throws PersistenceException, InvalidLoginCredentialException {
         Member member = new Member();
+        String jpql = "SELECT s FROM MemberEntity s WHERE s.userName =:username AND s.password =:password";
+        Query query = em.createQuery(jpql);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
         try {
-            MemberEntity me = login(identityNumber, securityCode);
-            member = me.toMember();
+            MemberEntity me  = (MemberEntity)query.getSingleResult();   
+            member = me.toMember();   
+        return member;
         } catch (PersistenceException ex) {
             throw new InvalidLoginCredentialException("Invalid credentials");
         }
-        return member;
-    }
+    }   
      
    @Override
    public MemberEntity viewMember(String identityNumber) throws MemberNotFoundException{
         try {
             return retrieve(identityNumber);
         } catch (PersistenceException ex) {
-            throw new MemberNotFoundException("No such member with identity Number: " + identityNumber);
+            throw new MemberNotFoundException("No such member with identity number: " + identityNumber);
         }
    }
    
@@ -172,25 +175,9 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         }
         return members;
     }
-
-    public MemberEntity login(String identityNumber, String securityCode) throws PersistenceException {
-
-        String jpql = "SELECT m FROM MemberEntity m WHERE m.identityNumber = :idn AND m.securityCode = :sc";
-        Query query = em.createQuery(jpql);
-        query.setParameter("idn", identityNumber);
-        query.setParameter("sc", securityCode);
-        MemberEntity memberE = new MemberEntity();
-        try {
-            memberE = (MemberEntity) query.getSingleResult();
-        } catch (PersistenceException ex) {
-            throw ex;
-        }
-        return memberE;
-    }
     
     @Remove
     public void destroy() {
         em.close();
     }
-
 }

@@ -11,12 +11,13 @@ public class MemberManagementModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private AddMemberOperation addMemberOps;
     private ViewMemberDetailsOperation viewMemberOps;
     private UpdateMemberOperation updateMemberOps;
@@ -24,7 +25,7 @@ public class MemberManagementModule {
     private ViewAllMembersOperation viewAllMemberOps;
     private AdminModule adminModIn;    
 
-    //fields
+    // Fields
     private int input;
 
     public MemberManagementModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -80,7 +81,6 @@ public class MemberManagementModule {
             case 6:
                 adminModIn.start();
         }
-
     }
 
     private void setBackInstance() {

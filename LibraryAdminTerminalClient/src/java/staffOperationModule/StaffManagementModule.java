@@ -11,19 +11,21 @@ public class StaffManagementModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private AddStaffOperation addStaffOps;
     private ViewStaffDetailsOperation viewStaffOps;
     private UpdateStaffOperation updateStaffOps;        
     private DeleteStaffOperation deleteStaffOps;
     private ViewAllStaffsOperation viewAllStaffOps;
-    private AdminModule adminModIn;    
-    //fields
+    private AdminModule adminModIn;  
+    
+    // Fields
     private int input;
 
     public StaffManagementModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -90,7 +92,6 @@ public class StaffManagementModule {
     }
 
 //    Settter ..........
-
     public void setAdminModIn(AdminModule adminModIn) {
         this.adminModIn = adminModIn;
     }

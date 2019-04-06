@@ -12,15 +12,17 @@ import util.exception.InvalidInputException;
 public class AddStaffOperation {
     
     private Scanner sc = new Scanner(System.in);
+    
     //API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private StaffManagementModule staffManageModIn;
 
-    //fields
+    // Fields
     private Staff staff;
 
     public AddStaffOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
