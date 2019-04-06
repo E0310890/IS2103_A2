@@ -19,7 +19,7 @@ public class DeleteMemberOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private MemberManagementModule memManageModIn;
+    private MemberManagementModule memberManageModIn;
     //Dependecies
     private ViewAllMembersOperation vam;
 
@@ -48,7 +48,7 @@ public class DeleteMemberOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter member Id to Delete> ");
+        System.out.print("Enter member Id to Delete> ");
         this.idToDel = sc.nextLong();
     }
 
@@ -85,7 +85,7 @@ public class DeleteMemberOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -93,7 +93,7 @@ public class DeleteMemberOperation {
     }
 
     //    Settter ..........
-    public void setMemManageModIn(MemberManagementModule memManageModIn) {
-        this.memManageModIn = memManageModIn;
+    public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
+        this.memberManageModIn = memberManageModIn;
     }
 }

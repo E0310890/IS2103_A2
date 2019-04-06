@@ -21,7 +21,7 @@ public class ViewMemberDetailsOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private MemberManagementModule memManageModIn;
+    private MemberManagementModule memberManageModIn;
     //Dependecies
     private ViewAllMembersOperation vam;
 
@@ -51,7 +51,7 @@ public class ViewMemberDetailsOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter member Id to View Details> ");
+        System.out.print("Enter Member ID to View Details> ");
         this.id = sc.nextLong();
     }
 
@@ -88,7 +88,7 @@ public class ViewMemberDetailsOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -96,7 +96,7 @@ public class ViewMemberDetailsOperation {
     }
 
     //    Settter ..........
-    public void setMemManageModIn(MemberManagementModule memManageModIn) {
-        this.memManageModIn = memManageModIn;
+    public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
+        this.memberManageModIn = memberManageModIn;
     }
 }

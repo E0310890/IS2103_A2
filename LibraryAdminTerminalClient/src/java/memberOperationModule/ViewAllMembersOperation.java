@@ -19,7 +19,7 @@ public class ViewAllMembersOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private MemberManagementModule memManageModIn;
+    private MemberManagementModule memberManageModIn;
 
     //fields
     private List<Member> memberList;
@@ -70,7 +70,7 @@ public class ViewAllMembersOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -88,12 +88,11 @@ public class ViewAllMembersOperation {
     }
 
     //    Settter ..........
-    public void setMemManageModIn(MemberManagementModule memManageModIn) {
-        this.memManageModIn = memManageModIn;
+    public void setMemberManageModIn(MemberManagementModule memManageModIn) {
+        this.memberManageModIn = memberManageModIn;
     }
 
     public List<Member> getMemberList() {
         return memberList;
     }
-
 }

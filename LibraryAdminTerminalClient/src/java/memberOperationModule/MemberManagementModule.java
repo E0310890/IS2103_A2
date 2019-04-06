@@ -18,11 +18,11 @@ public class MemberManagementModule {
     private LendEntityControllerRemote LEC;
     //modules
     private AdminModule adminModIn;
-    private AddMemberOperation addMemOps;
-    private ViewMemberDetailsOperation viewMemOps;
-    private UpdateMemberOperation updateMemOps;
-    private DeleteMemberOperation delMemOps;
-    private ViewAllMembersOperation viewAllMemOps;
+    private AddMemberOperation addMemberOps;
+    private ViewMemberDetailsOperation viewMemberOps;
+    private UpdateMemberOperation updateMemberOps;
+    private DeleteMemberOperation deleteMemberOps;
+    private ViewAllMembersOperation viewAllMemberOps;
 
     //fields
     private int input;
@@ -32,11 +32,11 @@ public class MemberManagementModule {
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
-        addMemOps = new AddMemberOperation(SEC, MEC, BEC, LEC);
-        viewMemOps = new ViewMemberDetailsOperation(SEC, MEC, BEC, LEC);
-        updateMemOps = new UpdateMemberOperation(SEC, MEC, BEC, LEC);
-        delMemOps = new DeleteMemberOperation(SEC, MEC, BEC, LEC);
-        viewAllMemOps = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
+        addMemberOps = new AddMemberOperation(SEC, MEC, BEC, LEC);
+        viewMemberOps = new ViewMemberDetailsOperation(SEC, MEC, BEC, LEC);
+        updateMemberOps = new UpdateMemberOperation(SEC, MEC, BEC, LEC);
+        deleteMemberOps = new DeleteMemberOperation(SEC, MEC, BEC, LEC);
+        viewAllMemberOps = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
     }
 
     private void displayMenu() {
@@ -68,15 +68,15 @@ public class MemberManagementModule {
     private void navigate(int input) {
         switch (input) {
             case 1:
-                addMemOps.start();
+                addMemberOps.start();
             case 2:
-                viewMemOps.start();
+                viewMemberOps.start();
             case 3:
-                updateMemOps.start();
+                updateMemberOps.start();
             case 4:
-                delMemOps.start();
+                deleteMemberOps.start();
             case 5:
-                viewAllMemOps.start();
+                viewAllMemberOps.start();
             case 6:
                 adminModIn.start();
         }
@@ -84,11 +84,11 @@ public class MemberManagementModule {
     }
 
     private void setBackInstance() {
-        addMemOps.setMemManageModIn(this);
-        viewMemOps.setMemManageModIn(this);
-        updateMemOps.setMemManageModIn(this);
-        delMemOps.setMemManageModIn(this);
-        viewAllMemOps.setMemManageModIn(this);
+        addMemberOps.setMemberManageModIn(this);
+        viewMemberOps.setMemberManageModIn(this);
+        updateMemberOps.setMemberManageModIn(this);
+        deleteMemberOps.setMemberManageModIn(this);
+        viewAllMemberOps.setMemberManageModIn(this);
     }
 
 //    Settter ..........

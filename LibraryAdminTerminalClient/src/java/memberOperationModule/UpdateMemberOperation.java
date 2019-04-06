@@ -23,7 +23,7 @@ public class UpdateMemberOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private MemberManagementModule memManageModIn;
+    private MemberManagementModule memberManageModIn;
     //Dependecies
     private ViewAllMembersOperation vam;
 
@@ -52,7 +52,7 @@ public class UpdateMemberOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter member Id of member to Update> ");
+        System.out.println("Enter Member ID of member to update> ");
         Long id = sc.nextLong();
 
         //for validation, check if the id choosen is in 'memberList';
@@ -65,16 +65,16 @@ public class UpdateMemberOperation {
     }
 
     private void updateInput() {
-        System.out.println("Select the field to Update: \n");
+        System.out.println("Select the field to update: \n");
         System.out.println(
-                "1: identityNumber\n"
-                + "2: firstName\n"
-                + "3: lastName\n"
-                + "4: gender\n"
-                + "5: age\n"
-                + "6: phone\n"
-                + "7: address\n"
-                + "8: securityCode"
+                "1: Identity Number\n"
+                + "2: First Name\n"
+                + "3: Last Name\n"
+                + "4: Gender\n"
+                + "5: Age\n"
+                + "6: Phone\n"
+                + "7: Address\n"
+                + "8: Security Code"
         );
         System.out.println("> ");
         int fieldSelectId = sc.nextInt();
@@ -119,7 +119,7 @@ public class UpdateMemberOperation {
     }
 
     private void successDisplay() {
-        System.out.println("member have been Successfully Updated.");
+        System.out.println("Member have been successfully updated.");
     }
 
     private boolean executeOperation() {
@@ -133,7 +133,7 @@ public class UpdateMemberOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -141,7 +141,7 @@ public class UpdateMemberOperation {
     }
 
     //    Settter ..........
-    public void setMemManageModIn(MemberManagementModule memManageModIn) {
-        this.memManageModIn = memManageModIn;
+    public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
+        this.memberManageModIn = memberManageModIn;
     }
 }

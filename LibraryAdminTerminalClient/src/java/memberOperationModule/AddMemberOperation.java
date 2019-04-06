@@ -19,7 +19,7 @@ public class AddMemberOperation {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private MemberManagementModule memManageModIn;
+    private MemberManagementModule memberManageModIn;
 
     //fields
     private Member member;
@@ -36,30 +36,30 @@ public class AddMemberOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter Identity Number> ");
-        String identityNum = sc.next();
+        System.out.print("Enter Identity Number> ");
+        String identityNum = sc.nextLine();
         
-        System.out.println("Enter Security Code> ");
-        String secCode = sc.next();
+        System.out.print("Enter Security Code> ");
+        String secCode = sc.nextLine();
         
-        System.out.println("Enter First Name> ");
-        String firstName = sc.next();
+        System.out.print("Enter First Name> ");
+        String firstName = sc.nextLine();
         
-        System.out.println("Enter Last Name> ");
-        String lastName = sc.next();
+        System.out.print("Enter Last Name> ");
+        String lastName = sc.nextLine();
         
-        System.out.println("Enter Gender> ");
-        String gen = sc.next();
+        System.out.print("Enter Gender> ");
+        String gen = sc.nextLine();
      
-        System.out.println("Enter Age> ");
+        System.out.print("Enter Age> ");
         int age = sc.nextInt();
         
-        System.out.println("Enter Phone> ");
-        String phone = sc.next();
-        
-        System.out.println("Enter Address> ");
-        String address = sc.next();
-
+        System.out.print("Enter Phone> ");
+        String phone = sc.nextLine();     
+                
+        System.out.print("Enter Address> ");
+        String address = sc.nextLine();
+                
         Gender gender = Gender.getEnumGender(gen);
         
         this.member = new Member(identityNum, firstName, lastName, gender, age, phone, address, secCode);
@@ -97,7 +97,7 @@ public class AddMemberOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -105,12 +105,12 @@ public class AddMemberOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.memManageModIn.start();
+        this.memberManageModIn.start();
     }
 
     //    Settter ..........
 
-    public void setMemManageModIn(MemberManagementModule memManageModIn) {
-        this.memManageModIn = memManageModIn;
+    public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
+        this.memberManageModIn = memberManageModIn;
     }
 }

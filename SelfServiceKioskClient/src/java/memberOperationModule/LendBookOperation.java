@@ -70,10 +70,10 @@ public class LendBookOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.dueDate = LEC.lendBook(this.member, this.bookId);
+            // this.dueDate = LEC.lendBook(this.member, this.bookId);
             return true;
-        } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException ex) {
-            System.err.println(ex.getMessage());
+        // } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException ex) {
+            // System.err.println(ex.getMessage());
         } catch (Exception e) {
         }
 

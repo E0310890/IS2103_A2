@@ -58,15 +58,15 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private Date currentDate;
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
-    @Override
+    /* @Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
         LoanLimitHitException, FineNotPaidException{
         String identityNumber = member.getIdentityNumber();
         System.out.println(identityNumber);
         return lendBook(identityNumber, bookId);
-    }
+    } */
 
-    @Override
+    /* @Override
     public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
             LoanLimitHitException, FineNotPaidException {
         try {
@@ -82,7 +82,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             //check for lend < 3
             if(memberE.getLending().size() >= lendThreshold) {
                 throw new LoanLimitHitException("Fail to borrow. You have already borrowed 3 books (Max loan is 3).");
-            }
+            } */
             
             //check for not reserved 
 //            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
@@ -95,16 +95,16 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             //use the table unqiue propety to check this, catched with Exceptio
             
             //no problem, lend book
-            em.persist(lendingE);
+/*            em.persist(lendingE);
             em.flush();
             return lendingE.getDueDate();
 
-        } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException /*| ReservedByOthersException*/ ex){
+        } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException ex){
             throw ex;
         } catch (Exception e) {
             throw new BookAlreadyLendedException("This book is currently lended by someone.");
         }
-    }
+    } */
 
     @Override
     public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException { 
