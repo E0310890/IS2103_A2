@@ -105,11 +105,9 @@ public class StaffEntityController implements StaffEntityControllerRemote {
         String jpql = "DELETE FROM StaffEntity s WHERE s.staffID =: id";
         Query query = em.createQuery(jpql);
         query.setParameter("id", id);
-        query.executeUpdate();
-        
+        query.executeUpdate();       
         return staff;
     } 
-    
     
     public void remove(StaffEntity se) throws PersistenceException {
         try {
