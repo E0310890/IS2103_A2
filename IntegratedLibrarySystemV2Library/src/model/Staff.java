@@ -68,4 +68,8 @@ public class Staff implements Serializable {
         return password;
     }
 
+    @Override
+    public String toString() {
+        return "Staff ID: " + getStaffID() + " | Full Name: " + getFirstName() + " " + getLastName();
+    }
 }

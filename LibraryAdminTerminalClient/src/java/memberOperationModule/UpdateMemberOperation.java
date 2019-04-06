@@ -97,7 +97,7 @@ public class UpdateMemberOperation {
         } else if (fieldSelectId == 6) {
             this.member.setPhone(sc.next());
         } else if (fieldSelectId == 7) {
-            this.member.setAddress(sc.next());
+            this.member.setAddress(sc.nextLine());
         } else if (fieldSelectId == 8) {
             this.member.setSecurityCode(sc.next());
         }

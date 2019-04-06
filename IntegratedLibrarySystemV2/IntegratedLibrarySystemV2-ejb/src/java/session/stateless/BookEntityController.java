@@ -33,15 +33,15 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     
     @Override
     public boolean registerBook(Book Book) throws InvalidInputException{
-        BookEntity me = new BookEntity(Book);
+        BookEntity be = new BookEntity(Book);
         try {
-            if (me.getBookID() == null) {
-                em.persist(me);
+            if (be.getBookID() == null) {
+                em.persist(be);
                 em.flush();
             }
             return true;
         } catch (Exception ex) {
-            throw new InvalidInputException("Please input correct personal details");
+            throw new InvalidInputException("Please input correct book details");
         }
     }
 
@@ -49,8 +49,8 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     public Book viewBook(long BookID) throws BookNotFoundException {
         Book Book = new Book();
         try {
-            BookEntity me = retrieve(BookID);
-            Book = me.toBook();
+            BookEntity be = retrieve(BookID);
+            Book = be.toBook();
         } catch (PersistenceException ex) {
             throw new BookNotFoundException("No such Book with ID: " + BookID);
         }
@@ -63,7 +63,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         try {
             Books = retrieveAll()
                     .stream()
-                    .map(m -> m.toBook())
+                    .map(b -> b.toBook())
                     .collect(Collectors.toList());
             return Books;
         } catch (PersistenceException ex) {
@@ -94,37 +94,37 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     }
      
    @Override
-   public BookEntity viewBook(String identityNumber) throws BookNotFoundException{
+   public BookEntity viewBook(String title) throws BookNotFoundException{
         try {
-            return retrieve(identityNumber);
+            return retrieve(title);
         } catch (PersistenceException ex) {
-            throw new BookNotFoundException("No such Book with identity number: " + identityNumber);
+            throw new BookNotFoundException("No such book with title: " + title);
         }
    }
    
-    public void remove(BookEntity me) throws PersistenceException {
+    public void remove(BookEntity be) throws PersistenceException {
         try {
-            me = em.find(BookEntity.class, me.getBookID());
-            em.remove(me);
+            be = em.find(BookEntity.class, be.getBookID());
+            em.remove(be);
         } catch (PersistenceException ex) {
             throw ex;
         }
     }
 
-    public void update(BookEntity me) throws PersistenceException {
+    public void update(BookEntity be) throws PersistenceException {
         try {
-            if (me.getBookID() != null) {
-                em.merge(me);
+            if (be.getBookID() != null) {
+                em.merge(be);
             }
         } catch (PersistenceException ex) {
             throw ex;
         }
     }
 
-    public BookEntity retrieve(long id) throws PersistenceException {
-        String jpql = "SELECT m FROM BookEntity m WHERE m.BookID = :id";
+    public BookEntity retrieve(long bookID) throws PersistenceException {
+        String jpql = "SELECT b FROM BookEntity b WHERE b.bookID = :bookID";
         Query query = em.createQuery(jpql);
-        query.setParameter("id", id);
+        query.setParameter("bookID", bookID);
         BookEntity BookE = new BookEntity();
         try {
             BookE = (BookEntity) query.getSingleResult();
@@ -134,10 +134,10 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         return BookE;
     }
 
-    public BookEntity retrieve(String identityNumber) throws PersistenceException {
-        String jpql = "SELECT m FROM BookEntity m WHERE m.identityNumber = :idn";
+    public BookEntity retrieve(String title) throws PersistenceException {
+        String jpql = "SELECT b FROM BookEntity b WHERE b.title = :title";
         TypedQuery query = em.createQuery(jpql, BookEntity.class);
-        query.setParameter("idn", identityNumber);
+        query.setParameter("title", title);
         BookEntity BookE = new BookEntity();
         try {
             BookE = (BookEntity) query.getSingleResult();
@@ -149,7 +149,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     }
 
     public List<BookEntity> retrieveAll() throws PersistenceException {
-        String jpql = "SELECT m FROM BookEntity m";
+        String jpql = "SELECT b FROM BookEntity b";
         Query query = em.createQuery(jpql);
         List<BookEntity> Books;
         try {

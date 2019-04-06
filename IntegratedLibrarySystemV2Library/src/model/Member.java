@@ -119,6 +119,9 @@ public class Member implements Serializable{
 
     @Override
     public String toString() {
-        return "Member{" + "memberID=" + memberID + ", identityNumber=" + identityNumber + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", age=" + age + ", phone=" + phone + ", address=" + address + ", securityCode=" + securityCode + '}';
+        return "Member ID: " + getMemberID() + " | Full Name: " + getFirstName() + " " + getLastName() + 
+                " | Identity Number: " + getIdentityNumber() + " | Gender: " + getGender() + " | Age: " + getAge() + 
+                " | Phone: " + getPhone() + " | Address " + getAddress();
+        /* "Member{" + "memberID=" + memberID + ", identityNumber=" + identityNumber + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", age=" + age + ", phone=" + phone + ", address=" + address + ", securityCode=" + securityCode + '}'; */
     } 
 }

@@ -12,14 +12,17 @@ import model.Book;
 public class BookEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookID;
 
-    @Column(nullable = false, length = 64)
-    private String title;
     @Column(nullable = false, length = 32, unique = true)
     private String isbn;
+    
+    @Column(nullable = false, length = 64)
+    private String title;
+    
     @Column(nullable = false, length = 4)
     private String year;
 
@@ -33,17 +36,16 @@ public class BookEntity implements Serializable {
         this.year = book.getYear();
     }
 
-    public BookEntity(String title, String isbn, String year) {
+    public BookEntity(String isbn, String title, String year) {
+        this.isbn = isbn;        
         this.title = title;
-        this.isbn = isbn;
         this.year = year;
     }
     
     public Book toBook(){
-        return new Book(this.bookID, this.title, this.isbn, this.year);
+        return new Book(this.bookID, this.isbn, this.title, this.year);
     }
     
-
     public Long getBookID() {
         return bookID;
     }
@@ -55,8 +57,7 @@ public class BookEntity implements Serializable {
     public String getTitle() {
         return title;
     }
-    
-
+  
     @Override
     public int hashCode() {
         int hash = 0;
@@ -81,5 +82,4 @@ public class BookEntity implements Serializable {
     public String toString() {
         return "Entity.BookEntity[ id=" + bookID + " ]";
     }
-
 }

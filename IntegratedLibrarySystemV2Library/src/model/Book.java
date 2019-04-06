@@ -5,23 +5,23 @@ import java.io.Serializable;
 public class Book implements Serializable {
 
     private Long bookID;
+    private String isbn;    
     private String title;
-    private String isbn;
     private String year;
 
     public Book() {
     }
 
-    public Book(Long bookID, String title, String isbn, String year) {
+    public Book(Long bookID, String isbn, String title, String year) {
         this.bookID = bookID;
-        this.title = title;
         this.isbn = isbn;
+        this.title = title;
         this.year = year;
     }
 
-    public Book(String title, String isbn, String year) {
-        this.title = title;
+    public Book(String isbn, String title, String year) {
         this.isbn = isbn;
+        this.title = title;
         this.year = year;
     }
 
@@ -32,6 +32,14 @@ public class Book implements Serializable {
     public void setBookID(Long bookID) {
         this.bookID = bookID;
     }
+    
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }    
 
     public String getTitle() {
         return title;
@@ -39,14 +47,6 @@ public class Book implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 
     public String getYear() {
@@ -57,9 +57,8 @@ public class Book implements Serializable {
         this.year = year;
     }
     
-    
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        return "Book ID: " + getBookID() + " | ISBN: " + getIsbn() + " | Title: " + getTitle() + " | Year: " + getYear();
+    }     
 }

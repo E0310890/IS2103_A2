@@ -137,10 +137,10 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         }
     }
 
-    public MemberEntity retrieve(long id) throws PersistenceException {
-        String jpql = "SELECT m FROM MemberEntity m WHERE m.memberID = :id";
+    public MemberEntity retrieve(long memberID) throws PersistenceException {
+        String jpql = "SELECT m FROM MemberEntity m WHERE m.memberID = :memberID";
         Query query = em.createQuery(jpql);
-        query.setParameter("id", id);
+        query.setParameter("memberID", memberID);
         MemberEntity memberE = new MemberEntity();
         try {
             memberE = (MemberEntity) query.getSingleResult();
@@ -151,9 +151,9 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     }
 
     public MemberEntity retrieve(String identityNumber) throws PersistenceException {
-        String jpql = "SELECT m FROM MemberEntity m WHERE m.identityNumber = :idn";
+        String jpql = "SELECT m FROM MemberEntity m WHERE m.identityNumber = :identityNumber";
         TypedQuery query = em.createQuery(jpql, MemberEntity.class);
-        query.setParameter("idn", identityNumber);
+        query.setParameter("identityNumber", identityNumber);
         MemberEntity memberE = new MemberEntity();
         try {
             memberE = (MemberEntity) query.getSingleResult();
