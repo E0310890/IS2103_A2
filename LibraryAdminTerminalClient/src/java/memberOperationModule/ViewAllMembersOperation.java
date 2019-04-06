@@ -53,7 +53,7 @@ public class ViewAllMembersOperation {
 
     private void successDisplay() {
         memberList.forEach(m
-                -> System.out.println("ID: " + m.getMemberID()
+                -> System.out.println("Member ID: " + m.getMemberID()
                         + " | Name: " + m.getFirstName() + " " + m.getLastName())
         );
     }

@@ -17,12 +17,12 @@ public class StaffManagementModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private AdminModule adminModIn;
     private AddStaffOperation addStaffOps;
+    private ViewStaffDetailsOperation viewStaffOps;
+    private UpdateStaffOperation updateStaffOps;        
     private DeleteStaffOperation deleteStaffOps;
-    private UpdateStaffOperation updateStaffOps;
-    private ViewStaffDetailsOperation viewStaffDetailsOps;
-    private ViewAllStaffOperation viewAllStaffOps;
+    private ViewAllStaffsOperation viewAllStaffOps;
+    private AdminModule adminModIn;    
     //fields
     private int input;
 
@@ -31,6 +31,11 @@ public class StaffManagementModule {
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        addStaffOps = new AddStaffOperation(SEC, MEC, BEC, LEC);
+        deleteStaffOps = new DeleteStaffOperation(SEC, MEC, BEC, LEC);
+        updateStaffOps = new UpdateStaffOperation(SEC, MEC, BEC, LEC);
+        viewStaffOps = new ViewStaffDetailsOperation(SEC, MEC, BEC, LEC);
+        viewAllStaffOps = new ViewAllStaffsOperation(SEC, MEC, BEC, LEC);        
     }
 
     private void displayMenu() {
@@ -61,18 +66,24 @@ public class StaffManagementModule {
 
     private void navigate(int input) {
         switch (input) {
-            case 1: addStaffOps.start(); break;
-            case 2: viewStaffDetailsOps.start(); break;
-            case 3: updateStaffOps.start(); break;
-            case 4: deleteStaffOps.start(); break;
-            case 5: viewAllStaffOps.start(); break;
-            case 6: adminModIn.start();
+            case 1: 
+                addStaffOps.start(); break;
+            case 2: 
+                viewStaffOps.start(); break;
+            case 3: 
+                updateStaffOps.start(); break;
+            case 4: 
+                deleteStaffOps.start(); break;
+            case 5: 
+                viewAllStaffOps.start(); break;
+            case 6: 
+                adminModIn.start();
         }
     }
 
     private void setBackInstance() {
         addStaffOps.setStaffManageModIn(this);
-        viewStaffDetailsOps.setStaffManageModIn(this);
+        viewStaffOps.setStaffManageModIn(this);
         updateStaffOps.setStaffManageModIn(this);
         deleteStaffOps.setStaffManageModIn(this);
         viewAllStaffOps.setStaffManageModIn(this);

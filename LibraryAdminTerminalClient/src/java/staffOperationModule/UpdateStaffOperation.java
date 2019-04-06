@@ -2,14 +2,24 @@ package staffOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Staff;
+import session.stateless.remote.BookEntityControllerRemote;
+import session.stateless.remote.LendEntityControllerRemote;
+import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.StaffNotFoundException;
+import util.exception.InvalidInputException;
+import util.exception.MemberNotFoundException;
 
 public class UpdateStaffOperation {
+    
     private Scanner sc = new Scanner(System.in);
     //API
     private StaffEntityControllerRemote SEC;
+    private MemberEntityControllerRemote MEC;
+    private BookEntityControllerRemote BEC;
+    private LendEntityControllerRemote LEC;
     //modules
     private StaffManagementModule staffManageModIn;
 
@@ -17,8 +27,11 @@ public class UpdateStaffOperation {
     private long id;
     private Staff staff;
 
-    public UpdateStaffOperation(StaffEntityControllerRemote SEC) {
+    public UpdateStaffOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
+        this.MEC = MEC;
+        this.BEC = BEC;
+        this.LEC = LEC;
     }
 
     private void displayMenu() {

@@ -18,14 +18,16 @@ public class DeleteMemberOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    //Modules
     private MemberManagementModule memberManageModIn;
+    
     //Dependecies
-    private ViewAllMembersOperation vam;
+    private ViewAllMembersOperation viewAllMembersOps;
 
-    //fields
+    //Fields
     private List<Member> memberList;
-    private Long idToDel;
+    private Long memberID;
 
     public DeleteMemberOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
@@ -39,17 +41,17 @@ public class DeleteMemberOperation {
     }
 
     private boolean executeViewOperation() {
-        vam = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
-        return vam.displayAllMembers();
+        viewAllMembersOps = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
+        return viewAllMembersOps.displayAllMembers();
     }
 
     private void transferRequiredFields() {
-        this.memberList = vam.getMemberList();
+        this.memberList = viewAllMembersOps.getMemberList();
     }
 
     private void getInput() {
-        System.out.print("Enter member Id to Delete> ");
-        this.idToDel = sc.nextLong();
+        System.out.print("Enter Member ID to delete> ");
+        this.memberID = sc.nextLong();
     }
 
     public void start() {
@@ -76,7 +78,7 @@ public class DeleteMemberOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            MEC.deleteMember(this.idToDel);
+            MEC.deleteMember(this.memberID);
             return true;
         } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());

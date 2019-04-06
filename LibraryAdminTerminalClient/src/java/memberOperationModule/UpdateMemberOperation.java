@@ -76,10 +76,10 @@ public class UpdateMemberOperation {
                 + "7: Address\n"
                 + "8: Security Code"
         );
-        System.out.println("> ");
+        System.out.print(">");    
         int fieldSelectId = sc.nextInt();
 
-        System.out.println("Update to: ");
+        System.out.print("Update to: ");
 
         if (fieldSelectId == 1) {
             this.member.setIdentityNumber(sc.next());

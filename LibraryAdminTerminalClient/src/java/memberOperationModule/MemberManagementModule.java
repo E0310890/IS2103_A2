@@ -17,12 +17,12 @@ public class MemberManagementModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private AdminModule adminModIn;
     private AddMemberOperation addMemberOps;
     private ViewMemberDetailsOperation viewMemberOps;
     private UpdateMemberOperation updateMemberOps;
     private DeleteMemberOperation deleteMemberOps;
     private ViewAllMembersOperation viewAllMemberOps;
+    private AdminModule adminModIn;    
 
     //fields
     private int input;
@@ -95,5 +95,4 @@ public class MemberManagementModule {
     public void setAdminModIn(AdminModule adminModIn) {
         this.adminModIn = adminModIn;
     }
-
 }

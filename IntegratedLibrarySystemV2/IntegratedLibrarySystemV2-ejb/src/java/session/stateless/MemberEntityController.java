@@ -52,7 +52,7 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
             MemberEntity me = retrieve(id);
             member = me.toMember();
         } catch (PersistenceException ex) {
-            throw new MemberNotFoundException("No such member with id: " + id);
+            throw new MemberNotFoundException("No such member with ID: " + id);
         }
         return member;
     }
@@ -115,7 +115,6 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
         }
    }
    
-
     public void remove(MemberEntity me) throws PersistenceException {
         try {
             me = em.find(MemberEntity.class, me.getMemberID());
