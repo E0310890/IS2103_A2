@@ -12,22 +12,23 @@ import util.exception.MemberNotFoundException;
 
 public class ViewMemberDetailsOperation {
 
-
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberManagementModule memberManageModIn;
-    //Dependecies
-    private ViewAllMembersOperation vam;
+    
+    // Dependecies
+    private ViewAllMembersOperation viewAllMembersOps;
 
-    //fields
+    // Fields
     private List<Member> memberList;
-    private Long id;
+    private Long memberID;
     private Member member;
 
     public ViewMemberDetailsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -42,17 +43,17 @@ public class ViewMemberDetailsOperation {
     }
 
     private boolean executeViewOperation() {
-        vam = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
-        return vam.displayAllMembers();
+        viewAllMembersOps = new ViewAllMembersOperation(SEC, MEC, BEC, LEC);
+        return viewAllMembersOps.displayAllMembers();
     }
 
     private void transferRequiredFields() {
-        this.memberList = vam.getMemberList();
+        this.memberList = viewAllMembersOps.getMemberList();
     }
 
     private void getInput() {
         System.out.print("Enter Member ID to View Details> ");
-        this.id = sc.nextLong();
+        this.memberID = sc.nextLong();
     }
 
     public void start() {
@@ -79,7 +80,7 @@ public class ViewMemberDetailsOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.member = MEC.viewMember(this.id);
+            this.member = MEC.viewMember(this.memberID);
             return true;
         } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
@@ -95,7 +96,7 @@ public class ViewMemberDetailsOperation {
         start();
     }
 
-    //    Settter ..........
+    // Settter
     public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
         this.memberManageModIn = memberManageModIn;
     }

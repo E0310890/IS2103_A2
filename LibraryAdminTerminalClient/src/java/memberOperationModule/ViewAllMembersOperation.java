@@ -18,6 +18,7 @@ public class ViewAllMembersOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    
     // Modules
     private MemberManagementModule memberManageModIn;
 
@@ -52,9 +53,9 @@ public class ViewAllMembersOperation {
     }
 
     private void successDisplay() {
-        memberList.forEach(m
-                -> System.out.println("Member ID: " + m.getMemberID()
-                        + " | Full Name: " + m.getFirstName() + " " + m.getLastName())
+        memberList.forEach(member
+                -> System.out.println("Member ID: " + member.getMemberID()
+                        + " | Full Name: " + member.getFirstName() + " " + member.getLastName())
         );
     }
 
@@ -87,7 +88,7 @@ public class ViewAllMembersOperation {
         }
     }
 
-    //    Settter ..........
+    // Settter
     public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
         this.memberManageModIn = memberManageModIn;
     }

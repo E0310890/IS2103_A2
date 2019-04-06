@@ -18,6 +18,7 @@ public class ViewAllStaffsOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    
     // Modules
     private StaffManagementModule staffManageModIn;
 
@@ -32,7 +33,7 @@ public class ViewAllStaffsOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Staff Management :: View All Staffs***\n");
+        System.out.println("*** ILS :: Administration Operation :: Staff Management :: View All Staffs ***\n");
     }
 
     private void getInput() {
@@ -52,9 +53,9 @@ public class ViewAllStaffsOperation {
     }
 
     private void successDisplay() {
-        staffList.forEach(m
-                -> System.out.println("Staff ID: " + m.getStaffID()
-                        + " | Full Name: " + m.getFirstName() + " " + m.getLastName())
+        staffList.forEach(staff
+                -> System.out.println("Staff ID: " + staff.getStaffID()
+                        + " | Full Name: " + staff.getFirstName() + " " + staff.getLastName())
         );
     }
 
@@ -87,8 +88,8 @@ public class ViewAllStaffsOperation {
         }
     }    
 
-    //    Settter ..........
-    public void setStaffrManageModIn(StaffManagementModule staffManageModIn) {
+    // Settter
+    public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
         this.staffManageModIn = staffManageModIn;
     }
 
