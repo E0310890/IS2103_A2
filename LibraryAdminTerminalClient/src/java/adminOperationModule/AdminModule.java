@@ -1,6 +1,6 @@
 package adminOperationModule;
 
-import BookOperationModule.BookManagementModule;
+import bookOperationModule.BookManagementModule;
 import memberOperationModule.MemberManagementModule;
 import java.util.Scanner;
 import rootOperationModule.MainMenuModule;
@@ -88,6 +88,5 @@ public class AdminModule {
 
     public void setMainMenuModIn(MainMenuModule MainMenuModIn) {
         this.MainMenuModIn = MainMenuModIn;
-    }
-    
+    }   
 }

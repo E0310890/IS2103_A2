@@ -32,7 +32,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     @PersistenceContext
     private EntityManager em; 
     
-    public void create(BookEntity be) throws PersistenceException {
+    /* public void create(BookEntity be) throws PersistenceException {
         try {
             if (be.getBookID() == null) {
                 em.persist(be);
@@ -40,6 +40,19 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         } catch (PersistenceException ex) {
             throw ex;
         }
+    } */
+    
+    @Override
+    public Book createBook(Book book) throws PersistenceException {
+        BookEntity bookE = new BookEntity(book);
+        try {
+            if (bookE.getBookID() == null) {
+                em.persist(bookE);
+            }
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return book; 
     }
 
     public void remove(BookEntity be) throws PersistenceException {
@@ -91,7 +104,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         em.close();
     }
     
-    @Override
+    /* @Override
     public boolean registerBook(Book book) throws InvalidInputException {
         try {
             create(new BookEntity(book));
@@ -101,7 +114,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         } catch (ConstraintViolationException cex) {
             throw new InvalidInputException();
         }
-    }
+    } */
 
     @Override
     public Book viewBook(long id) throws BookNotFoundException {

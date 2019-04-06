@@ -106,7 +106,7 @@ public class MemberMenuModule {
         lendBookOps.setMemberMenuModIn(this);     
         viewLentBooksOps.setMemberMenuModIn(this);
         returnBookOps.setMemberMenuModIn(this);  
-        // extendBookOps.setMemberMenuModIn(this);     
+        extendBookOps.setMemberMenuModIn(this);     
         // payFinesOps.setMemberMenuModIn(this);  
         // searchBooks.setMemberMenuModIn(this);
         // reserveBookOps.setMemberMenuModIn(this);
@@ -116,7 +116,7 @@ public class MemberMenuModule {
         this.lendBookOps.setMember(member);
         this.viewLentBooksOps.setMember(member);
         this.returnBookOps.setMember(member);
-        // this.extendBookOps.setMember(member);
+        this.extendBookOps.setMember(member);
         // this.payFinesOps.setMember(member);
         // this.searchBooks.setMember(member);    
         // this.reserveBookOps.setMember(member);   

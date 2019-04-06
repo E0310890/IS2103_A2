@@ -1,4 +1,4 @@
-package BookOperationModule;
+package bookOperationModule;
 
 import adminOperationModule.AdminModule;
 import java.util.Scanner;
@@ -17,7 +17,9 @@ public class BookManagementModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
+    private AddBookOperation addBookOps;
     private AdminModule adminModIn;
+    
     //fields
     private int input;
 
@@ -69,6 +71,7 @@ public class BookManagementModule {
     }
 
     private void setBackInstance() {
+        addBookOps.setBookManagementModIn(this);   
     }
 
 //    Settter ..........

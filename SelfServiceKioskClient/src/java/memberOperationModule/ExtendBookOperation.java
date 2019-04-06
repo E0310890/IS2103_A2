@@ -63,9 +63,9 @@ public class ExtendBookOperation {
     
     public void start() {
         displayMenu();
-        if (!executeViewOperation()) {
+        /* if (!executeViewOperation()) {
             onOperationFailNavigate();
-        }
+        } */
         // transferRequiredFields();
         
         getInput();
