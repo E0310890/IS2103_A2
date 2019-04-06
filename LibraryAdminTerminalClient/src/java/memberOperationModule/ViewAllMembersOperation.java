@@ -88,7 +88,7 @@ public class ViewAllMembersOperation {
     }
 
     //    Settter ..........
-    public void setMemberManageModIn(MemberManagementModule memManageModIn) {
+    public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
         this.memberManageModIn = memberManageModIn;
     }
 
