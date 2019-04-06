@@ -3,36 +3,48 @@ package bookOperationModule;
 import java.util.Scanner;
 import model.Book;
 import session.stateless.remote.BookEntityControllerRemote;
+import session.stateless.remote.LendEntityControllerRemote;
+import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.InvalidInputException;
 
 public class AddBookOperation {
-    
-    private Scanner sc = new Scanner(System.in);
-    //API
-    private BookEntityControllerRemote BEC;
-    //modules
-    private BookManagementModule bookManagementModule;
 
-    //fields
+    private Scanner sc = new Scanner(System.in);
+
+    // API
+    private StaffEntityControllerRemote SEC;
+    private MemberEntityControllerRemote MEC;
+    private BookEntityControllerRemote BEC;
+    private LendEntityControllerRemote LEC;
+    
+    // Modules
+    private BookManagementModule bookManageModIn;
+
+    // Fields
     private Book book;
 
-    public AddBookOperation(BookEntityControllerRemote BEC) {
+    public AddBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+        this.SEC = SEC;
+        this.MEC = MEC;
         this.BEC = BEC;
+        this.LEC = LEC;
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Book Management :: Add Book***\n");
+        System.out.println("*** ILS :: Administration Operation :: Book Management :: Add Book ***\n");
     }
 
     private void getInput() {
-        System.out.println("Enter ISBN> ");
+        System.out.print("Enter ISBN> ");
         String isbn = sc.nextLine();
         
-        System.out.println("Enter Title> ");
+        System.out.print("Enter Title> ");
         String title = sc.nextLine();
         
-        System.out.println("Enter Year> ");
+        System.out.print("Enter Year> ");
         String year = sc.nextLine();
-        
+                
         this.book = new Book(isbn, title, year);
     }
 
@@ -50,15 +62,14 @@ public class AddBookOperation {
     }
 
     private void successDisplay() {
-        System.out.println("Staff has been registered successfully!");
+        System.out.println("Book has been registered successfully!");
     }
 
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.book = BEC.createBook(this.book);
-            result = true;
-        } catch (Exception ex) {
+            result = BEC.registerBook(this.book);
+        } catch (InvalidInputException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
@@ -69,7 +80,7 @@ public class AddBookOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.bookManagementModule.start();
+        this.bookManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -77,11 +88,11 @@ public class AddBookOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.bookManagementModule.start();
+        this.bookManageModIn.start();
     }
 
-    //    Settter ..........
-    public void setBookManagementModIn(BookManagementModule bookManagementModule) {
-        this.bookManagementModule = bookManagementModule;
+    // Setter
+    public void setBookManageModIn(BookManagementModule bookManageModIn) {
+        this.bookManageModIn = bookManageModIn;
     }
 }

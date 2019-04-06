@@ -18,8 +18,9 @@ import javax.validation.ConstraintViolationException;
 import model.Book;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.remote.BookEntityControllerRemote;
-import util.exception.BookNotFoundException;
 import util.exception.InvalidInputException;
+import util.exception.InvalidLoginCredentialException;
+import util.exception.BookNotFoundException;
 
 @Stateless
 @LocalBean
@@ -27,84 +28,140 @@ import util.exception.InvalidInputException;
 @Local(BookEntityControllerLocal.class)
 public class BookEntityController implements BookEntityControllerRemote, BookEntityControllerLocal {
 
-    // private final BookEntityManager bem = new BookEntityManager();
-    
     @PersistenceContext
-    private EntityManager em; 
+    private EntityManager em;
     
     @Override
-    public Book createBook(Book book) throws PersistenceException {
-        BookEntity bookE = new BookEntity(book);
+    public boolean registerBook(Book Book) throws InvalidInputException{
+        BookEntity me = new BookEntity(Book);
         try {
-            if (bookE.getBookID() == null) {
-                em.persist(bookE);
+            if (me.getBookID() == null) {
+                em.persist(me);
+                em.flush();
+            }
+            return true;
+        } catch (Exception ex) {
+            throw new InvalidInputException("Please input correct personal details");
+        }
+    }
+
+    @Override
+    public Book viewBook(long BookID) throws BookNotFoundException {
+        Book Book = new Book();
+        try {
+            BookEntity me = retrieve(BookID);
+            Book = me.toBook();
+        } catch (PersistenceException ex) {
+            throw new BookNotFoundException("No such Book with ID: " + BookID);
+        }
+        return Book;
+    }
+
+    @Override
+    public List<Book> viewBook() {
+        List<Book> Books;
+        try {
+            Books = retrieveAll()
+                    .stream()
+                    .map(m -> m.toBook())
+                    .collect(Collectors.toList());
+            return Books;
+        } catch (PersistenceException ex) {
+            return new ArrayList();
+        }
+    }
+
+    @Override
+    public boolean updateBook(Book Book) throws InvalidInputException{
+        try {
+            update(new BookEntity(Book));
+            return true;
+        } catch (PersistenceException ex) {
+            return false;
+        } catch (ConstraintViolationException cex){
+            throw new InvalidInputException();
+        }
+    }
+
+    @Override
+    public void deleteBook(long BookID) throws BookNotFoundException{
+        try {
+            BookEntity BookE = retrieve(BookID);
+            remove(BookE);
+        } catch (PersistenceException ex) {
+            throw new BookNotFoundException("No such Book with ID: " + BookID);
+        }
+    }
+     
+   @Override
+   public BookEntity viewBook(String identityNumber) throws BookNotFoundException{
+        try {
+            return retrieve(identityNumber);
+        } catch (PersistenceException ex) {
+            throw new BookNotFoundException("No such Book with identity number: " + identityNumber);
+        }
+   }
+   
+    public void remove(BookEntity me) throws PersistenceException {
+        try {
+            me = em.find(BookEntity.class, me.getBookID());
+            em.remove(me);
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+    }
+
+    public void update(BookEntity me) throws PersistenceException {
+        try {
+            if (me.getBookID() != null) {
+                em.merge(me);
             }
         } catch (PersistenceException ex) {
             throw ex;
         }
-        return book; 
     }
-    
-    @Override
-    public Book retrieve(long id) throws BookNotFoundException{
-        String jpql = "SELECT s FROM BookEntity s WHERE s.bookID = :id";
+
+    public BookEntity retrieve(long id) throws PersistenceException {
+        String jpql = "SELECT m FROM BookEntity m WHERE m.BookID = :id";
         Query query = em.createQuery(jpql);
         query.setParameter("id", id);
-        BookEntity bookE = new BookEntity();
+        BookEntity BookE = new BookEntity();
         try {
-            bookE = (BookEntity) query.getSingleResult();
+            BookE = (BookEntity) query.getSingleResult();
         } catch (PersistenceException ex) {
-            throw new BookNotFoundException("No such Book with ID: " + id);
+            throw ex;
         }
-        Book book = bookE.toBook();
-        return book;
+        return BookE;
+    }
+
+    public BookEntity retrieve(String identityNumber) throws PersistenceException {
+        String jpql = "SELECT m FROM BookEntity m WHERE m.identityNumber = :idn";
+        TypedQuery query = em.createQuery(jpql, BookEntity.class);
+        query.setParameter("idn", identityNumber);
+        BookEntity BookE = new BookEntity();
+        try {
+            BookE = (BookEntity) query.getSingleResult();
+            em.refresh(BookE);
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return BookE;
+    }
+
+    public List<BookEntity> retrieveAll() throws PersistenceException {
+        String jpql = "SELECT m FROM BookEntity m";
+        Query query = em.createQuery(jpql);
+        List<BookEntity> Books;
+        try {
+            Books = query.getResultList();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return Books;
     }
     
-    @Override
-    public List<Book> retrieveAll() throws PersistenceException {
-        String jpql = "SELECT s FROM BookEntity s";
-        Query query = em.createQuery(jpql);
-        List<BookEntity> bookEntityList;
-        try {
-            bookEntityList = query.getResultList();
-        } catch (PersistenceException ex) {
-            throw ex;
-        }
-        List<Book> bookList = bookEntityList.stream()
-                                                .map(s -> s.toBook())
-                                                .collect(Collectors.toList());
-        return bookList;
-    }    
-
-    @Override
-    public Book updateBook(Book book) throws InvalidInputException {
-        BookEntity bookE = new BookEntity(book);
-        try {
-            em.merge(bookE);
-        }catch (PersistenceException ex) {
-            throw ex;
-        }catch(Exception ex){
-            throw new InvalidInputException("Username used.");
-        }  
-        return book;
-    }
-
-    @Override
-    public Book deleteBook(Long id) throws BookNotFoundException {
-        Book book = retrieve(id);
-        String jpql = "DELETE FROM BookEntity s WHERE s.bookID =: id";
-        Query query = em.createQuery(jpql);
-        query.setParameter("id", id);
-        query.executeUpdate();
-        return book;
-    }     
-
-    public void remove(BookEntity be) throws PersistenceException {
-        try {
-            be = em.find(BookEntity.class, be.getBookID());
-            em.remove(be);
-        } catch (PersistenceException ex) {
-            throw ex;
-        }
+    @Remove
+    public void destroy() {
+        em.close();
     }
 }

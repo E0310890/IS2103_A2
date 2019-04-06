@@ -4,23 +4,36 @@ import java.util.List;
 import java.util.Scanner;
 import model.Book;
 import session.stateless.remote.BookEntityControllerRemote;
+import session.stateless.remote.LendEntityControllerRemote;
+import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.InvalidInputException;
 
 public class ViewAllBooksOperation {
-    private Scanner sc = new Scanner(System.in);
-    //API
-    private BookEntityControllerRemote BEC;
-    //modules
-    private BookManagementModule bookManagementModule;
 
-    //fields
+    private Scanner sc = new Scanner(System.in);
+
+    // API
+    private StaffEntityControllerRemote SEC;
+    private MemberEntityControllerRemote MEC;
+    private BookEntityControllerRemote BEC;
+    private LendEntityControllerRemote LEC;
+    
+    // Modules
+    private BookManagementModule bookManageModIn;
+
+    // Fields
     private List<Book> bookList;
 
-    public ViewAllBooksOperation(BookEntityControllerRemote BEC) {
+    public ViewAllBooksOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+        this.SEC = SEC;
+        this.MEC = MEC;
         this.BEC = BEC;
+        this.LEC = LEC;
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Book Management :: View All Book***\n");
+        System.out.println("*** ILS :: Administration Operation :: Member Management :: View All Books ***\n");
     }
 
     private void getInput() {
@@ -40,47 +53,47 @@ public class ViewAllBooksOperation {
     }
 
     private void successDisplay() {
-        bookList.forEach(m
-                -> System.out.println("ID: " + m.getBookID()
-                        + " | ISBN: " + m.getIsbn() + " | Title: " + m.getTitle() + " | Year: " + m.getYear())
+        bookList.forEach(book
+                -> System.out.println("Book ID: " + book.getBookID()
+                        + " | ISBN: " + book.getIsbn() + " | Title: " + book.getTitle() + " | Year: " + book.getYear())
         );
     }
 
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.bookList = BEC.retrieveAll();
+            this.bookList = BEC.viewBook();
             result = true;
         } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            result = false;
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
-        this.bookManagementModule.start();
+    private void onOperationSuccessNavigate() {
+        this.bookManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-         try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
+        start();
+    }
+
+    public boolean displayAllBooks() {
+        boolean executeSuccess = executeOperation();
+        if (executeSuccess) {
+            successDisplay();
+            return true;
+        } else {
+            return false;
         }
-        this.bookManagementModule.start();
     }
 
-    //    Settter ..........
-
-    public void setMemManageModIn(BookManagementModule bookManagementModule) {
-        this.bookManagementModule = bookManagementModule;
+    // Setter
+    public void setBookManageModIn(BookManagementModule bookManageModIn) {
+        this.bookManageModIn = bookManageModIn;
     }
-    
-    public List<Book> getBookList(){
-        executeOperation();
-        return this.bookList;
+
+    public List<Book> getBookList() {
+        return bookList;
     }
 }

@@ -78,6 +78,7 @@ public class UpdateMemberOperation {
                 + "7: Address\n"
                 + "8: Security Code"
         );
+        
         System.out.print(">");    
         int fieldSelectId = sc.nextInt();
 

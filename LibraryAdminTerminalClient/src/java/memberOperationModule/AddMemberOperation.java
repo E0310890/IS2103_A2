@@ -33,7 +33,7 @@ public class AddMemberOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Member Management :: Add Member***\n");
+        System.out.println("*** ILS :: Administration Operation :: Member Management :: Add Member ***\n");
     }
 
     private void getInput() {

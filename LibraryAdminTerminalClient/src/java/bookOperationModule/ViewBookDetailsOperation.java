@@ -4,40 +4,65 @@ import java.util.List;
 import java.util.Scanner;
 import model.Book;
 import session.stateless.remote.BookEntityControllerRemote;
+import session.stateless.remote.LendEntityControllerRemote;
+import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.BookNotFoundException;
 
 public class ViewBookDetailsOperation {
-    private Scanner sc = new Scanner(System.in);
-    //API
-    private BookEntityControllerRemote BEC;
-    //modules
-    private BookManagementModule bookManagementModule;
-     //Dependecies
-    private ViewAllBooksOperation viewAllBook;
 
-    //fields
+    private Scanner sc = new Scanner(System.in);
+
+    // API
+    private StaffEntityControllerRemote SEC;
+    private MemberEntityControllerRemote MEC;
+    private BookEntityControllerRemote BEC;
+    private LendEntityControllerRemote LEC;
+    
+    // Modules
+    private BookManagementModule bookManageModIn;
+    
+    // Dependecies
+    private ViewAllBooksOperation viewAllBooksOps;
+
+    // Fields
     private List<Book> bookList;
-    private long id;
+    private Long bookID;
     private Book book;
 
-    public ViewBookDetailsOperation(BookEntityControllerRemote BEC) {
+    public ViewBookDetailsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+        this.SEC = SEC;
+        this.MEC = MEC;
         this.BEC = BEC;
-        viewAllBook = new ViewAllBooksOperation(BEC);
+        this.LEC = LEC;
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Book Management :: View Book Details***\n");
+        System.out.println("*** ILS :: Administration Operation :: Book Management :: View Book Details ***\n");
+    }
+
+    private boolean executeViewOperation() {
+        viewAllBooksOps = new ViewAllBooksOperation(SEC, MEC, BEC, LEC);
+        return viewAllBooksOps.displayAllBooks();
+    }
+
+    private void transferRequiredFields() {
+        this.bookList = viewAllBooksOps.getBookList();
     }
 
     private void getInput() {
-        System.out.println("Enter Book ID to View Details> ");
-        this.id = sc.nextLong();
+        System.out.print("Enter Book ID to View Details> ");
+        this.bookID = sc.nextLong();
     }
 
     public void start() {
         displayMenu();
-        this.bookList = viewAllBook.getBookList();
+        if (!executeViewOperation()) {
+            onOperationFailNavigate();
+        }
+        transferRequiredFields();
+        
         getInput();
-
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
             successDisplay();
@@ -54,31 +79,24 @@ public class ViewBookDetailsOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            BEC.retrieve(this.id);
-        } catch (Exception ex) {
+            this.book = BEC.viewBook(this.bookID);
+            return true;
+        } catch (BookNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
-    private void onOperationSuccessNavigate(){
-        try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
-        this.bookManagementModule.start();
+    private void onOperationSuccessNavigate() {
+        this.bookManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-         try{
-            Thread.sleep(1000);
-        }catch(InterruptedException ex){
-        }
-        this.bookManagementModule.start();
+        start();
     }
-
-    //    Settter ..........
-    public void setBookManagementModIn(BookManagementModule bookManagementModule) {
-        this.bookManagementModule = bookManagementModule;
+    
+    // Setter
+    public void setBookManageModIn(BookManagementModule bookManageModIn) {
+        this.bookManageModIn = bookManageModIn;
     }
 }

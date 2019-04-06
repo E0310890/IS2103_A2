@@ -37,7 +37,7 @@ public class DeleteMemberOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Administration Operation :: Member Management :: Delete Member***\n");
+        System.out.println("*** ILS :: Administration Operation :: Member Management :: Delete Member ***\n");
     }
 
     private boolean executeViewOperation() {
