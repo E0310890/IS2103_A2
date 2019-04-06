@@ -18,14 +18,15 @@ import util.exception.MemberNotFoundException;
 public class LendBookOperation {
 
     private Scanner sc = new Scanner(System.in);
-
     //API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    
     //modules
     private MemberMenuModule MemberMenuModIn;
+    
     //fields
     private Member member;
     private Long bookId;
@@ -39,7 +40,7 @@ public class LendBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Library Operation :: Lend Book ***\n");
+        System.out.println("*** Self-Service Kiosk :: Main ***\n");     
     }
 
     private void getInput() {
@@ -61,7 +62,7 @@ public class LendBookOperation {
     }
 
     private void successDisplay() {
-        System.out.println("Successfully lent book. Due Date: "
+        System.out.println("\nSuccessfully lent book. Due Date: "
                 + Helper.dateToFormattedDateString(this.dueDate) + ".");
 
     }
@@ -69,7 +70,7 @@ public class LendBookOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.dueDate = LEC.lendBook(member, this.bookId);
+            this.dueDate = LEC.lendBook(this.member, this.bookId);
             return true;
         } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException ex) {
             System.err.println(ex.getMessage());
@@ -94,5 +95,9 @@ public class LendBookOperation {
     
     public void setMemberMenuModIn(MemberMenuModule MemberMenuModIn) {
         this.MemberMenuModIn = MemberMenuModIn;
+    }
+
+    public MemberMenuModule getMemberMenuOpsIn() {
+        return MemberMenuModIn;
     }
 }
