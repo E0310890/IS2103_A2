@@ -82,7 +82,7 @@ public class ReturnBookOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            result = LEC.ReturnLendBook(this.identityNumber, this.bookId);
+            result = LEC.ReturnLendBook(this.member, this.bookId);
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
@@ -100,9 +100,13 @@ public class ReturnBookOperation {
     //    Settter ..........
     public void setMember(Member member) {
         this.member = member;
-    }    
+    }  
     
     public void setMemberMenuModIn(MemberMenuModule MemberMenuModIn) {
         this.MemberMenuModIn = MemberMenuModIn;
+    }
+
+    public MemberMenuModule getMemberMenuOpsIn() {
+        return MemberMenuModIn;
     }
 }
