@@ -91,7 +91,7 @@ public class MemberManagementModule {
         viewAllMemberOps.setMemberManageModIn(this);
     }
 
-//    Settter ..........
+    // Setter
     public void setAdminModIn(AdminModule adminModIn) {
         this.adminModIn = adminModIn;
     }

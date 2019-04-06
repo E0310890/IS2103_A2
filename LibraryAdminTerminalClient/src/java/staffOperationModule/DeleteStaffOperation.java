@@ -94,7 +94,7 @@ public class DeleteStaffOperation {
         start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
         this.staffManageModIn = staffManageModIn;
     }

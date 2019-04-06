@@ -141,7 +141,7 @@ public class UpdateMemberOperation {
         start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
         this.memberManageModIn = memberManageModIn;
     }

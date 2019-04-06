@@ -91,7 +91,7 @@ public class StaffManagementModule {
         viewAllStaffOps.setStaffManageModIn(this);
     }
 
-//    Settter ..........
+    // Setter
     public void setAdminModIn(AdminModule adminModIn) {
         this.adminModIn = adminModIn;
     }

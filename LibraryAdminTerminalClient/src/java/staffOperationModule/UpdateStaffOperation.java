@@ -128,7 +128,7 @@ public class UpdateStaffOperation {
         start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
         this.staffManageModIn = staffManageModIn;
     }    

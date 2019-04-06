@@ -95,8 +95,8 @@ public class ViewMemberDetailsOperation {
     private void onOperationFailNavigate() {
         start();
     }
-
-    // Settter
+    
+    // Setter
     public void setMemberManageModIn(MemberManagementModule memberManageModIn) {
         this.memberManageModIn = memberManageModIn;
     }
