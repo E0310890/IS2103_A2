@@ -71,11 +71,11 @@ public class StaffManagementModule {
     }
 
     private void setBackInstance() {
-        addStaffOps.setMemManageModIn(this);
-        viewStaffDetailsOps.setMemManageModIn(this);
-        updateStaffOps.setMemManageModIn(this);
-        deleteStaffOps.setMemManageModIn(this);
-        viewAllStaffOps.setMemManageModIn(this);
+        addStaffOps.setStaffManageModIn(this);
+        viewStaffDetailsOps.setStaffManageModIn(this);
+        updateStaffOps.setStaffManageModIn(this);
+        deleteStaffOps.setStaffManageModIn(this);
+        viewAllStaffOps.setStaffManageModIn(this);
     }
 
 //    Settter ..........

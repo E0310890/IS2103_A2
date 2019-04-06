@@ -9,7 +9,7 @@ public class DeleteStaffOperation {
     //API
     private StaffEntityControllerRemote SEC;
     //modules
-    private StaffManagementModule staffManagementModule;
+    private StaffManagementModule staffManageModIn;
 
     //fields
     private long id;
@@ -60,7 +60,7 @@ public class DeleteStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -68,12 +68,12 @@ public class DeleteStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     //    Settter ..........
 
-    public void setMemManageModIn(StaffManagementModule staffManagementModule) {
-        this.staffManagementModule = staffManagementModule;
+    public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
+        this.staffManageModIn = staffManageModIn;
     }
 }

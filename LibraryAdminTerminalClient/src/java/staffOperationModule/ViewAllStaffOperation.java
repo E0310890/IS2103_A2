@@ -10,7 +10,7 @@ public class ViewAllStaffOperation {
     //API
     private StaffEntityControllerRemote SEC;
     //modules
-    private StaffManagementModule staffManagementModule;
+    private StaffManagementModule staffManageModIn;
 
     //fields
     private List<Staff> staffList;
@@ -62,7 +62,7 @@ public class ViewAllStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -70,13 +70,13 @@ public class ViewAllStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     //    Settter ..........
 
-    public void setMemManageModIn(StaffManagementModule staffManagementModule) {
-        this.staffManagementModule = staffManagementModule;
+    public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
+        this.staffManageModIn = staffManageModIn;
     }
     
     public List<Staff> getStaffList(){

@@ -15,7 +15,8 @@ public interface StaffEntityControllerRemote {
     public boolean deleteStaff(Staff staff); */
    
     public Staff staffLogin (String username, String password) throws InvalidLoginCredentialException;
-    public Staff createStaff(Staff staff) throws PersistenceException ;
+    public boolean registerStaff(Staff staff) throws InvalidInputException;    
+    // public Staff createStaff(Staff staff) throws PersistenceException ;
     public List<Staff> retrieveAll() throws PersistenceException; 
     public Staff retrieve(long id) throws StaffNotFoundException;
     public Staff updateStaff(Staff staff) throws InvalidInputException;

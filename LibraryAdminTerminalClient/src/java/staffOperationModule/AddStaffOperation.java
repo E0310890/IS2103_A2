@@ -2,21 +2,32 @@ package staffOperationModule;
 
 import java.util.Scanner;
 import model.Staff;
+import session.stateless.remote.BookEntityControllerRemote;
+import session.stateless.remote.LendEntityControllerRemote;
+import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import util.exception.InvalidInputException;
+
 
 public class AddStaffOperation {
     
     private Scanner sc = new Scanner(System.in);
     //API
     private StaffEntityControllerRemote SEC;
+    private MemberEntityControllerRemote MEC;
+    private BookEntityControllerRemote BEC;
+    private LendEntityControllerRemote LEC;
     //modules
-    private StaffManagementModule staffManagementModule;
+    private StaffManagementModule staffManageModIn;
 
     //fields
     private Staff staff;
 
-    public AddStaffOperation(StaffEntityControllerRemote SEC) {
+    public AddStaffOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
+        this.MEC = MEC;
+        this.BEC = BEC;
+        this.LEC = LEC;
     }
 
     private void displayMenu() {
@@ -59,8 +70,7 @@ public class AddStaffOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            this.staff = SEC.createStaff(this.staff);
-            result = true;
+            result = SEC.registerStaff(this.staff);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -72,7 +82,7 @@ public class AddStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
@@ -80,12 +90,12 @@ public class AddStaffOperation {
             Thread.sleep(1000);
         }catch(InterruptedException ex){
         }
-        this.staffManagementModule.start();
+        this.staffManageModIn.start();
     }
 
     //    Settter ..........
 
-    public void setMemManageModIn(StaffManagementModule staffManagementModule) {
-        this.staffManagementModule = staffManagementModule;
+    public void setStaffManageModIn(StaffManagementModule staffManageModIn) {
+        this.staffManageModIn = staffManageModIn;
     }
 }

@@ -27,16 +27,17 @@ public class StaffEntityController implements StaffEntityControllerRemote {
     private EntityManager em;
     
     @Override
-    public Staff createStaff(Staff staff) throws PersistenceException {
-        StaffEntity staffE = new StaffEntity(staff);
+    public boolean registerStaff(Staff staff) throws InvalidInputException{
+        StaffEntity se = new StaffEntity(staff);
         try {
-            if (staffE.getStaffID() == null) {
-                em.persist(staffE);
+            if (se.getStaffID() == null) {
+                em.persist(se);
+                em.flush();
             }
-        } catch (PersistenceException ex) {
-            throw ex;
+            return true;
+        } catch (Exception ex) {
+            throw new InvalidInputException("Please input correct personal details");
         }
-        return staff; 
     }
     
     @Override
