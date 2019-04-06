@@ -37,7 +37,8 @@ public class MemberMenuModule {
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
-        lendBookOps = new LendBookOperation(SEC, MEC, BEC, LEC);        
+        lendBookOps = new LendBookOperation(SEC, MEC, BEC, LEC);   
+        viewLentBookOps = new ViewLentBookOperation(SEC, MEC, BEC, LEC);           
     }
 
     private void displayMenu() {
@@ -64,7 +65,9 @@ public class MemberMenuModule {
     public void start(){
         displayMenu();
         getInput();
-
+        
+        setField(member);
+        
         setBackInstance();
         navigate(this.input);
     }
@@ -75,7 +78,7 @@ public class MemberMenuModule {
                 lendBookOps.start();
             case 2:
                 viewLentBookOps.start();
-            case 3:
+            case 3:              
                 returnBookOps.start();
             case 8:
                 loginOpsIn.getSSKRootModIn().startRoot();
@@ -85,8 +88,14 @@ public class MemberMenuModule {
     private void setBackInstance() {
         lendBookOps.setMemberMenuModIn(this);     
         viewLentBookOps.setMemberMenuModIn(this);
-        returnBookOps.setMemberMenuModIn(this);        
+        // returnBookOps.setMemberMenuModIn(this);        
     }
+    
+    private void setField(Member member) {
+        this.lendBookOps.setMember(member);
+        this.viewLentBookOps.setMember(member);
+        // this.returnBookOps.setMember(member);
+    }    
 
     //    Settter ..........
     public void setMember(Member member) {
