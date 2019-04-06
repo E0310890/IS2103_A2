@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import memberOperationModule.MemberMenuModule;
 import model.Lend;
+import model.Member;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -23,10 +24,12 @@ public class ViewLentBookOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    
     //modules
     private MemberMenuModule MemberMenuModIn;
 
     //fields
+    private Member member;    
     private String identityNumber;
     private List<Lend> lendList;
 
@@ -38,12 +41,11 @@ public class ViewLentBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Library Operation :: View Lent Books ***\n");
+        System.out.println("*** Self-Service Kiosk :: View Lent Books ***\n");
     }
 
     private void getInput() {
-        System.out.println("Enter Member Identity Number> ");
-        this.identityNumber = sc.next();
+        this.member.getIdentityNumber();
     }
 
     public void start() {
@@ -67,7 +69,7 @@ public class ViewLentBookOperation {
         boolean result = false;
 
         try {
-            this.lendList = LEC.ViewLendBooks(this.identityNumber);
+            this.lendList = LEC.ViewLendBooks(this.member);
             return true;
         } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
@@ -84,8 +86,16 @@ public class ViewLentBookOperation {
     }
 
     //    Settter ..........
+    public void setMember(Member member) {
+        this.member = member;
+    }  
+    
     public void setMemberMenuModIn(MemberMenuModule MemberMenuModIn) {
         this.MemberMenuModIn = MemberMenuModIn;
+    }
+
+    public MemberMenuModule getMemberMenuOpsIn() {
+        return MemberMenuModIn;
     }
 
     public boolean viewLendBooks() {
