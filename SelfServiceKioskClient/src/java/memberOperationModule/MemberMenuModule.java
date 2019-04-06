@@ -24,13 +24,13 @@ public class MemberMenuModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     //modules
-    private LendBookOperation lendBookOps;
-    private ViewLentBooksOperation viewLentBooksOps;
-    private ReturnBookOperation returnBookOps;   
-    private ExtendBookOperation extendBookOps;
-    private PayFinesOperation payFinesOps;
-    private SearchBookOperation searchBookOps;
-    private ReserveBookOperation reserveBookOps;   
+    private final LendBookOperation lendBookOps;
+    private final ViewLentBooksOperation viewLentBooksOps;
+    private final ReturnBookOperation returnBookOps;   
+    private final ExtendBookOperation extendBookOps;
+    private final PayFinesOperation payFinesOps;
+    private final SearchBookOperation searchBookOps;
+    private final ReserveBookOperation reserveBookOps;   
     private LoginOperation loginOpsIn;
     //fields
     private int input;
@@ -105,7 +105,7 @@ public class MemberMenuModule {
     private void setBackInstance() {
         lendBookOps.setMemberMenuModIn(this);     
         viewLentBooksOps.setMemberMenuModIn(this);
-        // returnBookOps.setMemberMenuModIn(this);  
+        returnBookOps.setMemberMenuModIn(this);  
         // extendBookOps.setMemberMenuModIn(this);     
         // payFinesOps.setMemberMenuModIn(this);  
         // searchBooks.setMemberMenuModIn(this);
@@ -115,7 +115,7 @@ public class MemberMenuModule {
     private void setField(Member member) {
         this.lendBookOps.setMember(member);
         this.viewLentBooksOps.setMember(member);
-        // this.returnBookOps.setMember(member);
+        this.returnBookOps.setMember(member);
         // this.extendBookOps.setMember(member);
         // this.payFinesOps.setMember(member);
         // this.searchBooks.setMember(member);    

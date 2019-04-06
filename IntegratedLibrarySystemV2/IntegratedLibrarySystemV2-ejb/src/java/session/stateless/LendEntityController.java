@@ -107,8 +107,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     }
 
     @Override
-    public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException {
-        String identityNumber = member.getIdentityNumber();
+    public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException { 
+        String identityNumber = member.getIdentityNumber();    
         return ViewLendBooks(identityNumber);        
     }
 

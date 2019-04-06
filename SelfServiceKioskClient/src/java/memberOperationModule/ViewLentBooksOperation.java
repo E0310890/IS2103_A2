@@ -44,13 +44,13 @@ public class ViewLentBooksOperation {
         System.out.println("*** Self-Service Kiosk :: View Lent Books ***\n");
     }
 
-    private void getInput() {
+    /* private void getInput() {
         this.member.getIdentityNumber();
-    }
+    } */
 
     public void start() {
         displayMenu();
-        getInput();
+        // getInput();
 
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
@@ -99,7 +99,7 @@ public class ViewLentBooksOperation {
     }
 
     public boolean viewLendBooks() {
-        getInput();
+        // getInput();
 
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
@@ -109,6 +109,18 @@ public class ViewLentBooksOperation {
             return false;
         }
     }
+    
+    public boolean viewLendBooks(Member member) {
+        // getInput();
+
+        boolean executeSuccess = executeOperation();
+        if (executeSuccess) {
+            successDisplay();
+            return true;
+        } else {
+            return false;
+        }
+    }    
 
     public String getIdentityNumber() {
         return identityNumber;

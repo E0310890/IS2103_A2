@@ -41,12 +41,12 @@ public class ReturnBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Library Operation :: Return Book ***\n");
+        System.out.println("*** Self-Service Kiosk :: Return Book ***\n");
     }
 
     private boolean executeViewOperation() {
         viewLentBookOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
-        return viewLentBookOps.viewLendBooks();
+        return viewLentBookOps.viewLendBooks(this.member);
     }
 
     /* private void transferRequiredFields() {
@@ -54,7 +54,7 @@ public class ReturnBookOperation {
     } */
 
     private void getInput() {
-        System.out.println("Enter Book to Return> ");
+        System.out.print("Enter Book to Return> ");
         this.bookId = sc.nextLong();
     }
 
