@@ -26,7 +26,7 @@ import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
 import session.stateless.local.PaymentEntityControllerLocal;
-import session.stateless.local.ReservationEntityControllerLocal;
+// import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.LendEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
@@ -48,8 +48,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     private BookEntityControllerLocal BEC;
     @EJB
     private PaymentEntityControllerLocal PEC;
-    @EJB 
-    private ReservationEntityControllerLocal REC;
+    /* @EJB 
+    private ReservationEntityControllerLocal REC; */
 
     private final int lendThreshold = 3;
 
@@ -133,12 +133,18 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     public boolean ReturnLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException {
         try {
             MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
-
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
+            
             // if book have overdued
-            //**implement here...          
-            remove(currentLendCtx);
-            return true;
+            if(isOverDue(currentLendCtx)){
+                PEC.createFine(currentLendCtx);
+                remove(currentLendCtx);
+                return false;
+            }else{
+                remove(currentLendCtx);
+                return true;
+            }
+            
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             throw ex;
         } catch (PersistenceException ex) {
@@ -154,13 +160,14 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             
             // if book have overdued
             if(isOverDue(currentLendCtx)){
-                PaymentEntity paymentE = PEC.createFine(currentLendCtx);
+                PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
                 return false;
             }else{
                 remove(currentLendCtx);
                 return true;
             }
+            
         } catch (MemberNotFoundException | LendNotFoundException ex) {
             throw ex;
         } catch (PersistenceException ex) {
@@ -169,8 +176,9 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     }
 
     @Override
-    public Date ExtendLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Date ExtendLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException, FineNotPaidException {
+        String identityNumber = member.getIdentityNumber();
+            return ExtendLendBook(identityNumber, lendId);
     }
 
     @Override
@@ -190,7 +198,6 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             }
 
             //The book is reserved by another member
-
             
             //no problem, extent
             currentLendCtx.setLendDate(currentLendCtx.getDueDate());

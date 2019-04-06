@@ -25,8 +25,12 @@ public class MemberMenuModule {
     private LendEntityControllerRemote LEC;
     //modules
     private LendBookOperation lendBookOps;
-    private ViewLentBookOperation viewLentBookOps;
-    private ReturnBookOperation returnBookOps;    
+    private ViewLentBooksOperation viewLentBooksOps;
+    private ReturnBookOperation returnBookOps;   
+    private ExtendBookOperation extendBookOps;
+    private PayFinesOperation payFinesOps;
+    private SearchBookOperation searchBookOps;
+    private ReserveBookOperation reserveBookOps;   
     private LoginOperation loginOpsIn;
     //fields
     private int input;
@@ -38,7 +42,12 @@ public class MemberMenuModule {
         this.BEC = BEC;
         this.LEC = LEC;
         lendBookOps = new LendBookOperation(SEC, MEC, BEC, LEC);   
-        viewLentBookOps = new ViewLentBookOperation(SEC, MEC, BEC, LEC);           
+        viewLentBooksOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);   
+        returnBookOps = new ReturnBookOperation(SEC, MEC, BEC, LEC); 
+        extendBookOps = new ExtendBookOperation(SEC, MEC, BEC, LEC); 
+        payFinesOps = new PayFinesOperation(SEC, MEC, BEC, LEC);
+        searchBookOps = new SearchBookOperation(SEC, MEC, BEC, LEC);
+        reserveBookOps = new ReserveBookOperation(SEC, MEC, BEC, LEC);          
     }
 
     private void displayMenu() {
@@ -77,9 +86,17 @@ public class MemberMenuModule {
             case 1:
                 lendBookOps.start();
             case 2:
-                viewLentBookOps.start();
+                viewLentBooksOps.start();
             case 3:              
                 returnBookOps.start();
+            case 4:
+                extendBookOps.start();
+            case 5:
+                payFinesOps.start();      
+            case 6:
+                searchBookOps.start();  
+            case 7:
+                reserveBookOps.start();                      
             case 8:
                 loginOpsIn.getSSKRootModIn().startRoot();
         }
@@ -87,14 +104,22 @@ public class MemberMenuModule {
 
     private void setBackInstance() {
         lendBookOps.setMemberMenuModIn(this);     
-        viewLentBookOps.setMemberMenuModIn(this);
-        // returnBookOps.setMemberMenuModIn(this);        
+        viewLentBooksOps.setMemberMenuModIn(this);
+        // returnBookOps.setMemberMenuModIn(this);  
+        // extendBookOps.setMemberMenuModIn(this);     
+        // payFinesOps.setMemberMenuModIn(this);  
+        // searchBooks.setMemberMenuModIn(this);
+        // reserveBookOps.setMemberMenuModIn(this);
     }
     
     private void setField(Member member) {
         this.lendBookOps.setMember(member);
-        this.viewLentBookOps.setMember(member);
+        this.viewLentBooksOps.setMember(member);
         // this.returnBookOps.setMember(member);
+        // this.extendBookOps.setMember(member);
+        // this.payFinesOps.setMember(member);
+        // this.searchBooks.setMember(member);    
+        // this.reserveBookOps.setMember(member);   
     }    
 
     //    Settter ..........

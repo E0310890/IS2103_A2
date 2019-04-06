@@ -22,6 +22,6 @@ public interface LendEntityControllerRemote {
     public List<Lend> ViewLendBooks(String identityNumber) throws MemberNotFoundException;
     public boolean ReturnLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException;
     public boolean ReturnLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException;
-    public Date ExtendLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException;
+    public Date ExtendLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException, FineNotPaidException;
     public Date ExtendLendBook(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, BookOverDueException, FineNotPaidException;   
 }

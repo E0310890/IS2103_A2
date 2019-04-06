@@ -1,5 +1,6 @@
 package memberOperationModule;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -7,14 +8,14 @@ import java.util.logging.Logger;
 import memberOperationModule.MemberMenuModule;
 import model.Lend;
 import model.Member;
+import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
-public class ReturnBookOperation {
+public class ViewLentBooksOperation {
 
     private Scanner sc = new Scanner(System.in);
 
@@ -23,17 +24,16 @@ public class ReturnBookOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    
     //modules
     private MemberMenuModule MemberMenuModIn;
-    //Dependecies
-    private ViewLentBooksOperation viewLentBookOps;
 
     //fields
-    private Member member;    
-    // private String identityNumber;
-    private Long bookId;
+    public Member member;    
+    private String identityNumber;
+    private List<Lend> lendList;
 
-    public ReturnBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public ViewLentBooksOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
@@ -41,31 +41,17 @@ public class ReturnBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** ILS :: Library Operation :: Return Book ***\n");
+        System.out.println("*** Self-Service Kiosk :: View Lent Books ***\n");
     }
-
-    private boolean executeViewOperation() {
-        viewLentBookOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
-        return viewLentBookOps.viewLendBooks();
-    }
-
-    /* private void transferRequiredFields() {
-        this.identityNumber = viewLentBookOps.member.getIdentityNumber();
-    } */
 
     private void getInput() {
-        System.out.println("Enter Book to Return> ");
-        this.bookId = sc.nextLong();
+        this.member.getIdentityNumber();
     }
 
     public void start() {
         displayMenu();
-        if (!executeViewOperation()) {
-            onOperationFailNavigate();
-        }
-        // transferRequiredFields();
-        
         getInput();
+
         boolean executeSuccess = executeOperation();
         if (executeSuccess) {
             successDisplay();
@@ -76,14 +62,16 @@ public class ReturnBookOperation {
     }
 
     private void successDisplay() {
-        System.out.println("Book successfully returned.");
+        Helper.displayLending(this.lendList);
     }
 
     private boolean executeOperation() {
         boolean result = false;
+
         try {
-            result = LEC.ReturnLendBook(this.member, this.bookId);
-        } catch (MemberNotFoundException | LendNotFoundException ex) {
+            this.lendList = LEC.ViewLendBooks(this.member);
+            return true;
+        } catch (MemberNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
         return result;
@@ -109,8 +97,20 @@ public class ReturnBookOperation {
     public MemberMenuModule getMemberMenuOpsIn() {
         return MemberMenuModIn;
     }
-    
-    /* public String getIdentityNumber() {
+
+    public boolean viewLendBooks() {
+        getInput();
+
+        boolean executeSuccess = executeOperation();
+        if (executeSuccess) {
+            successDisplay();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getIdentityNumber() {
         return identityNumber;
-    } */
+    }
 }

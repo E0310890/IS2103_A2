@@ -19,7 +19,7 @@ import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
 import session.stateless.local.PaymentEntityControllerLocal;
-import session.stateless.local.ReservationEntityControllerLocal;
+// import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.PaymentEntityControllerRemote;
 import util.exception.FineNotFoundException;
