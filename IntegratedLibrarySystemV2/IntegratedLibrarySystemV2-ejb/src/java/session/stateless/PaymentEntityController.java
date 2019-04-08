@@ -4,6 +4,7 @@ import entity.LendingEntity;
 import entity.MemberEntity;
 import entity.PaymentEntity;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -66,32 +67,37 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
     
     @Override
     public boolean payFine(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return payFine(member.getIdentityNumber(), lendId);
     }
 
     @Override
-    public boolean payFine(String identityNumber, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException {
+    public boolean payFine(String identityNumber, Long lendId) throws MemberNotFoundException, FineNotFoundException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
-            LendingEntity currentLendCtx = LEC.getMemberLendCtx(memberE, lendId);
-
+            PaymentEntity paymentE = memberE.getPayment()
+                                    .stream()
+                                    .filter(p -> p.getLendID().equals(lendId))
+                                    .findFirst()
+                                    .get();
+            em.remove(paymentE);
             return true;
-            
-        } catch (MemberNotFoundException | LendNotFoundException ex) {
+        } catch (MemberNotFoundException ex) {
             throw ex;
+        }catch ( NoSuchElementException ex){
+            throw new FineNotFoundException("You entered an invalid fine ID"); 
         }
     }
 
     @Override
-    public List<Fine> ViewFine(Member member) throws MemberNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Fine> viewFine(Member member) throws MemberNotFoundException {
+        return viewFine(member.getIdentityNumber());
     }
 
     @Override
-    public List<Fine> ViewFine(String identityNumber) throws MemberNotFoundException {
+    public List<Fine> viewFine(String identityNumber) throws MemberNotFoundException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
-            List<PaymentEntity> paymentList = getAllFines(memberE);
+            List<PaymentEntity> paymentList = memberE.getPayment();
 
             return paymentList.stream()
                     .map(p -> p.toFine())
@@ -102,25 +108,4 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
         }
     }
 
-    private List<PaymentEntity> getAllFines(MemberEntity memberE) {
-        List<LendingEntity> lendingList = memberE.getLending();
-        return null;
-                /* .filter(le -> le.getPayment().fineExist())
-                .map(le -> le.getPayment())
-                .collect(Collectors.toList()); */
-    }
-
-    private boolean pay(PaymentEntity payment) throws FineNotFoundException {
-        try {
-            /* if (payment.fineExist()) {
-                payment.setPaid(true);
-                update(payment); 
-            } else {
-                throw new FineNotFoundException("No Fine Found.");
-            } */
-            return true;
-        } catch(PersistenceException ex){
-            return false;
-        }
-    }
 }

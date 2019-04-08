@@ -74,17 +74,25 @@ public class LendBookOperation {
         try {
             this.dueDate = LEC.lendBook(this.member, this.bookId);
             return true;
-         } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException | LoanLimitHitException | FineNotPaidException ex) {
+         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
     private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.MemberMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.MemberMenuModIn.start();
     }
 

@@ -1,11 +1,9 @@
 package memberOperationModule;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import memberOperationModule.MemberMenuModule;
+import model.Book;
 import model.Lend;
 import model.Member;
 import services.Helper;
@@ -29,9 +27,9 @@ public class SearchBookOperation {
     private MemberMenuModule MemberMenuModIn;
 
     //fields
-    public Member member;    
-    private String identityNumber;
-    private List<Lend> lendList;
+    private String title;
+    private Member member;
+    private List<Book> bookList;
 
     public SearchBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
@@ -41,11 +39,12 @@ public class SearchBookOperation {
     }
 
     private void displayMenu() {
-        System.out.println("*** Self-Service Kiosk :: View Lent Books ***\n");
+        System.out.println("*** Self-Service Kiosk :: Search Book ***\n");
     }
 
     private void getInput() {
-        this.member.getIdentityNumber();
+        System.out.println("Enter Title to Search> \n");
+        this.title = sc.nextLine();
     }
 
     public void start() {
@@ -62,27 +61,35 @@ public class SearchBookOperation {
     }
 
     private void successDisplay() {
-        Helper.displayLending(this.lendList);
+        Helper.displayBook(this.bookList);
     }
 
     private boolean executeOperation() {
         boolean result = false;
 
         try {
-            this.lendList = LEC.ViewLendBooks(this.member);
+            this.bookList = BEC.searchBook(this.title, this.member);
             return true;
-        } catch (MemberNotFoundException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
     private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.MemberMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        start();
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.MemberMenuModIn.start();
     }
 
     //    Settter ..........
@@ -110,7 +117,4 @@ public class SearchBookOperation {
         }
     }
 
-    public String getIdentityNumber() {
-        return identityNumber;
-    }
 }

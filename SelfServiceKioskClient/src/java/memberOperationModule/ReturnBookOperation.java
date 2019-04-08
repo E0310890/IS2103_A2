@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import memberOperationModule.MemberMenuModule;
 import model.Lend;
 import model.Member;
+import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
@@ -32,6 +33,7 @@ public class ReturnBookOperation {
     private Member member;    
     // private String identityNumber;
     private Long bookId;
+    private List<Lend> lendList;
 
     public ReturnBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
@@ -42,17 +44,7 @@ public class ReturnBookOperation {
 
     private void displayMenu() {
         System.out.println("*** Self-Service Kiosk :: Return Book ***\n");
-        // System.out.println(member.getIdentityNumber());
     }
-
-    private boolean executeViewOperation() {
-        viewLentBookOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
-        return viewLentBookOps.viewLendBooks();
-    }
-
-    /* private void transferRequiredFields() {
-        this.identityNumber = viewLentBookOps.member.getIdentityNumber();
-    } */
 
     private void getInput() {
         System.out.print("Enter Book to Return> ");
@@ -61,10 +53,7 @@ public class ReturnBookOperation {
 
     public void start() {
         displayMenu();
-        /* if (!executeViewOperation()) {
-            onOperationFailNavigate();
-        } */
-        // transferRequiredFields();
+        displayLentBook();
         
         getInput();
         boolean executeSuccess = executeOperation();
@@ -74,6 +63,15 @@ public class ReturnBookOperation {
         } else {
             onOperationFailNavigate();
         }
+    }
+    
+    private void displayLentBook(){
+         try {
+            this.lendList = LEC.ViewLendBooks(this.member);
+        } catch (MemberNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        Helper.displayLending(this.lendList);
     }
 
     private void successDisplay() {
@@ -85,18 +83,26 @@ public class ReturnBookOperation {
         try {
             result = LEC.ReturnLendBook(this.member, this.bookId);
             successDisplay();
-        } catch (MemberNotFoundException | LendNotFoundException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
     }
 
     private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.MemberMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        start();
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.MemberMenuModIn.start();
     }
 
     //    Settter ..........

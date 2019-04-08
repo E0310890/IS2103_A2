@@ -16,6 +16,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolationException;
 import model.Book;
+import model.Member;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.remote.BookEntityControllerRemote;
 import util.exception.InvalidInputException;
@@ -105,6 +106,28 @@ public class BookEntityController implements BookEntityControllerRemote , BookEn
             throw new BookNotFoundException("No such Book with ID: " + BookID);
         }
     }
+    
+    @Override
+    public List<Book> searchBook(String title, Member member) throws BookNotFoundException{
+        String jpql = "SELECT b from BookEntity WHERE b.title LIKE '%:title%'";
+        Query query = em.createQuery(jpql);
+        query.setParameter("title", title);
+        List<BookEntity> bookList = query.getResultList();
+        
+        for(BookEntity be : bookList){
+            
+            // check reservation, set book stautes to reserved by other OR reserved by you
+            be.getReservationList();
+            
+            // check lending, set due day
+            
+                    
+            // inside library, set avaliable 
+            
+        }
+        
+        return null;
+    }
        
     public void remove(BookEntity be) throws PersistenceException {
         try {
@@ -125,7 +148,7 @@ public class BookEntityController implements BookEntityControllerRemote , BookEn
         }
     }
 
-    public BookEntity retrieve(long bookID) throws PersistenceException {
+    public BookEntity retrieve(long bookID) throws BookNotFoundException {
         String jpql = "SELECT b FROM BookEntity b WHERE b.bookID = :bookID";
         Query query = em.createQuery(jpql);
         query.setParameter("bookID", bookID);
@@ -133,7 +156,7 @@ public class BookEntityController implements BookEntityControllerRemote , BookEn
         try {
             BookE = (BookEntity) query.getSingleResult();
         } catch (PersistenceException ex) {
-            throw ex;
+            throw new BookNotFoundException("This book does not exist.");
         }
         return BookE;
     }
@@ -164,8 +187,5 @@ public class BookEntityController implements BookEntityControllerRemote , BookEn
         return Books;
     }
     
-    @Remove
-    public void destroy() {
-        em.close();
-    }
+
 }

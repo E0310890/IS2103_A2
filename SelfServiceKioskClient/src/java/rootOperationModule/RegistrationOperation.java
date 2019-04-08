@@ -2,20 +2,11 @@ package rootOperationModule;
 
 import java.util.Scanner;
 import model.Member;
-import model.Staff;
-
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.InvalidInputException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class RegistrationOperation {
 
@@ -98,11 +89,19 @@ public class RegistrationOperation {
     }
 
     private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
         this.sskRootModIn.startRoot();
     }
 
     private void onOperationFailNavigate() {
-        start();
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.sskRootModIn.startRoot();
     }
 
     //    Settter ..........

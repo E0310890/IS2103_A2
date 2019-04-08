@@ -1,11 +1,9 @@
 package memberOperationModule;
 
-import memberOperationModule.ViewLentBooksOperation;
-import memberOperationModule.MemberMenuModule;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import model.Lend;
 import model.Member;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -32,9 +30,9 @@ public class ExtendBookOperation {
     private ViewLentBooksOperation viewLentBookOps;
     //fields
     private Member member;        
-    private String identityNumber;
     private Long bookId;
     private Date dueDate;
+    private List<Lend> lendList;
     
     public ExtendBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
         this.SEC = SEC;
@@ -47,15 +45,6 @@ public class ExtendBookOperation {
         System.out.println("*** ILS :: Library Operation :: Return Book ***\n");
     }
     
-    private boolean executeViewOperation() {
-        viewLentBookOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
-        return viewLentBookOps.viewLendBooks();
-    }
-    
-    /* private void transferRequiredFields() {
-        this.identityNumber = viewLentBookOps.getIdentityNumber();
-    } */
-    
     private void getInput() {
         System.out.println("Enter Book to Extend> ");
         this.bookId = sc.nextLong();
@@ -63,10 +52,7 @@ public class ExtendBookOperation {
     
     public void start() {
         displayMenu();
-        /* if (!executeViewOperation()) {
-            onOperationFailNavigate();
-        } */
-        // transferRequiredFields();
+        displayLentBook();
         
         getInput();
         boolean executeSuccess = executeOperation();
@@ -78,13 +64,25 @@ public class ExtendBookOperation {
         }
     }
     
+    private void displayLentBook(){
+        try {
+            this.lendList = LEC.ViewLendBooks(this.member);
+        } catch (MemberNotFoundException ex) {
+            System.err.println(ex.getMessage());
+        }
+        Helper.displayLending(this.lendList);
+    }
+    
     private void successDisplay() {
         System.out.println("Book successfully extended. New due date: " + Helper.dateToFormattedDateString(this.dueDate));
     }
     
     private boolean executeOperation() {
         boolean result = false;
-        try {
+        try {try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
             this.dueDate = LEC.ExtendLendBook(this.member, this.bookId);
             return true;
         } catch (MemberNotFoundException | LendNotFoundException | BookOverDueException | FineNotPaidException ex) {
@@ -94,11 +92,16 @@ public class ExtendBookOperation {
     }
     
     private void onOperationSuccessNavigate() {
+        
         this.MemberMenuModIn.start();
     }
     
     private void onOperationFailNavigate() {
-        start();
+         try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.MemberMenuModIn.start();
     }
 
     //    Settter ..........

@@ -1,11 +1,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import model.Book;
 
 @Entity
@@ -25,6 +27,9 @@ public class BookEntity implements Serializable {
     
     @Column(nullable = false, length = 4)
     private String year;
+    
+    @ManyToOne
+    private List<ReservationEntity> reservationList;
 
     public BookEntity() {
     }
@@ -57,7 +62,17 @@ public class BookEntity implements Serializable {
     public String getTitle() {
         return title;
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public List<ReservationEntity> getReservationList() {
+        return reservationList;
+    }
   
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

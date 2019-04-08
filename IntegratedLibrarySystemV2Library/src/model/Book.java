@@ -8,6 +8,7 @@ public class Book implements Serializable {
     private String isbn;    
     private String title;
     private String year;
+    private String status;
 
     public Book() {
     }
@@ -55,6 +56,14 @@ public class Book implements Serializable {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     @Override

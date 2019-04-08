@@ -4,6 +4,7 @@ import java.util.Scanner;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.PaymentEntityControllerRemote;
 import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
@@ -16,6 +17,7 @@ public class SSKRootModule {
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
+    private PaymentEntityControllerRemote PEC;
 
     //modules
     private final RegistrationOperation registerOps;    
@@ -24,14 +26,16 @@ public class SSKRootModule {
     //fields
     private int input;
 
-    public SSKRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
+    public SSKRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, 
+            LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC, PaymentEntityControllerRemote PEC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
         this.REC = REC;
+        this.PEC = PEC;
         this.registerOps = new RegistrationOperation(SEC, MEC, BEC, LEC);        
-        this.loginOps = new LoginOperation(SEC, MEC, BEC, LEC, REC);
+        this.loginOps = new LoginOperation(SEC, MEC, BEC, LEC, REC, PEC);
     }
 
     private void displayMenu() {

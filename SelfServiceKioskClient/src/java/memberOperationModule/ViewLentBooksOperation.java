@@ -1,11 +1,7 @@
 package memberOperationModule;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import memberOperationModule.MemberMenuModule;
 import model.Lend;
 import model.Member;
 import services.Helper;
@@ -38,6 +34,7 @@ public class ViewLentBooksOperation {
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        displayMenu();
     }
 
     private void displayMenu() {
@@ -82,7 +79,7 @@ public class ViewLentBooksOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+         this.MemberMenuModIn.start();
     }
 
     //    Settter ..........

@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
-import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -63,7 +61,6 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
         LoanLimitHitException, FineNotPaidException{
         String identityNumber = member.getIdentityNumber();
-        // System.out.println(identityNumber);
         return lendBook(identityNumber, bookId);
     }
 
@@ -101,7 +98,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
         } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException ex){
             throw ex;
-        } catch (Exception e) {
+        } catch (Exception e) { 
             throw new BookAlreadyLendedException("This book is currently lended by someone.");
         }
     }
@@ -234,7 +231,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         currentDate = new Date();  
         // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
         System.out.println(sdf.format(dueDate) + "         TEST DATE");
-        if (sdf.format(dueDate).compareTo("2019-04-09"/*sdf.format(currentDate)*/) < 0){
+        if (sdf.format(dueDate).compareTo("2019-05-15"/*sdf.format(currentDate)*/) < 0){
             return true;
         }
         return false;

@@ -6,15 +6,9 @@ import model.Member;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.PaymentEntityControllerRemote;
 import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.InvalidLoginCredentialException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class LoginOperation {
 
@@ -25,7 +19,8 @@ public class LoginOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    private ReservationEntityControllerRemote REC;    
+    private ReservationEntityControllerRemote REC;   
+    private PaymentEntityControllerRemote PEC;
     
     //modules
     private final MemberMenuModule memberMenuMod;
@@ -34,13 +29,15 @@ public class LoginOperation {
     private String username;
     private String password;
 
-    public LoginOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
+    public LoginOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, 
+            LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC,PaymentEntityControllerRemote PEC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
         this.REC = REC;
-        this.memberMenuMod = new MemberMenuModule(SEC, MEC, BEC, LEC, REC);
+        this.PEC = PEC;
+        this.memberMenuMod = new MemberMenuModule(SEC, MEC, BEC, LEC, REC, PEC);
     }
 
     public void displayMenu() {
@@ -100,7 +97,7 @@ public class LoginOperation {
             Thread.sleep(1000);
         }catch (InterruptedException ex){
         }
-        start();
+        this.SSKRootModIn.startRoot();
     }
     
 //    Settter ..........
