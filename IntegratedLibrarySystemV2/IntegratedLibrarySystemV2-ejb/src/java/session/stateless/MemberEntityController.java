@@ -94,12 +94,12 @@ public class MemberEntityController implements MemberEntityControllerRemote, Mem
     }
 
     @Override
-    public Member memberLogin(String username, String password) throws PersistenceException, InvalidLoginCredentialException {
+    public Member memberLogin(String identityNumber, String securityCode) throws PersistenceException, InvalidLoginCredentialException {
         Member member = new Member();
-        String jpql = "SELECT s FROM MemberEntity s WHERE s.userName =:username AND s.password =:password";
+        String jpql = "SELECT s FROM MemberEntity s WHERE s.identityNumber =:identityNumber AND s.securityCode =:securityCode";
         Query query = em.createQuery(jpql);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
+        query.setParameter("identityNumber", identityNumber);
+        query.setParameter("securityCode", securityCode);
         try {
             MemberEntity me  = (MemberEntity)query.getSingleResult();   
             member = me.toMember();   

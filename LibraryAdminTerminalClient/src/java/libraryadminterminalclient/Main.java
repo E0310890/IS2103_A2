@@ -5,6 +5,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 
 public class Main {
 
@@ -16,10 +17,12 @@ public class Main {
     private static BookEntityControllerRemote BEC;
     @EJB
     private static LendEntityControllerRemote LEC;
+    @EJB
+    private static ReservationEntityControllerRemote REC;
 
     public static void main(String[] args) {
 
-        MainApp app = new MainApp(SEC, MEC, BEC, LEC);
+        MainApp app = new MainApp(SEC, MEC, BEC, LEC, REC);
         app.runApp();
     }
 

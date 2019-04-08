@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import model.Lend;
+import model.Reservation;
 
 public class Helper {
 
@@ -15,6 +16,10 @@ public class Helper {
 
     public static void displayLending(List<Lend> lendList) {
 
+        if (lendList.isEmpty()) {
+            return;
+        }
+        
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 

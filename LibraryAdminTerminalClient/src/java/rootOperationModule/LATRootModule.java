@@ -4,6 +4,7 @@ import java.util.Scanner;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 
 public class LATRootModule {
@@ -14,19 +15,21 @@ public class LATRootModule {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-
+    private ReservationEntityControllerRemote REC;
+    
     //modules
     private final LoginOperation loginOps;
 
     //fields
     private int input;
 
-    public LATRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public LATRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
-        this.loginOps = new LoginOperation(SEC, MEC, BEC, LEC);
+        this.REC = REC;
+        this.loginOps = new LoginOperation(SEC, MEC, BEC, LEC, REC);
     }
 
     private void displayMenu() {

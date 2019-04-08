@@ -47,13 +47,7 @@ public class BookEntityController implements BookEntityControllerRemote , BookEn
 
     @Override
     public BookEntity viewBookE(long BookID) throws BookNotFoundException {
-        BookEntity Book = new BookEntity();
-        try {
-            BookEntity be = retrieve(BookID);
-        } catch (PersistenceException ex) {
-            throw new BookNotFoundException("No such Book with ID: " + BookID);
-        }
-        return Book;
+        return retrieve (BookID);
     }
  
 

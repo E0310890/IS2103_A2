@@ -13,6 +13,8 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
+import util.exception.FineNotPaidException;
+import util.exception.LoanLimitHitException;
 import util.exception.MemberNotFoundException;
 
 public class LendBookOperation {
@@ -70,13 +72,11 @@ public class LendBookOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            // this.dueDate = LEC.lendBook(this.member, this.bookId);
+            this.dueDate = LEC.lendBook(this.member, this.bookId);
             return true;
-        // } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException ex) {
-            // System.err.println(ex.getMessage());
-        } catch (Exception e) {
+         } catch (MemberNotFoundException | BookNotFoundException | BookAlreadyLendedException | LoanLimitHitException | FineNotPaidException ex) {
+            System.err.println(ex.getMessage());
         }
-
         return result;
     }
 
@@ -85,7 +85,7 @@ public class LendBookOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.MemberMenuModIn.start();
     }
 
     //    Settter ..........

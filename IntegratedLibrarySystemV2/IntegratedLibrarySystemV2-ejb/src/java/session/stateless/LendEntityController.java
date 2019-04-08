@@ -20,6 +20,7 @@ import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import model.Lend;
 import model.Member;
 import session.stateless.local.BookEntityControllerLocal;
@@ -62,7 +63,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
         LoanLimitHitException, FineNotPaidException{
         String identityNumber = member.getIdentityNumber();
-        System.out.println(identityNumber);
+        // System.out.println(identityNumber);
         return lendBook(identityNumber, bookId);
     }
 
@@ -72,7 +73,6 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             BookEntity bookE = BEC.viewBookE(bookId);
-            System.out.println("AbookE.getBookID());
             LendingEntity lendingE = new LendingEntity(new Date(), memberE, bookE);
 
             //check for outstanding fine
@@ -101,9 +101,15 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
         } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException ex){
             throw ex;
-        } /* catch (Exception e) {
+        } catch (Exception e) {
             throw new BookAlreadyLendedException("This book is currently lended by someone.");
-        } */
+        }
+    }
+    
+    @Override
+    public List<Lend> ViewLendBooks() throws MemberNotFoundException { 
+        List<LendingEntity> le = retrieveAll();
+        return le.stream().map(l-> l.toLend()).collect(Collectors.toList());
     }
 
     @Override
@@ -121,7 +127,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             List<LendingEntity> leList = memberE.getLending();
 
             leList.forEach((le) -> {
-                lList.add(new Lend(le.getLendID(), le.getBook().toBook(), le.getLendDate()));
+                lList.add(new Lend(le.getLendID(), le.getBook().toBook(), le.getLendDate(), le.getMember().toMember()));
             });
             return lList;
         } catch (MemberNotFoundException ex) {
@@ -162,7 +168,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             if(isOverDue(currentLendCtx)){
                 PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
-                return false;
+                return true;
             }else{
                 remove(currentLendCtx);
                 return true;
@@ -228,7 +234,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         currentDate = new Date();  
         // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
         System.out.println(sdf.format(dueDate) + "         TEST DATE");
-        if (sdf.format(dueDate).compareTo("2019-08-08"/*sdf.format(currentDate)*/) < 0){
+        if (sdf.format(dueDate).compareTo("2019-04-09"/*sdf.format(currentDate)*/) < 0){
             return true;
         }
         return false;
@@ -251,5 +257,18 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         } catch (PersistenceException ex) {
             throw ex;
         }
+    }
+    
+    
+    public List<LendingEntity> retrieveAll() throws PersistenceException {
+        String jpql = "SELECT l FROM LendingEntity l";
+        Query query = em.createQuery(jpql);
+        List<LendingEntity> lend;
+        try {
+            lend = query.getResultList();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return lend;
     }
 }

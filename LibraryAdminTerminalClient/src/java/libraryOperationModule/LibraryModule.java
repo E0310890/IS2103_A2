@@ -6,6 +6,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 
 public class LibraryModule {
 
@@ -16,6 +17,7 @@ public class LibraryModule {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    private ReservationEntityControllerRemote REC;
     //modules
     private MainMenuModule MainMenuModIn;
     private LendBookOperation lendBookOps;
@@ -23,21 +25,22 @@ public class LibraryModule {
     private ReturnBookOperation returnBookOps;
     private ExtendBookOperation extendBookOps;
     private PayFinesOperation payFinesOps;
-    private ManageReservationsOperation manageReservationOps;
+    private ManageReservationModule manageReservationOps;
     //fields
     private int input;
 
-    public LibraryModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public LibraryModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        this.REC = REC;
         lendBookOps = new LendBookOperation(SEC, MEC, BEC, LEC);
         viewLendBooksOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);
         returnBookOps = new ReturnBookOperation(SEC, MEC, BEC, LEC);
         extendBookOps = new ExtendBookOperation(SEC, MEC, BEC, LEC);
         payFinesOps = new PayFinesOperation(SEC, MEC, BEC, LEC);
-        manageReservationOps = new ManageReservationsOperation(SEC, MEC, BEC, LEC);
+        manageReservationOps = new ManageReservationModule(SEC, MEC, BEC, LEC, REC);
     }
 
     private void displayMenu() {
@@ -105,5 +108,4 @@ public class LibraryModule {
     public void setMainMenuModIn(MainMenuModule MainMenuModIn) {
         this.MainMenuModIn = MainMenuModIn;
     }
-
 }

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import model.Book;
+import model.Lend;
 
 @Entity
 public class LendingEntity implements Serializable {
@@ -35,6 +37,10 @@ public class LendingEntity implements Serializable {
     private BookEntity book;
 
     public LendingEntity() {
+    }
+    
+    public Lend toLend() {
+         return new Lend(this.lendID, this.book.toBook(), this.lendDate, this.member.toMember());
     }
 
     public LendingEntity(Date lendDate, MemberEntity member, BookEntity book) {
@@ -62,8 +68,7 @@ public class LendingEntity implements Serializable {
     public void setLendDate(Date lendDate) {
         this.lendDate = lendDate;
     }
-    
-
+   
     public Date getLendDate() {
         return lendDate;
     }

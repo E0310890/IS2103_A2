@@ -13,6 +13,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 import util.exception.MemberNotFoundException;
 
 public class ReserveBookOperation {
@@ -24,6 +25,7 @@ public class ReserveBookOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    private ReservationEntityControllerRemote REC;    
     
     //modules
     private MemberMenuModule MemberMenuModIn;
@@ -31,21 +33,24 @@ public class ReserveBookOperation {
     //fields
     public Member member;    
     private String identityNumber;
+    private Long bookID;
     private List<Lend> lendList;
 
-    public ReserveBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public ReserveBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        this.REC = REC;
     }
 
     private void displayMenu() {
-        System.out.println("*** Self-Service Kiosk :: View Lent Books ***\n");
+        System.out.println("*** Self-Service Kiosk :: Reserve Book ***\n");
     }
 
     private void getInput() {
-        this.member.getIdentityNumber();
+        System.out.println("Enter Book ID to Reserve:");
+        bookID = sc.nextLong();
     }
 
     public void start() {
@@ -69,9 +74,8 @@ public class ReserveBookOperation {
         boolean result = false;
 
         try {
-            this.lendList = LEC.ViewLendBooks(this.member);
-            return true;
-        } catch (MemberNotFoundException ex) {
+            return REC.reserveBook(this.member, this.bookID);
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         return result;
@@ -88,7 +92,7 @@ public class ReserveBookOperation {
     //    Settter ..........
     public void setMember(Member member) {
         this.member = member;
-    }  
+    } 
     
     public void setMemberMenuModIn(MemberMenuModule MemberMenuModIn) {
         this.MemberMenuModIn = MemberMenuModIn;

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import model.Reservation;
 
 @Entity
 public class ReservationEntity implements Serializable {
@@ -31,18 +32,27 @@ public class ReservationEntity implements Serializable {
     
     public ReservationEntity(){
     }
-    
-    public ReservationEntity(Date reserveDate, MemberEntity member) {
+
+    public ReservationEntity(Date reserveDate, MemberEntity member, BookEntity book) {
         this.reserveDate = reserveDate;
         this.member = member;
-    }
+        this.book = book;
+    } 
     
+    public Reservation toReservation() {
+         return new Reservation(this.reservationID, this.reserveDate, this.member.toMember(), this.book.toBook());
+    }
+       
     public Long getReservationID() {
         return reservationID;
     }
 
     public void setReservationID(Long reservationID) {
         this.reservationID = reservationID;
+    }
+    
+    public Date getDate() {
+        return reserveDate;
     }
 
     public MemberEntity getMember() {

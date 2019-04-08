@@ -6,6 +6,7 @@ import rootOperationModule.LoginOperation;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookNotFoundException;
 import util.exception.FineNotFoundException;
@@ -23,6 +24,7 @@ public class MemberMenuModule {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    private ReservationEntityControllerRemote REC;    
     //modules
     private final LendBookOperation lendBookOps;
     private final ViewLentBooksOperation viewLentBooksOps;
@@ -36,18 +38,19 @@ public class MemberMenuModule {
     private int input;
     private Member member;
 
-    public MemberMenuModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public MemberMenuModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        this.REC = REC;
         lendBookOps = new LendBookOperation(SEC, MEC, BEC, LEC);   
         viewLentBooksOps = new ViewLentBooksOperation(SEC, MEC, BEC, LEC);   
         returnBookOps = new ReturnBookOperation(SEC, MEC, BEC, LEC); 
         extendBookOps = new ExtendBookOperation(SEC, MEC, BEC, LEC); 
         payFinesOps = new PayFinesOperation(SEC, MEC, BEC, LEC);
         searchBookOps = new SearchBookOperation(SEC, MEC, BEC, LEC);
-        reserveBookOps = new ReserveBookOperation(SEC, MEC, BEC, LEC);          
+        reserveBookOps = new ReserveBookOperation(SEC, MEC, BEC, LEC, REC);          
     }
 
     private void displayMenu() {
@@ -109,7 +112,7 @@ public class MemberMenuModule {
         extendBookOps.setMemberMenuModIn(this);     
         // payFinesOps.setMemberMenuModIn(this);  
         // searchBooks.setMemberMenuModIn(this);
-        // reserveBookOps.setMemberMenuModIn(this);
+        reserveBookOps.setMemberMenuModIn(this);
     }
     
     private void setField(Member member) {
@@ -119,7 +122,7 @@ public class MemberMenuModule {
         this.extendBookOps.setMember(member);
         // this.payFinesOps.setMember(member);
         // this.searchBooks.setMember(member);    
-        // this.reserveBookOps.setMember(member);   
+        this.reserveBookOps.setMember(member);   
     }    
 
     //    Settter ..........

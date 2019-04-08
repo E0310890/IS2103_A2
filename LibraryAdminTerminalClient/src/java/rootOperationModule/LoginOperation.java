@@ -5,6 +5,7 @@ import model.Staff;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.InvalidLoginCredentialException;
 
@@ -17,6 +18,7 @@ public class LoginOperation {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    private ReservationEntityControllerRemote REC;
     //modules
     private final MainMenuModule mainMenuMod;
     private LATRootModule LATRootModIn;
@@ -24,12 +26,13 @@ public class LoginOperation {
     private String username;
     private String password;
 
-    public LoginOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public LoginOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
-        this.mainMenuMod = new MainMenuModule(SEC, MEC, BEC, LEC);
+        this.REC = REC;
+        this.mainMenuMod = new MainMenuModule(SEC, MEC, BEC, LEC, REC);
     }
 
     public void displayMenu() {

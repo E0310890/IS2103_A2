@@ -9,16 +9,18 @@ public class Lend implements Serializable {
     private Long lendID;
     private Book book;
     private Date lendDate;
+    private Member member;
 
     public Lend() {
     }
 
-    public Lend(Long lendID, Book book, Date lendDate) {
+    public Lend(Long lendID, Book book, Date lendDate, Member member) {
         this.lendID = lendID;
         this.book = book;
         this.lendDate = lendDate;
+        this.member = member;
     }
-
+    
     public Long getLendID() {
         return lendID;
     }
@@ -31,6 +33,10 @@ public class Lend implements Serializable {
         return lendDate;
     }
 
+    public Member getMember() {
+        return member;
+    }
+       
     public Date getDueDate() {
         Calendar c = Calendar.getInstance();
         c.setTime(this.lendDate);

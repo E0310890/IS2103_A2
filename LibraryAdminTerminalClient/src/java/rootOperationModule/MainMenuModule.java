@@ -9,6 +9,7 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
+import session.stateless.remote.ReservationEntityControllerRemote;
 
 public class MainMenuModule {
 
@@ -19,6 +20,7 @@ public class MainMenuModule {
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
+    private ReservationEntityControllerRemote REC;
     //modules
     private LoginOperation loginOpsIn;
     private RegistrationModule registerMod;
@@ -28,13 +30,14 @@ public class MainMenuModule {
     private int input;
     private Staff staff;
 
-    public MainMenuModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
+    public MainMenuModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
         this.MEC = MEC;
         this.BEC = BEC;
         this.LEC = LEC;
+        this.REC = REC;
         registerMod = new RegistrationModule(SEC, MEC, BEC, LEC);
-        libMod = new LibraryModule(SEC, MEC, BEC, LEC);
+        libMod = new LibraryModule(SEC, MEC, BEC, LEC, REC);
         adminMod = new AdminModule(SEC, MEC, BEC, LEC);
     }
 

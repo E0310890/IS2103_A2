@@ -101,7 +101,5 @@ public class ViewLentBooksOperation {
 
     public String getIdentityNumber() {
         return identityNumber;
-    }
-    
-    
+    }    
 }

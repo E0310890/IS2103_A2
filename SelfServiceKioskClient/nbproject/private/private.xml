@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/rootOperationModule/SSKRootModule.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/selfservicekioskclient/MainApp.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/memberOperationModule/MemberMenuModule.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/memberOperationModule/LendBookOperation.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/memberOperationModule/ReserveBookOperation.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/selfservicekioskclient/Main.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/SelfServiceKioskClient/src/java/services/Helper.java</file>
+        </group>
     </open-files>
 </project-private>

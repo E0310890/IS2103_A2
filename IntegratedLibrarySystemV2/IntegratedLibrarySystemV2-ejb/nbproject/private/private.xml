@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/session/stateless/LendEntityController.java</file>
-            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/session/stateless/BookEntityController.java</file>
-            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/session/stateless/local/BookEntityControllerLocal.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/session/stateless/ReservationEntityController.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/entity/ReservationEntity.java</file>
+            <file>file:/Users/jinwei/Desktop/IS2103_Labs/IS2103_A2/IntegratedLibrarySystemV2/IntegratedLibrarySystemV2-ejb/src/java/entity/LendingEntity.java</file>
         </group>
     </open-files>
 </project-private>

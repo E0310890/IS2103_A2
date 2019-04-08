@@ -91,10 +91,10 @@ public class ReturnBookOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.LibModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setLibModIn(LibraryModule LibModIn) {
         this.LibModIn = LibModIn;
     }
