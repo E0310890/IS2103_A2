@@ -64,7 +64,7 @@ public class LendBookOperation {
     private boolean executeOperation() {
         boolean result = false;
         try {
-            // this.dueDate = LEC.lendBook(this.identityNumber, this.bookId);
+            this.dueDate = LEC.lendBook(this.identityNumber, this.bookId);
             return true;
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

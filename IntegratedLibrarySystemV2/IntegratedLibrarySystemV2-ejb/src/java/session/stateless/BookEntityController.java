@@ -26,7 +26,7 @@ import util.exception.BookNotFoundException;
 @LocalBean
 @Remote(BookEntityControllerRemote.class)
 @Local(BookEntityControllerLocal.class)
-public class BookEntityController implements BookEntityControllerRemote, BookEntityControllerLocal {
+public class BookEntityController implements BookEntityControllerRemote , BookEntityControllerLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -46,11 +46,22 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     }
 
     @Override
+    public BookEntity viewBookE(long BookID) throws BookNotFoundException {
+        BookEntity Book = new BookEntity();
+        try {
+            BookEntity be = retrieve(BookID);
+        } catch (PersistenceException ex) {
+            throw new BookNotFoundException("No such Book with ID: " + BookID);
+        }
+        return Book;
+    }
+ 
+
+    @Override
     public Book viewBook(long BookID) throws BookNotFoundException {
         Book Book = new Book();
         try {
             BookEntity be = retrieve(BookID);
-            Book = be.toBook();
         } catch (PersistenceException ex) {
             throw new BookNotFoundException("No such Book with ID: " + BookID);
         }
@@ -72,6 +83,14 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
     }
 
     @Override
+    public List<Book> viewBook(String title) throws BookNotFoundException{
+        return viewBook()
+                .stream()
+                .filter(b -> b.getTitle().contains(title))
+                .collect(Collectors.toList());
+    }
+   
+    @Override
     public boolean updateBook(Book Book) throws InvalidInputException{
         try {
             update(new BookEntity(Book));
@@ -92,16 +111,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
             throw new BookNotFoundException("No such Book with ID: " + BookID);
         }
     }
-     
-   @Override
-   public BookEntity viewBook(String title) throws BookNotFoundException{
-        try {
-            return retrieve(title);
-        } catch (PersistenceException ex) {
-            throw new BookNotFoundException("No such book with title: " + title);
-        }
-   }
-   
+       
     public void remove(BookEntity be) throws PersistenceException {
         try {
             be = em.find(BookEntity.class, be.getBookID());

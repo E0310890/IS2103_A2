@@ -11,6 +11,7 @@ public interface BookEntityControllerRemote {
     public boolean registerBook(Book Book) throws InvalidInputException;
     public Book viewBook (long BookID) throws BookNotFoundException;
     public List<Book> viewBook();
+    public List<Book> viewBook (String title) throws BookNotFoundException;
     public boolean updateBook(Book Book) throws InvalidInputException;
     public void deleteBook(long BookID) throws BookNotFoundException;
 }
