@@ -1,14 +1,7 @@
 package memberOperationModule;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import memberOperationModule.MemberMenuModule;
-import model.Lend;
 import model.Member;
-import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
@@ -25,24 +18,23 @@ public class ReserveBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
 
-    //modules
+    // Modules
     private MemberMenuModule MemberMenuModIn;
 
-    //Dependencies
+    // Dependencies
     private SearchBookOperation seachBookOps;
 
-    //fields
+    // Fields
     public Member member;
     private String identityNumber;
     private Long bookID;
-    private List<Lend> lendList;
 
     public ReserveBookOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
         this.SEC = SEC;
@@ -60,10 +52,6 @@ public class ReserveBookOperation {
         seachBookOps = new SearchBookOperation(SEC, MEC, BEC, LEC);
         seachBookOps.setMember(member);
         return seachBookOps.displayAllMembers();
-    }
-
-    private void transferRequiredFields() {
-//        this.memberList = viewAllMembersOps.getMemberList();
     }
 
     private void getInput() {
@@ -110,7 +98,7 @@ public class ReserveBookOperation {
         this.MemberMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }

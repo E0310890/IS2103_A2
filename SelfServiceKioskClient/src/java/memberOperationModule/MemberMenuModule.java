@@ -14,14 +14,15 @@ public class MemberMenuModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;   
     private PaymentEntityControllerRemote PEC;
-    //modules
+    
+    // Modules
     private final LendBookOperation lendBookOps;
     private final ViewLentBooksOperation viewLentBooksOps;
     private final ReturnBookOperation returnBookOps;   
@@ -30,7 +31,8 @@ public class MemberMenuModule {
     private final SearchBookOperation searchBookOps;
     private final ReserveBookOperation reserveBookOps;   
     private LoginOperation loginOpsIn;
-    //fields
+    
+    // Fields
     private int input;
     private Member member;
 
@@ -122,7 +124,7 @@ public class MemberMenuModule {
         this.reserveBookOps.setMember(member);   
     }    
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }

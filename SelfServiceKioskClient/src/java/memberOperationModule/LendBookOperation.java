@@ -1,35 +1,28 @@
 package memberOperationModule;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Member;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.BookAlreadyLendedException;
-import util.exception.BookNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.LoanLimitHitException;
-import util.exception.MemberNotFoundException;
 
 public class LendBookOperation {
 
     private Scanner sc = new Scanner(System.in);
-    //API
+    
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     
-    //modules
+    // Modules
     private MemberMenuModule MemberMenuModIn;
     
-    //fields
+    // Fields
     private Member member;
     private Long bookId;
     private Date dueDate;

@@ -12,15 +12,16 @@ public class RegistrationOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private SSKRootModule sskRootModIn;
 
-    //fields
+    // Fields
     private Member member;
 
     public RegistrationOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -104,8 +105,7 @@ public class RegistrationOperation {
         this.sskRootModIn.startRoot();
     }
 
-    //    Settter ..........
-
+    // Setter
     public void setSSKRootModIn(SSKRootModule sskRootModIn) {
         this.sskRootModIn = sskRootModIn;
     }

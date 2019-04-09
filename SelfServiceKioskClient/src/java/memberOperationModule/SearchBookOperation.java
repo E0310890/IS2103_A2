@@ -2,9 +2,7 @@ package memberOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import memberOperationModule.MemberMenuModule;
 import model.Book;
-import model.Lend;
 import model.Member;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -12,22 +10,21 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookNotFoundException;
-import util.exception.MemberNotFoundException;
 
 public class SearchBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
 
-    //modules
+    // Modules
     private MemberMenuModule MemberMenuModIn;
 
-    //fields
+    // Fields
     private String title;
     private Member member;
     private List<Book> bookList;
@@ -104,7 +101,7 @@ public class SearchBookOperation {
         }
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }
@@ -121,7 +118,6 @@ public class SearchBookOperation {
         this.title = title;
     }
     
-
     public boolean viewLendBooks() {
         getInput();
 
@@ -133,5 +129,4 @@ public class SearchBookOperation {
             return false;
         }
     }
-
 }

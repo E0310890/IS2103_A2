@@ -20,16 +20,16 @@ public class ExtendBookOperation {
     
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberMenuModule MemberMenuModIn;
-    //Dependecies
-    private ViewLentBooksOperation viewLentBookOps;
-    //fields
+        
+    // Fields
     private Member member;        
     private Long bookId;
     private Date dueDate;
@@ -43,7 +43,7 @@ public class ExtendBookOperation {
     }
     
     private void displayMenu() {
-        System.out.println("*** ILS :: Library Operation :: Return Book ***\n");
+        System.out.println("*** Self-Service Kiosk :: Extend Book ***\n");
     }
     
     private void getInput() {

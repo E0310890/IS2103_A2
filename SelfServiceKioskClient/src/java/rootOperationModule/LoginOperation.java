@@ -14,7 +14,7 @@ public class LoginOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
@@ -22,10 +22,11 @@ public class LoginOperation {
     private ReservationEntityControllerRemote REC;   
     private PaymentEntityControllerRemote PEC;
     
-    //modules
+    // Modules
     private final MemberMenuModule memberMenuMod;
     private SSKRootModule SSKRootModIn;
-    //fields
+    
+    // Fields
     private String username;
     private String password;
 
@@ -100,8 +101,7 @@ public class LoginOperation {
         this.SSKRootModIn.startRoot();
     }
     
-//    Settter ..........
-
+    // Setter
     public void setSSKRootModIn(SSKRootModule SSKRootModIn) {
         this.SSKRootModIn = SSKRootModIn;
     }
