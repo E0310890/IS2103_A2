@@ -63,7 +63,7 @@ public class LendingEntity implements Serializable {
     public BookEntity getBook() {
         return book;
     }
-
+    
     public void setLendDate(Date lendDate) {
         this.lendDate = lendDate;
     }

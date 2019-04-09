@@ -140,6 +140,19 @@ public class ReservationEntityController implements ReservationEntityControllerR
         return reservation;
     }
     
+    public List<ReservationEntity> retrieveByMemberIdentityNumber(MemberEntity identityNumber) throws PersistenceException {
+        String jpql = "SELECT r FROM ReservationEntity r WHERE r.identityNumber = :identityNumber";
+        Query query = em.createQuery(jpql);
+        query.setParameter("identityNumber", identityNumber);
+        List<ReservationEntity> reservation;
+        try {
+            reservation = query.getResultList();
+        } catch (PersistenceException ex) {
+            throw ex;
+        }
+        return reservation;
+    }    
+    
     public ReservationEntity retrieveByReservationID(Long reservationID) throws PersistenceException {
         String jpql = "SELECT r FROM ReservationEntity r WHERE r.reservationID = :reservationID";
         Query query = em.createQuery(jpql);

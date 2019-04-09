@@ -8,6 +8,7 @@ public class Lend implements Serializable {
 
     private Long lendID;
     private Book book;
+    private Reservation reservation;
     private Date lendDate;
     private Member member;
 
@@ -27,6 +28,10 @@ public class Lend implements Serializable {
 
     public Book getBook() {
         return book;
+    }
+    
+    public Reservation getReservation() {
+        return reservation;
     }
 
     public Date getLendDate() {
