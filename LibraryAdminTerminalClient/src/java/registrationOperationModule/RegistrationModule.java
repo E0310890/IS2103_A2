@@ -11,16 +11,17 @@ public class RegistrationModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private RegistrationOperation registerOps;
-    private MainMenuModule mainMemuModIn;
+    private MainMenuModule mainMenuModIn;
 
-    //fields
+    // Fields
     private int input;
 
     public RegistrationModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -37,7 +38,6 @@ public class RegistrationModule {
                 "1: Register New Member\n"
                 + "2: Back\n"
         );
-
         System.out.print("\n>");
     }
 
@@ -58,21 +58,20 @@ public class RegistrationModule {
             case 1:
                 registerOps.start();
             case 2:
-                this.mainMemuModIn.start();
+                this.mainMenuModIn.start();
         }
-
     }
 
     private void setBackInstance() {
         registerOps.setRegisterModIn(this);
     }
-    //    Settter ..........
-    
-    public MainMenuModule getMainMemuModIn() {
-        return mainMemuModIn;
+
+    // Setter
+    public MainMenuModule getMainMenuModIn() {
+        return mainMenuModIn;
     }
 
-    public void setMainMemuModIn(MainMenuModule mainMemuModIn) {
-        this.mainMemuModIn = mainMemuModIn;
+    public void setMainMemuModIn(MainMenuModule mainMenuModIn) {
+        this.mainMenuModIn = mainMenuModIn;
     }
 }

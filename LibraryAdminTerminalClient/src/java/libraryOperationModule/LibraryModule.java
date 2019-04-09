@@ -13,13 +13,14 @@ public class LibraryModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
-    //modules
+    
+    // Modules
     private MainMenuModule MainMenuModIn;
     private LendBookOperation lendBookOps;
     private ViewLentBooksOperation viewLendBooksOps;
@@ -28,7 +29,8 @@ public class LibraryModule {
     private PayFinesOperation payFinesOps;
     private ManageReservationModule manageReservationOps;
     private PaymentEntityControllerRemote PEC;
-    //fields
+    
+    // Fields
     private int input;
 
     public LibraryModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC, PaymentEntityControllerRemote PEC) {
@@ -103,7 +105,7 @@ public class LibraryModule {
         manageReservationOps.setLibModIn(this);
     }
 
-//    Settter ..........
+    // Setter
     public MainMenuModule getMainMenuModIn() {
         return MainMenuModIn;
     }

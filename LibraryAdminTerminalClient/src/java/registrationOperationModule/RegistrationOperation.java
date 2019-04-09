@@ -8,21 +8,21 @@ import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
-import util.exception.InvalidInputException;
 
 public class RegistrationOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private RegistrationModule registerModIn;
 
-    //fields
+    // Fields
     private Member member;
 
     public RegistrationOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -98,11 +98,8 @@ public class RegistrationOperation {
         this.registerModIn.start();
     }
 
-    //    Settter ..........
-
+    // Setter
     public void setRegisterModIn(RegistrationModule registerModIn) {
         this.registerModIn = registerModIn;
     }
-
-
 }

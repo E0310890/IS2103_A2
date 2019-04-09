@@ -28,5 +28,4 @@ public class Main {
         MainApp app = new MainApp(SEC, MEC, BEC, LEC, REC, PEC);
         app.runApp();
     }
-
 }

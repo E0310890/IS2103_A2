@@ -34,7 +34,6 @@ public class Helper {
                     fineId + "| $"
                     + f.getFineAmount());
         }
-
     }
 
     public static void displayReservation(List<Reservation> resList) {
@@ -74,7 +73,6 @@ public class Helper {
                     + simpleDateFormat.format(r.getReserveDate())
             );
         }
-
     }
 
     public static void displayLending(List<Lend> lendList) {

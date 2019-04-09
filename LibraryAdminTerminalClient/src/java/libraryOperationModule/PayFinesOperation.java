@@ -17,16 +17,17 @@ public class PayFinesOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private PaymentEntityControllerRemote PEC;
-    //modules
+    
+    // Modules
     private LibraryModule LibModIn;
 
-    //fields
+    // Fields
     private String identityNumber;
     private List<Fine> fineList;
     private Long fineId;
@@ -109,7 +110,7 @@ public class PayFinesOperation {
         this.LibModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setLibModIn(LibraryModule LibModIn) {
         this.LibModIn = LibModIn;
     }

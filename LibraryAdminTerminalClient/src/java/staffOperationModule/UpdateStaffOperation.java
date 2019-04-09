@@ -2,15 +2,12 @@ package staffOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Staff;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.InvalidInputException;
-import util.exception.MemberNotFoundException;
 
 public class UpdateStaffOperation {
     

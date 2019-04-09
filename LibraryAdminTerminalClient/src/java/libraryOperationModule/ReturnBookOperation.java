@@ -1,10 +1,6 @@
 package libraryOperationModule;
 
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Lend;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
@@ -16,17 +12,19 @@ public class ReturnBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private LibraryModule LibModIn;
-    //Dependecies
+    
+    // Dependecies
     private ViewLentBooksOperation vlb;
 
-    //fields
+    // Fields
     private String identityNumber;
     private Long bookId;
 

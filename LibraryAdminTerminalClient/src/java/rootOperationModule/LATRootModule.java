@@ -11,7 +11,8 @@ import session.stateless.remote.StaffEntityControllerRemote;
 public class LATRootModule {
 
     private Scanner sc = new Scanner(System.in);
-    //API
+    
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
@@ -19,10 +20,10 @@ public class LATRootModule {
     private ReservationEntityControllerRemote REC;
     private PaymentEntityControllerRemote PEC;
 
-    //modules
+    // Modules
     private final LoginOperation loginOps;
 
-    //fields
+    // Fields
     private int input;
 
     public LATRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC, PaymentEntityControllerRemote PEC) {
@@ -48,7 +49,7 @@ public class LATRootModule {
                 this.input = sc.nextInt();
                 break;
             } catch (Exception ex) {
-                System.err.println("please type a valid input");
+                System.err.println("Please enter a valid input");
             }
         }
     }

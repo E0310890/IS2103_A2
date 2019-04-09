@@ -2,7 +2,6 @@ package libraryOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import libraryOperationModule.ManageReservationModule;
 import model.Reservation;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;

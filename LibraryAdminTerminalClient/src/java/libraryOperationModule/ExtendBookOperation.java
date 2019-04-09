@@ -1,11 +1,7 @@
 package libraryOperationModule;
 
-import libraryOperationModule.ViewLentBooksOperation;
-import libraryOperationModule.LibraryModule;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -21,16 +17,19 @@ public class ExtendBookOperation {
     
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private LibraryModule LibModIn;
-    //Dependecies
+    
+    // Dependecies
     private ViewLentBooksOperation vlb;
-    //fields
+    
+    // Fields
     private String identityNumber;
     private Long bookId;
     private Date dueDate;
@@ -100,7 +99,7 @@ public class ExtendBookOperation {
         this.LibModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setLibModIn(LibraryModule LibModIn) {
         this.LibModIn = LibModIn;
     }

@@ -14,17 +14,19 @@ public class LoginOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
     private PaymentEntityControllerRemote PEC;
-    //modules
+    
+    // Modules
     private final MainMenuModule mainMenuMod;
     private LATRootModule LATRootModIn;
-    //fields
+    
+    // Fields
     private String username;
     private String password;
 
@@ -51,7 +53,7 @@ public class LoginOperation {
                 this.password = sc.next();
                 break;
             } catch (Exception ex) {
-                System.err.println("please type a valid input");
+                System.err.println("Please enter a valid input");
             }
         }
     }
@@ -93,10 +95,10 @@ public class LoginOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.mainMenuMod.start();
     }
 
-//    Settter ..........
+    // Setter
     public void setLATRootModIn(LATRootModule LATRootModIn) {
         this.LATRootModIn = LATRootModIn;
     }
@@ -104,5 +106,4 @@ public class LoginOperation {
     public LATRootModule getLATRootModIn() {
         return LATRootModIn;
     }
-
 }

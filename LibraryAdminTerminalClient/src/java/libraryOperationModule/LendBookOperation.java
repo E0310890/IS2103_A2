@@ -12,14 +12,16 @@ public class LendBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private LibraryModule LibModIn;
-    //fields
+    
+    // Fields
     private String identityNumber;
     private Long bookId;
 
@@ -89,7 +91,7 @@ public class LendBookOperation {
         this.LibModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setLibModIn(LibraryModule LibModIn) {
         this.LibModIn = LibModIn;
     }
