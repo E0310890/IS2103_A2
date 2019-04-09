@@ -1,7 +1,6 @@
 package session.stateless;
 
 import entity.BookEntity;
-import entity.LendingEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
-import javax.ejb.Remove;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -29,10 +27,8 @@ import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.BookEntityControllerRemote;
 import util.exception.InvalidInputException;
-import util.exception.InvalidLoginCredentialException;
 import util.exception.BookNotFoundException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 @Stateless
 @LocalBean
@@ -132,7 +128,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         List<Book> store = new ArrayList<>();
 
         for (BookEntity be : bookList) {
-            // check reservation, set book stautes to reserved by other OR reserved by you
+            // Check reservation, set book stautes to reserved by other OR reserved by you
             boolean isReserveByOthers = REC.retrieveAll().stream().anyMatch(r -> (r.getBook().getBookID().equals(be.getBookID())) && !(r.getMember().getMemberID().equals(member.getMemberID())));
             if (isReserveByOthers) {
                 Book b = be.toBook();
@@ -151,13 +147,13 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
             try {
-                // check lending, set due day
+                // Check lending, set due day
                 Optional<Lend> ole = LEC.ViewLendBooks().stream()
                         .filter(l -> l.getBook().getBookID().equals(be.getBookID()))
                         .findFirst();
                 boolean isLendedBySomeone = ole.isPresent();
                 if (isLendedBySomeone) {
-                    //if self lend
+                    // If self lend
                     if (ole.get().getMember().getMemberID().equals(member.getMemberID())) {
                         Book b = ole.get().getBook();
                         b.setStatus("Book Lended By You");
@@ -170,7 +166,7 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
                     continue;
                 }
 
-                // inside library, set avaliable 
+                // Inside library, set avaliable 
                 Book b = be.toBook();
                 b.setStatus("Available");
                 store.add(b);
@@ -244,5 +240,4 @@ public class BookEntityController implements BookEntityControllerRemote, BookEnt
         }
         return Books;
     }
-
 }

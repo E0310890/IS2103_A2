@@ -70,9 +70,7 @@ public class BookEntity implements Serializable {
 //    public List<ReservationEntity> getReservationList() {
 //        return reservationList;
 //    }
-  
-    
-    
+     
     @Override
     public int hashCode() {
         int hash = 0;

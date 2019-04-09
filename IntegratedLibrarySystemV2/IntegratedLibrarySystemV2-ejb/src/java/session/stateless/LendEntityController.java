@@ -3,14 +3,11 @@ package session.stateless;
 import entity.BookEntity;
 import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -78,12 +75,12 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             BookEntity bookE = BEC.viewBookE(bookId);
             LendingEntity lendingE = new LendingEntity(new Date(), memberE, bookE);
 
-            //check for outstanding fine
+            // Check for outstanding fine
             if (!memberE.getPayment().isEmpty()) {
                 throw new FineNotPaidException("Fail to borrow. You need to pay your outstanding fines first!");
             }
 
-            //check for lend < 3
+            // Check for lend less than 3
             if (memberE.getLending().size() >= lendThreshold) {
                 throw new LoanLimitHitException("Fail to borrow. You have already borrowed 3 books (Max loan is 3).");
             }
@@ -94,7 +91,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                 throw new BookAlreadyLendedException("This book is currently lended by someone or you.");
             }
 
-            //check for not reserved 
+            // check for not reserved 
 //            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
 //                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
 //            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
@@ -148,7 +145,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            // if book have overdued
+            // If book have overdued
             if (isOverDue(currentLendCtx)) {
                 PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
@@ -171,7 +168,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(identityNumber);
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            // if book have overdued
+            // If book have overdued
             if (isOverDue(currentLendCtx)) {
                 PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
@@ -200,24 +197,24 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(identityNumber);
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            //Check If the book is already overdue
+            //C heck If the book is already overdue
             validateLendOverDue(currentLendCtx);
 //            if (isOverDue(currentLendCtx)) {
 //                throw new BookOverDueException("Unable to extend. Book is overdue.");
 //            }
 
-            //Member has unpaid fines
+            // Member has unpaid fines
             if (!memberE.getPayment().isEmpty()) {
                 throw new FineNotPaidException("Unable to extend. You need to pay your outstanding fines first!");
             }
 
-            //The book is reserved by another member
+            // The book is reserved by another member
             boolean isReserveByOthers = REC.retrieveAll().stream().anyMatch(r -> r.getBook().getBookID().equals(currentLendCtx.getBook().getBookID()));
             if (isReserveByOthers) {
                 throw new ReservedByOthersException("Unable to extend. Book Already Reserved by another member.");
             }
 
-            //no problem, extent
+            // No problem, extent
             currentLendCtx.setLendDate(currentLendCtx.getDueDate());
             update(currentLendCtx);
             return currentLendCtx.getDueDate();
@@ -256,8 +253,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         Date dueDate = currentLendCtx.getDueDate();
         Date currentDate = new Date();
         Boolean isOverDue = currentDate.after(dueDate);
-        //test for payment
-//        Boolean isOverDue = currentDate.before(dueDate);
+        // Test for payment
+        // Boolean isOverDue = currentDate.before(dueDate);
 
         if (isOverDue) {
             if(!PEC.fineExist(currentLendCtx)){

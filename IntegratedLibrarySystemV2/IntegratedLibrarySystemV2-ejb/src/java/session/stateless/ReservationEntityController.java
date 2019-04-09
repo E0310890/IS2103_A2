@@ -1,9 +1,7 @@
 package session.stateless;
 
 import entity.BookEntity;
-import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
 import entity.ReservationEntity;
 import java.util.Date;
 import java.util.List;
@@ -17,24 +15,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import model.Fine;
 import model.Lend;
 import model.Member;
 import model.Reservation;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
-import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
-// import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.ReservationEntityControllerRemote;
-import session.stateless.remote.PaymentEntityControllerRemote;
 import util.exception.BookNotFoundException;
 import util.exception.BookNotLendException;
-import util.exception.FineNotFoundException;
 import util.exception.FineNotPaidException;
 import util.exception.LendBySelfException;
-import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 import util.exception.ReservationNotFoundException;
 import util.exception.ReserveBySelfException;
@@ -62,7 +54,7 @@ public class ReservationEntityController implements ReservationEntityControllerR
             MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
             BookEntity bookE = BEC.viewBookE(bookID);
 
-            // If book not lend (TESTED WOOHOO)
+            // If book not lend
             List<Lend> lendList = LEC.ViewLendBooks();
             boolean islend = lendList.stream()
                     .noneMatch(l -> l.getBook().getBookID().equals(bookID));
@@ -71,7 +63,7 @@ public class ReservationEntityController implements ReservationEntityControllerR
                 throw new BookNotLendException("Book is still Available in the library!");
             }
 
-            // Book lend by self
+            // Book lent by self
             boolean islendBySelf = LEC.ViewLendBooks().stream()
                     .anyMatch(l -> (l.getMember()
                     .getMemberID()
@@ -81,7 +73,7 @@ public class ReservationEntityController implements ReservationEntityControllerR
                 throw new LendBySelfException("You already lend this book!");
             }
 
-            //book lend by other, reserved by current member
+            // Book lent by other, reserved by current member
             boolean isReservedBySelf = retrieveAll().stream()
                     .anyMatch(l -> (l.getMember().getMemberID().equals(member.getMemberID())) && (l.getBook().getBookID().equals(bookE.getBookID())));
             
@@ -89,15 +81,15 @@ public class ReservationEntityController implements ReservationEntityControllerR
                 throw new ReserveBySelfException("You already reserve this book!");
             }
 
-            //fine not paid
+            // Fine not paid
             boolean isFinePaid = memberE.getPayment().isEmpty();
             if (!isFinePaid) {
                 throw new FineNotPaidException("You still have outstanding fine!");
             }
 
-            //book lend by other, NOT reserved by current member
-            //if lended > lenddate = lend.overdue
-            //if in reservation > use most recent date.overdue;
+            // Book lent by other, NOT reserved by current member
+            // If lended > lenddate = lend.overdue
+            // If in reservation > use most recent date.overdue;
             ReservationEntity res = new ReservationEntity(new Date(), memberE, bookE);
             em.persist(res);
             
