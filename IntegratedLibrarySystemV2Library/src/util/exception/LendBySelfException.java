@@ -7,6 +7,5 @@ public class LendBySelfException extends Exception{
 
     public LendBySelfException(String message) {
         super(message);
-    }
-    
+    }    
 }

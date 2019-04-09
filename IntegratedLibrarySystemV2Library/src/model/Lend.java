@@ -43,5 +43,4 @@ public class Lend implements Serializable {
         c.add(Calendar.DATE, 14);
         return c.getTime();
     }
-
 }

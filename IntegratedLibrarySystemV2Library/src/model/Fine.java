@@ -24,10 +24,7 @@ public class Fine implements Serializable {
 
     @Override
     public String toString() {
-        return "Fine{" + "lendID=" + lendID + ", fineAmount=" + fineAmount + '}' + "\n";
-    }
-    
-    
-    
-    
+        return "Fine ID: " + getLendID() + " | Fine Amount: " + getFineAmount();
+        /* "Fine{" + "lendID=" + lendID + ", fineAmount=" + fineAmount + '}' + "\n"; */
+    } 
 }

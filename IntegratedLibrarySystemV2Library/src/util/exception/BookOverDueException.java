@@ -7,6 +7,5 @@ public class BookOverDueException extends Exception {
 
     public BookOverDueException(String message) {
         super(message);
-    }
-    
+    }   
 }

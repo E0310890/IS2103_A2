@@ -7,7 +7,5 @@ public class LoanLimitHitException extends Exception{
 
     public LoanLimitHitException(String message) {
         super(message);
-    }
-    
+    }   
 }
-

@@ -7,6 +7,5 @@ public class ReserveBySelfException extends Exception{
 
     public ReserveBySelfException(String message) {
         super(message);
-    }
-    
+    }   
 }

@@ -7,6 +7,5 @@ public class BookNotLendException extends Exception{
 
     public BookNotLendException(String message) {
         super(message);
-    }
-    
+    }    
 }

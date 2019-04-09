@@ -1,7 +1,6 @@
 package session.stateless.remote;
 
 import java.util.List;
-import javax.persistence.PersistenceException;
 import model.Staff;
 import util.exception.InvalidInputException;
 import util.exception.InvalidLoginCredentialException;
