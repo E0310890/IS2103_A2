@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/MemberService/MemberEntityController?wsdl" uri="wsdl/localhost_8080/MemberService/MemberEntityController.wsdl"/>
+    <system systemId="http://localhost:8080/MemberService/MemberEntityController?xsd=1" uri="wsdl/localhost_8080/MemberService/MemberEntityController.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/LendService/LendEntityController?wsdl" uri="wsdl/localhost_8080/LendService/LendEntityController.wsdl"/>
+    <system systemId="http://localhost:8080/LendService/LendEntityController?xsd=1" uri="wsdl/localhost_8080/LendService/LendEntityController.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/PaymentService/PaymentEntityController?wsdl" uri="wsdl/localhost_8080/PaymentService/PaymentEntityController.wsdl"/>
+    <system systemId="http://localhost:8080/PaymentService/PaymentEntityController?xsd=1" uri="wsdl/localhost_8080/PaymentService/PaymentEntityController.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/ReservationService/ReservationEntityController?wsdl" uri="wsdl/localhost_8080/ReservationService/ReservationEntityController.wsdl"/>
+    <system systemId="http://localhost:8080/ReservationService/ReservationEntityController?xsd=1" uri="wsdl/localhost_8080/ReservationService/ReservationEntityController.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/BookService/BookEntityController?wsdl" uri="wsdl/localhost_8080/BookService/BookEntityController.wsdl"/>
+    <system systemId="http://localhost:8080/BookService/BookEntityController?xsd=1" uri="wsdl/localhost_8080/BookService/BookEntityController.xsd_1.xsd"/>
+</catalog>

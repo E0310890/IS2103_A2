@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:carproject="http://www.netbeans.org/ns/car-project/1" xmlns:xalan="http://xml.apache.org/xslt" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-LendEntityController" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/LendEntityController"/>
+        <property name="wsdl-LendEntityController" location="${meta.inf}/xml-resources/web-service-references/LendEntityController/wsdl/localhost_8080/LendService/LendEntityController.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LendEntityController" destdir="${build.generated.dir}/jax-wsCache/LendEntityController" wsdl="${wsdl-LendEntityController}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/LendService/LendEntityController?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-LendEntityController}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/LendEntityController"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/LendEntityController">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-LendEntityController" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/LendEntityController"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/session/stateless"/>
+    </target>
+    <target name="wsimport-client-MemberEntityController" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/MemberEntityController"/>
+        <property name="wsdl-MemberEntityController" location="${meta.inf}/xml-resources/web-service-references/MemberEntityController/wsdl/localhost_8080/MemberService/MemberEntityController.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/MemberEntityController" destdir="${build.generated.dir}/jax-wsCache/MemberEntityController" wsdl="${wsdl-MemberEntityController}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/MemberService/MemberEntityController?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-MemberEntityController}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/MemberEntityController"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/MemberEntityController">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-MemberEntityController" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/MemberEntityController"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/session/stateless"/>
+    </target>
+    <target name="wsimport-client-PaymentEntityController" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/PaymentEntityController"/>
+        <property name="wsdl-PaymentEntityController" location="${meta.inf}/xml-resources/web-service-references/PaymentEntityController/wsdl/localhost_8080/PaymentService/PaymentEntityController.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/PaymentEntityController" destdir="${build.generated.dir}/jax-wsCache/PaymentEntityController" wsdl="${wsdl-PaymentEntityController}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/PaymentService/PaymentEntityController?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-PaymentEntityController}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/PaymentEntityController"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/PaymentEntityController">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-PaymentEntityController" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/PaymentEntityController"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/session/stateless"/>
+    </target>
+    <target name="wsimport-client-ReservationEntityController" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ReservationEntityController"/>
+        <property name="wsdl-ReservationEntityController" location="${meta.inf}/xml-resources/web-service-references/ReservationEntityController/wsdl/localhost_8080/ReservationService/ReservationEntityController.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ReservationEntityController" destdir="${build.generated.dir}/jax-wsCache/ReservationEntityController" wsdl="${wsdl-ReservationEntityController}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/ReservationService/ReservationEntityController?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-ReservationEntityController}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ReservationEntityController"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ReservationEntityController">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ReservationEntityController" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/ReservationEntityController"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/session/stateless"/>
+    </target>
+    <target name="wsimport-client-BookEntityController" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BookEntityController"/>
+        <property name="wsdl-BookEntityController" location="${meta.inf}/xml-resources/web-service-references/BookEntityController/wsdl/localhost_8080/BookService/BookEntityController.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BookEntityController" destdir="${build.generated.dir}/jax-wsCache/BookEntityController" wsdl="${wsdl-BookEntityController}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/BookService/BookEntityController?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-BookEntityController}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BookEntityController"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BookEntityController">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BookEntityController" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/BookEntityController"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/session/stateless"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-LendEntityController, wsimport-client-MemberEntityController, wsimport-client-PaymentEntityController, wsimport-client-ReservationEntityController, wsimport-client-BookEntityController"/>
+</project>

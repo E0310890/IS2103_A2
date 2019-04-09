@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="LendEntityController">
+      <implementation-class>session.stateless.LendEntityController</implementation-class>
+    </service>
+    <service name="MemberEntityController">
+      <implementation-class>session.stateless.MemberEntityController</implementation-class>
+    </service>
+    <service name="PaymentEntityController">
+      <implementation-class>session.stateless.PaymentEntityController</implementation-class>
+    </service>
+    <service name="ReservationEntityController">
+      <implementation-class>session.stateless.ReservationEntityController</implementation-class>
+    </service>
+    <service name="BookEntityController">
+      <implementation-class>session.stateless.BookEntityController</implementation-class>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
