@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -17,20 +11,17 @@ import session.stateless.Member;
 import session.stateless.MemberNotFoundException_Exception;
 import session.stateless.ReservedByOthersException_Exception;
 
-/**
- *
- * @author lester
- */
 public class ExtendBookOperation {
     
     private Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
-    private MemberMenuModule memMenuModIn;
-    //Dependecies
-    private ViewLendBookOperation vlb;
-    //fields
+    // Modules
+    private MemberMenuModule memberMenuModIn;
+    
+    // Dependecies
+    private ViewLendBookOperation viewLendBookOps;
+    
+    // Fields
     private Member member;
     private Long bookId;
     private List<Lendws> lendList;
@@ -44,13 +35,13 @@ public class ExtendBookOperation {
     }
     
     private boolean executeViewOperation() {
-        vlb = new ViewLendBookOperation();
-        vlb.setMember(member);
-        return vlb.viewLendBooksDisplay();
+        viewLendBookOps = new ViewLendBookOperation();
+        viewLendBookOps.setMember(member);
+        return viewLendBookOps.viewLendBooksDisplay();
     }
     
     private void transferRequiredFields() {
-        this.lendList = vlb.getLendList();
+        this.lendList = viewLendBookOps.getLendList();
     }
     
     private void getInput() {
@@ -91,20 +82,20 @@ public class ExtendBookOperation {
     }
     
     private void onOperationSuccessNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
     
     private void onOperationFailNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
 
-    //    Settter ..........
-    public MemberMenuModule getMemMenuModIn() {
-        return memMenuModIn;
+    // Setter
+    public MemberMenuModule getMemberMenuModIn() {
+        return memberMenuModIn;
     }
     
-    public void setMemMenuModIn(MemberMenuModule memMenuModIn) {
-        this.memMenuModIn = memMenuModIn;
+    public void setMemMenuModIn(MemberMenuModule memberMenuModIn) {
+        this.memberMenuModIn = memberMenuModIn;
     }
     
     public Member getMember() {
@@ -119,6 +110,5 @@ public class ExtendBookOperation {
         session.stateless.LendService service = new session.stateless.LendService();
         session.stateless.LendEntityController port = service.getLendEntityControllerPort();
         return port.extendLendBook(arg0, arg1);
-    }
-    
+    }   
 }

@@ -1,30 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 import session.stateless.Lendws;
 import session.stateless.Member;
 import session.stateless.MemberNotFoundException_Exception;
 
-/**
- *
- * @author lester
- */
 public class ViewLendBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
-    private MemberMenuModule memMenuModIn;
+    // Modules
+    private MemberMenuModule memberMenuModIn;
 
-    //fields
+    // Fields
     private Member member;
     private List<Lendws> lendList;
 
@@ -67,11 +56,11 @@ public class ViewLendBookOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
 
     public boolean viewLendBooksDisplay() {
@@ -86,13 +75,13 @@ public class ViewLendBookOperation {
         }
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }
 
-    public void setMemMenuModIn(MemberMenuModule memMenuModIn) {
-        this.memMenuModIn = memMenuModIn;
+    public void setMemMenuModIn(MemberMenuModule memberMenuModIn) {
+        this.memberMenuModIn = memberMenuModIn;
     }
 
     public List<Lendws> getLendList() {
@@ -128,9 +117,9 @@ public class ViewLendBookOperation {
         String[] idSpacing = new String[]{" ", "  "};
 
         System.out.println("Currently Lent Books:");
-        System.out.println("Id |Title"
+        System.out.println("Book ID   |   Title"
                 + spacing.substring(3)
-                + "| Due Date");
+                + "|   Due Date");
 
         for (Lendws l : lendList) {
             String lendId = l.getLendId().toString();
@@ -148,5 +137,4 @@ public class ViewLendBookOperation {
             );
         }
     }
-
 }

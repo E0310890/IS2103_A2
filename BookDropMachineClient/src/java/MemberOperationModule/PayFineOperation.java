@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
 import java.util.List;
@@ -12,19 +7,14 @@ import session.stateless.FineNotFoundException_Exception;
 import session.stateless.Member;
 import session.stateless.MemberNotFoundException_Exception;
 
-/**
- *
- * @author lester
- */
 public class PayFineOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
+    // Modules
     private MemberMenuModule memMenuModIn;
 
-    //fields
+    // Fields
     private Member member;
     private Long fineId;
     private List<Fine> fineList;
@@ -110,7 +100,7 @@ public class PayFineOperation {
         this.memMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public MemberMenuModule getMemMenuModIn() {
         return memMenuModIn;
     }
@@ -146,7 +136,6 @@ public class PayFineOperation {
                     fineId + "| $"
                     + f.getFineAmount());
         }
-
     }
 
     private static java.util.List<session.stateless.Fine> viewFine(java.lang.String arg0) throws MemberNotFoundException_Exception {
@@ -160,7 +149,4 @@ public class PayFineOperation {
         session.stateless.PaymentEntityController port = service.getPaymentEntityControllerPort();
         return port.payFine(arg0, arg1);
     }
-    
-    
-
 }

@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
 import LoginOperationModule.LoginOperation;
 import java.util.Scanner;
 import session.stateless.Member;
 
-/**
- *
- * @author lester
- */
 public class MemberMenuModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
+    // Modules
     private LoginOperation loginOpsIn;
     private ViewLendBookOperation viewLBops;
     private ReturnBookOperation returnBookOps;
@@ -26,7 +16,7 @@ public class MemberMenuModule {
     private PayFineOperation payFineOps;
     private ReserveBookOperation reserveOps;
 
-    //fields
+    // Fields
     private Member member;
     private int input;
 
@@ -106,7 +96,7 @@ public class MemberMenuModule {
         reserveOps.setMemMenuModIn(this);
     }
 
-    //    Settter ..........
+    // Setter
     public Member getMember() {
         return member;
     }
@@ -122,5 +112,4 @@ public class MemberMenuModule {
     public void setLoginOpsIn(LoginOperation loginOpsIn) {
         this.loginOpsIn = loginOpsIn;
     }
-
 }

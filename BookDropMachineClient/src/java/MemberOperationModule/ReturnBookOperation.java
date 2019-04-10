@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
 import java.util.List;
@@ -12,29 +7,23 @@ import session.stateless.Lendws;
 import session.stateless.Member;
 import session.stateless.MemberNotFoundException_Exception;
 
-/**
- *
- * @author lester
- */
 public class ReturnBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
-
-    //modules
-    private MemberMenuModule memMenuModIn;
-    //Dependecies
+    // Modules
+    private MemberMenuModule memberMenuModIn;
+    
+    // Dependecies
     private ViewLendBookOperation vlb;
 
-    //fields
+    // Fields
     private Member member;
     private Long bookId;
     private List<Lendws> lendList;
 
     public ReturnBookOperation() {
     }
-
 
     private void displayMenu() {
         System.out.println("*** BDM Client :: Return Book ***\n");
@@ -87,21 +76,21 @@ public class ReturnBookOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        this.memMenuModIn.start();
+        this.memberMenuModIn.start();
     }
 
     // Setter
 
-    public MemberMenuModule getMemMenuModIn() {
-        return memMenuModIn;
+    public MemberMenuModule getMemberMenuModIn() {
+        return memberMenuModIn;
     }
 
-    public void setMemMenuModIn(MemberMenuModule memMenuModIn) {
-        this.memMenuModIn = memMenuModIn;
+    public void setMemMenuModIn(MemberMenuModule memberMenuModIn) {
+        this.memberMenuModIn = memberMenuModIn;
     }
 
     public Member getMember() {
@@ -117,8 +106,4 @@ public class ReturnBookOperation {
         session.stateless.LendEntityController port = service.getLendEntityControllerPort();
         return port.returnLendBook(arg0, arg1);
     }
-    
-    
-
-
 }

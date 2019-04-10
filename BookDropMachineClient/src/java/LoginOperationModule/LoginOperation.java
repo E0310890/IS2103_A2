@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package LoginOperationModule;
 
 import MemberOperationModule.MemberMenuModule;
@@ -10,19 +5,15 @@ import java.util.Scanner;
 import session.stateless.InvalidLoginCredentialException_Exception;
 import session.stateless.Member;
 
-/**
- *
- * @author lester
- */
 public class LoginOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
+    // Modules
     private LoginModule loginModIn;
     private MemberMenuModule memMenuMod;
-    //fields
+    
+    // Fields
     private String identityNum;
     private String secCode;
 
@@ -88,7 +79,7 @@ public class LoginOperation {
         memMenuMod.setLoginOpsIn(this);
     }
 
-//    Settter ..........
+    // Setter
     public void setLoginModIn(LoginModule loginModIn) {
         this.loginModIn = loginModIn;
     }
@@ -102,5 +93,4 @@ public class LoginOperation {
         session.stateless.MemberEntityController port = service.getMemberEntityControllerPort();
         return port.memberLogin(arg0, arg1);
     }
-
 }

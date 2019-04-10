@@ -1,4 +1,3 @@
-
 package session.stateless;
 
 import java.net.MalformedURLException;
@@ -90,5 +89,4 @@ public class MemberService
         }
         return MEMBERSERVICE_WSDL_LOCATION;
     }
-
 }

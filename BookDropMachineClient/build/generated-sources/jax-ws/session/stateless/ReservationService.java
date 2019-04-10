@@ -90,5 +90,4 @@ public class ReservationService
         }
         return RESERVATIONSERVICE_WSDL_LOCATION;
     }
-
 }

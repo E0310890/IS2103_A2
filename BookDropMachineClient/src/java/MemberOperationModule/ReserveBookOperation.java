@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MemberOperationModule;
 
 import java.util.List;
@@ -16,20 +11,14 @@ import session.stateless.LendBySelfException_Exception;
 import session.stateless.MemberNotFoundException_Exception;
 import session.stateless.ReserveBySelfException_Exception;
 
-/**
- *
- * @author lester
- */
 public class ReserveBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
-    //modules
+    // Modules
     private MemberMenuModule MemMenuModIn;
-
-    //Dependencies
-    //fields
+    
+    // Fields
     public Member member;
     private String searchTitle;
     private Long bookID;
@@ -123,7 +112,6 @@ public class ReserveBookOperation {
         return port.searchBook(arg0, arg1);
     }
     
-
     private void displayBook(List<Book> bookList) {
         if (bookList.isEmpty()) {
             System.out.println("===== No book with such a title.======");
@@ -143,5 +131,4 @@ public class ReserveBookOperation {
         session.stateless.ReservationEntityController port = service.getReservationEntityControllerPort();
         return port.reserveBook(arg0, arg1);
     }
-
 }

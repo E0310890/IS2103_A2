@@ -2,9 +2,7 @@ package bookdropmachineclient;
 
 import LoginOperationModule.LoginModule;
 
-
 public class MainApp {
-
 
     public MainApp() {
     }
@@ -14,5 +12,4 @@ public class MainApp {
             new LoginModule().startRoot();
         }
     }
-
 }
