@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -95,7 +93,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                 throw new LoanLimitHitException("Fail to borrow. You have already borrowed 3 books (Max loan is 3).");
             }
 
-            //check if book alreaded lended by someone
+            // Check if book alreaded lended by someone
             boolean isLended = LEC.ViewLendBooks().stream().anyMatch(l -> l.getBook().getBookID().equals(bookE.getBookID()));
             if (isLended) {
                 throw new BookAlreadyLendedException("This book is currently lended by someone or you.");
@@ -107,17 +105,18 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                 throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
             }
             
-            /* boolean isReservedBySelf = REC.retrieveByMemberIdentityNumber(memberE).stream().anyMatch(m -> m.getBook().getBookID().equals(bookE.getBookID()));
+            // Remove the reservation record
+            boolean isReservedBySelf = REC.retrieveByMemberID(memberE.getMemberID()).stream().anyMatch(r -> r.getBook().getBookID().equals(bookE.getBookID()));
             if (isReservedBySelf) {
-                em.remove(REC.retrieveByMemberIdentityNumber(memberE));
-            } */
-
+                em.remove(REC.retrieveByMemberID(memberE.getMemberID()));
+            }
 
 //            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
 //                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
 //            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
 //                bookE.getReservedList().removeFirst();
 //            }
+
             // Check for book not already lend
             // Use the table unqiue propety to check this, catched with Exceptio
             // No problem, lend book

@@ -32,8 +32,8 @@ public interface PaymentEntityController {
      * @param arg0
      * @return
      *     returns boolean
-     * @throws MemberNotFoundException_Exception
      * @throws FineNotFoundException_Exception
+     * @throws MemberNotFoundException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")

@@ -1,9 +1,7 @@
 package session.stateless;
 
 import entity.BookEntity;
-import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
 import entity.ReservationEntity;
 import java.util.Date;
 import java.util.List;
@@ -19,24 +17,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import model.Fine;
 import model.Lend;
 import model.Member;
 import model.Reservation;
 import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
-import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
 // import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.ReservationEntityControllerRemote;
-import session.stateless.remote.PaymentEntityControllerRemote;
 import util.exception.BookNotFoundException;
 import util.exception.BookNotLendException;
-import util.exception.FineNotFoundException;
 import util.exception.FineNotPaidException;
 import util.exception.LendBySelfException;
-import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 import util.exception.ReservationNotFoundException;
 import util.exception.ReserveBySelfException;
@@ -170,10 +163,10 @@ public class ReservationEntityController implements ReservationEntityControllerR
         return reservation;
     }
     
-    /* public List<ReservationEntity> retrieveByMemberIdentityNumber(Member member) throws PersistenceException {
-        String jpql = "SELECT r FROM ReservationEntity r WHERE r.identityNumber = :identityNumber";
+    public List<ReservationEntity> retrieveByMemberID(Long memberID) throws PersistenceException {
+        String jpql = "SELECT r FROM ReservationEntity r WHERE r.memberID = :memberID";
         Query query = em.createQuery(jpql);
-        query.setParameter("identityNumber", identityNumber);
+        query.setParameter("memberID", memberID);
         List<ReservationEntity> reservation;
         try {
             reservation = query.getResultList();
@@ -181,7 +174,7 @@ public class ReservationEntityController implements ReservationEntityControllerR
             throw ex;
         }
         return reservation;
-    } */
+    }
     
     public ReservationEntity retrieveByReservationID(Long reservationID) throws PersistenceException {
         String jpql = "SELECT r FROM ReservationEntity r WHERE r.reservationID = :reservationID";
