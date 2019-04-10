@@ -24,9 +24,12 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _BookNotFoundException_QNAME = new QName("http://stateless.session/", "BookNotFoundException");
-    private final static QName _SearchBook_QNAME = new QName("http://stateless.session/", "searchBook");
-    private final static QName _SearchBookResponse_QNAME = new QName("http://stateless.session/", "searchBookResponse");
+    private final static QName _FineNotFoundException_QNAME = new QName("http://stateless.session/", "FineNotFoundException");
+    private final static QName _MemberNotFoundException_QNAME = new QName("http://stateless.session/", "MemberNotFoundException");
+    private final static QName _PayFine_QNAME = new QName("http://stateless.session/", "payFine");
+    private final static QName _PayFineResponse_QNAME = new QName("http://stateless.session/", "payFineResponse");
+    private final static QName _ViewFine_QNAME = new QName("http://stateless.session/", "viewFine");
+    private final static QName _ViewFineResponse_QNAME = new QName("http://stateless.session/", "viewFineResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: session.stateless
@@ -36,70 +39,113 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link BookNotFoundException }
+     * Create an instance of {@link FineNotFoundException }
      * 
      */
-    public BookNotFoundException createBookNotFoundException() {
-        return new BookNotFoundException();
+    public FineNotFoundException createFineNotFoundException() {
+        return new FineNotFoundException();
     }
 
     /**
-     * Create an instance of {@link SearchBook }
+     * Create an instance of {@link MemberNotFoundException }
      * 
      */
-    public SearchBook createSearchBook() {
-        return new SearchBook();
+    public MemberNotFoundException createMemberNotFoundException() {
+        return new MemberNotFoundException();
     }
 
     /**
-     * Create an instance of {@link SearchBookResponse }
+     * Create an instance of {@link PayFine }
      * 
      */
-    public SearchBookResponse createSearchBookResponse() {
-        return new SearchBookResponse();
+    public PayFine createPayFine() {
+        return new PayFine();
     }
 
     /**
-     * Create an instance of {@link Member }
+     * Create an instance of {@link PayFineResponse }
      * 
      */
-    public Member createMember() {
-        return new Member();
+    public PayFineResponse createPayFineResponse() {
+        return new PayFineResponse();
     }
 
     /**
-     * Create an instance of {@link Book }
+     * Create an instance of {@link ViewFine }
      * 
      */
-    public Book createBook() {
-        return new Book();
+    public ViewFine createViewFine() {
+        return new ViewFine();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BookNotFoundException }{@code >}}
+     * Create an instance of {@link ViewFineResponse }
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "BookNotFoundException")
-    public JAXBElement<BookNotFoundException> createBookNotFoundException(BookNotFoundException value) {
-        return new JAXBElement<BookNotFoundException>(_BookNotFoundException_QNAME, BookNotFoundException.class, null, value);
+    public ViewFineResponse createViewFineResponse() {
+        return new ViewFineResponse();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchBook }{@code >}}
+     * Create an instance of {@link Fine }
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "searchBook")
-    public JAXBElement<SearchBook> createSearchBook(SearchBook value) {
-        return new JAXBElement<SearchBook>(_SearchBook_QNAME, SearchBook.class, null, value);
+    public Fine createFine() {
+        return new Fine();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link SearchBookResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FineNotFoundException }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "searchBookResponse")
-    public JAXBElement<SearchBookResponse> createSearchBookResponse(SearchBookResponse value) {
-        return new JAXBElement<SearchBookResponse>(_SearchBookResponse_QNAME, SearchBookResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "FineNotFoundException")
+    public JAXBElement<FineNotFoundException> createFineNotFoundException(FineNotFoundException value) {
+        return new JAXBElement<FineNotFoundException>(_FineNotFoundException_QNAME, FineNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link MemberNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "MemberNotFoundException")
+    public JAXBElement<MemberNotFoundException> createMemberNotFoundException(MemberNotFoundException value) {
+        return new JAXBElement<MemberNotFoundException>(_MemberNotFoundException_QNAME, MemberNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PayFine }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "payFine")
+    public JAXBElement<PayFine> createPayFine(PayFine value) {
+        return new JAXBElement<PayFine>(_PayFine_QNAME, PayFine.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link PayFineResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "payFineResponse")
+    public JAXBElement<PayFineResponse> createPayFineResponse(PayFineResponse value) {
+        return new JAXBElement<PayFineResponse>(_PayFineResponse_QNAME, PayFineResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ViewFine }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "viewFine")
+    public JAXBElement<ViewFine> createViewFine(ViewFine value) {
+        return new JAXBElement<ViewFine>(_ViewFine_QNAME, ViewFine.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ViewFineResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "viewFineResponse")
+    public JAXBElement<ViewFineResponse> createViewFineResponse(ViewFineResponse value) {
+        return new JAXBElement<ViewFineResponse>(_ViewFineResponse_QNAME, ViewFineResponse.class, null, value);
     }
 
 }
