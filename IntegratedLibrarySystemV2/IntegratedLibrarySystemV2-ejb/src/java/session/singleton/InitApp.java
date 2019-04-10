@@ -1,39 +1,20 @@
 package session.singleton;
 
 import entity.BookEntity;
-import entity.LendingEntity;
 import entity.MemberEntity;
 import entity.StaffEntity;
-import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import session.stateless.local.BookEntityControllerLocal;
-import session.stateless.local.LendEntityControllerLocal;
-import session.stateless.local.MemberEntityControllerLocal;
-import session.stateless.local.PaymentEntityControllerLocal;
-import session.stateless.local.ReservationEntityControllerLocal;
 import util.enumeration.Gender;
 
 @Singleton
 @LocalBean
 @Startup
 public class InitApp {
-
-    @EJB
-    private MemberEntityControllerLocal MEC;
-    @EJB
-    private BookEntityControllerLocal BEC;
-    @EJB
-    private PaymentEntityControllerLocal PEC;
-    @EJB
-    private LendEntityControllerLocal LEC;
-    @EJB
-    private ReservationEntityControllerLocal REC;
     
     @PersistenceContext
     private EntityManager em;
@@ -41,7 +22,6 @@ public class InitApp {
     @PostConstruct
     public void postConstruct() {
         try {
-            createFine();
             if (em.find(StaffEntity.class, 1L) == null) {
                 initializeData();
             }
@@ -49,22 +29,7 @@ public class InitApp {
         }
     }
 
-    private void createFine() {
-        List lendingEntity = LEC.retrieveAll();
-        System.out.println(lendingEntity.size());
-        for (Object o : lendingEntity) {
-            LendingEntity le = (LendingEntity) o;
-            boolean isOverDue = LEC.isOverDue(le);
-                if (isOverDue) {
-                    if (PEC.initFine(le)) {
-                        PEC.updateFine(le);
-                    }
-                    else {
-                        PEC.createFine(le);
-                    }
-                }
-        }
-    }
+   
     
     private void initializeData() {
         em.persist(new StaffEntity("Linda", "Chua", "manager", "password"));

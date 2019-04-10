@@ -80,11 +80,11 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
                                 
         Date dueDate = lendingE.getDueDate();
         
-        long numberer = 1559318400000L;
+        long numberer = 1449318400000L;
         
-        // Date currentDate = new Date(numberer);
+         Date currentDate = new Date(numberer);
 
-        Date currentDate = new Date();
+        //Date currentDate = new Date();
         
         long difference =  (currentDate.getTime()-dueDate.getTime())/86400000;
         int differenceInt = (int) difference;

@@ -286,6 +286,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         }
     }
 
+    @Override
     public boolean isOverDue(LendingEntity currentLendCtx) {
         Date dueDate = currentLendCtx.getDueDate();
         currentDate = new Date();
