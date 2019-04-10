@@ -24,7 +24,7 @@ public class Main {
     private static PaymentEntityControllerRemote PEC;
 
     public static void main(String[] args){
-        MainApp app = new MainApp(SEC, MEC, BEC, LEC, REC,PEC);
+        MainApp app = new MainApp(SEC, MEC, BEC, LEC, REC, PEC);
         app.runApp();
     }
 }

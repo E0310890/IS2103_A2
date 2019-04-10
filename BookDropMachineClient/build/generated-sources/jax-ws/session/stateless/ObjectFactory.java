@@ -24,12 +24,14 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _FineNotFoundException_QNAME = new QName("http://stateless.session/", "FineNotFoundException");
+    private final static QName _BookNotFoundException_QNAME = new QName("http://stateless.session/", "BookNotFoundException");
+    private final static QName _BookNotLendException_QNAME = new QName("http://stateless.session/", "BookNotLendException");
+    private final static QName _FineNotPaidException_QNAME = new QName("http://stateless.session/", "FineNotPaidException");
+    private final static QName _LendBySelfException_QNAME = new QName("http://stateless.session/", "LendBySelfException");
     private final static QName _MemberNotFoundException_QNAME = new QName("http://stateless.session/", "MemberNotFoundException");
-    private final static QName _PayFine_QNAME = new QName("http://stateless.session/", "payFine");
-    private final static QName _PayFineResponse_QNAME = new QName("http://stateless.session/", "payFineResponse");
-    private final static QName _ViewFine_QNAME = new QName("http://stateless.session/", "viewFine");
-    private final static QName _ViewFineResponse_QNAME = new QName("http://stateless.session/", "viewFineResponse");
+    private final static QName _ReserveBySelfException_QNAME = new QName("http://stateless.session/", "ReserveBySelfException");
+    private final static QName _ReserveBook_QNAME = new QName("http://stateless.session/", "reserveBook");
+    private final static QName _ReserveBookResponse_QNAME = new QName("http://stateless.session/", "reserveBookResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: session.stateless
@@ -39,11 +41,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FineNotFoundException }
+     * Create an instance of {@link BookNotFoundException }
      * 
      */
-    public FineNotFoundException createFineNotFoundException() {
-        return new FineNotFoundException();
+    public BookNotFoundException createBookNotFoundException() {
+        return new BookNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link BookNotLendException }
+     * 
+     */
+    public BookNotLendException createBookNotLendException() {
+        return new BookNotLendException();
+    }
+
+    /**
+     * Create an instance of {@link FineNotPaidException }
+     * 
+     */
+    public FineNotPaidException createFineNotPaidException() {
+        return new FineNotPaidException();
+    }
+
+    /**
+     * Create an instance of {@link LendBySelfException }
+     * 
+     */
+    public LendBySelfException createLendBySelfException() {
+        return new LendBySelfException();
     }
 
     /**
@@ -55,52 +81,71 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PayFine }
+     * Create an instance of {@link ReserveBySelfException }
      * 
      */
-    public PayFine createPayFine() {
-        return new PayFine();
+    public ReserveBySelfException createReserveBySelfException() {
+        return new ReserveBySelfException();
     }
 
     /**
-     * Create an instance of {@link PayFineResponse }
+     * Create an instance of {@link ReserveBook }
      * 
      */
-    public PayFineResponse createPayFineResponse() {
-        return new PayFineResponse();
+    public ReserveBook createReserveBook() {
+        return new ReserveBook();
     }
 
     /**
-     * Create an instance of {@link ViewFine }
+     * Create an instance of {@link ReserveBookResponse }
      * 
      */
-    public ViewFine createViewFine() {
-        return new ViewFine();
+    public ReserveBookResponse createReserveBookResponse() {
+        return new ReserveBookResponse();
     }
 
     /**
-     * Create an instance of {@link ViewFineResponse }
+     * Create an instance of {@link Member }
      * 
      */
-    public ViewFineResponse createViewFineResponse() {
-        return new ViewFineResponse();
+    public Member createMember() {
+        return new Member();
     }
 
     /**
-     * Create an instance of {@link Fine }
+     * Create an instance of {@link JAXBElement }{@code <}{@link BookNotFoundException }{@code >}}
      * 
      */
-    public Fine createFine() {
-        return new Fine();
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "BookNotFoundException")
+    public JAXBElement<BookNotFoundException> createBookNotFoundException(BookNotFoundException value) {
+        return new JAXBElement<BookNotFoundException>(_BookNotFoundException_QNAME, BookNotFoundException.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FineNotFoundException }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link BookNotLendException }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "FineNotFoundException")
-    public JAXBElement<FineNotFoundException> createFineNotFoundException(FineNotFoundException value) {
-        return new JAXBElement<FineNotFoundException>(_FineNotFoundException_QNAME, FineNotFoundException.class, null, value);
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "BookNotLendException")
+    public JAXBElement<BookNotLendException> createBookNotLendException(BookNotLendException value) {
+        return new JAXBElement<BookNotLendException>(_BookNotLendException_QNAME, BookNotLendException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FineNotPaidException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "FineNotPaidException")
+    public JAXBElement<FineNotPaidException> createFineNotPaidException(FineNotPaidException value) {
+        return new JAXBElement<FineNotPaidException>(_FineNotPaidException_QNAME, FineNotPaidException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LendBySelfException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "LendBySelfException")
+    public JAXBElement<LendBySelfException> createLendBySelfException(LendBySelfException value) {
+        return new JAXBElement<LendBySelfException>(_LendBySelfException_QNAME, LendBySelfException.class, null, value);
     }
 
     /**
@@ -113,39 +158,30 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PayFine }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReserveBySelfException }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "payFine")
-    public JAXBElement<PayFine> createPayFine(PayFine value) {
-        return new JAXBElement<PayFine>(_PayFine_QNAME, PayFine.class, null, value);
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "ReserveBySelfException")
+    public JAXBElement<ReserveBySelfException> createReserveBySelfException(ReserveBySelfException value) {
+        return new JAXBElement<ReserveBySelfException>(_ReserveBySelfException_QNAME, ReserveBySelfException.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link PayFineResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReserveBook }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "payFineResponse")
-    public JAXBElement<PayFineResponse> createPayFineResponse(PayFineResponse value) {
-        return new JAXBElement<PayFineResponse>(_PayFineResponse_QNAME, PayFineResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "reserveBook")
+    public JAXBElement<ReserveBook> createReserveBook(ReserveBook value) {
+        return new JAXBElement<ReserveBook>(_ReserveBook_QNAME, ReserveBook.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ViewFine }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReserveBookResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "viewFine")
-    public JAXBElement<ViewFine> createViewFine(ViewFine value) {
-        return new JAXBElement<ViewFine>(_ViewFine_QNAME, ViewFine.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ViewFineResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://stateless.session/", name = "viewFineResponse")
-    public JAXBElement<ViewFineResponse> createViewFineResponse(ViewFineResponse value) {
-        return new JAXBElement<ViewFineResponse>(_ViewFineResponse_QNAME, ViewFineResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://stateless.session/", name = "reserveBookResponse")
+    public JAXBElement<ReserveBookResponse> createReserveBookResponse(ReserveBookResponse value) {
+        return new JAXBElement<ReserveBookResponse>(_ReserveBookResponse_QNAME, ReserveBookResponse.class, null, value);
     }
 
 }
