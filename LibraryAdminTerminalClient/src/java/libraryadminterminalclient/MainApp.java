@@ -59,10 +59,10 @@ public class MainApp {
     }
                 
     public void runApp() {   
-        // if (isAvailable()) 
+        if (isAvailable()) {
             rootModule.startRoot();
-        
-        // System.out.println("Library Operating Hours: Monday to Friday, from 09:00 to 17:00");
-        // System.exit(0);
+    }
+        System.out.println("Library Operating Hours: Monday to Friday, from 09:00 to 17:00");
+        System.exit(0);
     }
 }
