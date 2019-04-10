@@ -16,19 +16,21 @@ public class MainMenuModule {
 
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
     private PaymentEntityControllerRemote PEC;
-    //modules
+    
+    // Modules
     private LoginOperation loginOpsIn;
     private RegistrationModule registerMod;
     private LibraryModule libMod;
     private AdminModule adminMod;
-    //fields
+    
+    // Fields
     private int input;
     private Staff staff;
 
@@ -95,7 +97,7 @@ public class MainMenuModule {
         adminMod.setMainMenuModIn(this);
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Staff staff) {
         this.staff = staff;
     }
@@ -107,5 +109,4 @@ public class MainMenuModule {
     public LoginOperation getLoginOpsIn() {
         return loginOpsIn;
     }
-
 }

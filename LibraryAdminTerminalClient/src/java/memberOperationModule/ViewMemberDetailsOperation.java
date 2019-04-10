@@ -2,7 +2,6 @@ package memberOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import libraryOperationModule.ViewLentBooksOperation;
 import model.Member;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -93,7 +92,7 @@ public class ViewMemberDetailsOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.memberManageModIn.start();
     }
     
     // Setter

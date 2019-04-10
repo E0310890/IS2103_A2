@@ -91,7 +91,7 @@ public class DeleteBookOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.bookManageModIn.start();
     }
 
     // Setter

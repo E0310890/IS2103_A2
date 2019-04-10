@@ -12,19 +12,19 @@ public class ManageReservationModule {
     
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
     
-    //modules
+    // Modules
     private LibraryModule LibModIn;
     private ViewBookReservationsOperation viewBookReservationsOps; 
     private DeleteBookReservationsOperation deleteBookReservationsOps; 
     
-//fields
+    // Fields
     private int input;
 
     public ManageReservationModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
@@ -69,7 +69,6 @@ public class ManageReservationModule {
             case 3:
                 LibModIn.start();
         }
-
     }
 
     private void setBackInstance() {
@@ -77,7 +76,7 @@ public class ManageReservationModule {
         deleteBookReservationsOps.setManageReservationModIn(this);        
     }
 
-//    Settter ..........
+    // Setter
     public LibraryModule getLibraryModIn() {
         return LibModIn;
     }

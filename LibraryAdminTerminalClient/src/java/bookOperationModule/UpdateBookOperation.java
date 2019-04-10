@@ -2,16 +2,12 @@ package bookOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Book;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.enumeration.Gender;
 import util.exception.InvalidInputException;
-import util.exception.BookNotFoundException;
 
 public class UpdateBookOperation {
 
@@ -24,7 +20,7 @@ public class UpdateBookOperation {
     private LendEntityControllerRemote LEC;
     
     // Modules
-    private BookManagementModule BookManageModIn;
+    private BookManagementModule bookManageModIn;
     
     // Dependecies
     private ViewAllBooksOperation viewAllBooksOps;
@@ -129,15 +125,15 @@ public class UpdateBookOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.BookManageModIn.start();
+        this.bookManageModIn.start();
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.bookManageModIn.start();
     }
 
     // Setter
-    public void setBookManageModIn(BookManagementModule BookManageModIn) {
-        this.BookManageModIn = BookManageModIn;
+    public void setBookManageModIn(BookManagementModule bookManageModIn) {
+        this.bookManageModIn = bookManageModIn;
     }
 }

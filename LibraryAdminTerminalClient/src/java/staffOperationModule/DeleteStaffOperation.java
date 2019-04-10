@@ -91,7 +91,7 @@ public class DeleteStaffOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.staffManageModIn.start();
     }
 
     // Setter

@@ -92,7 +92,7 @@ public class ViewBookDetailsOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.bookManageModIn.start();
     }
     
     // Setter

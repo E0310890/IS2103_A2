@@ -91,7 +91,7 @@ public class DeleteMemberOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.memberManageModIn.start();
     }
 
     // Setter

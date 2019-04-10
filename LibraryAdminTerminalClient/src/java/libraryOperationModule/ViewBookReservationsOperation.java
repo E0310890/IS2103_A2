@@ -1,11 +1,7 @@
 package libraryOperationModule;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
 import model.Reservation;
 import services.Helper;
 import session.stateless.remote.BookEntityControllerRemote;
@@ -14,23 +10,23 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.exception.BookNotFoundException;
-import util.exception.MemberNotFoundException;
 import util.exception.ReservationNotFoundException;
 
 public class ViewBookReservationsOperation {
 
     private Scanner sc = new Scanner(System.in);
     
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private ReservationEntityControllerRemote REC;
-    //modules
+    
+    // Modules
     private ManageReservationModule ManageReservationModIn;
 
-    //fields
+    // Fields
     private List<Reservation> reservationList;
 
     public ViewBookReservationsOperation(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC, ReservationEntityControllerRemote REC) {
@@ -80,7 +76,7 @@ public class ViewBookReservationsOperation {
         this.ManageReservationModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setManageReservationModIn(ManageReservationModule ManageReservationModIn) {
         this.ManageReservationModIn = ManageReservationModIn;
     }

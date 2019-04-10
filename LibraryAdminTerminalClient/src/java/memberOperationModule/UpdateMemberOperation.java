@@ -2,8 +2,6 @@ package memberOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Member;
 import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
@@ -11,7 +9,6 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
 import util.enumeration.Gender;
 import util.exception.InvalidInputException;
-import util.exception.MemberNotFoundException;
 
 public class UpdateMemberOperation {
 
@@ -139,7 +136,7 @@ public class UpdateMemberOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.memberManageModIn.start();
     }
 
     // Setter

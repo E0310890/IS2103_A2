@@ -92,7 +92,7 @@ public class ViewStaffDetailsOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.staffManageModIn.start();
     }
 
     // Setter

@@ -14,17 +14,19 @@ public class AdminModule {
     
     private final Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MainMenuModule MainMenuModIn;
     private MemberManagementModule memManageMod;
     private BookManagementModule bookManageMod;
     private StaffManagementModule staffManageMod;
-    //fields
+    
+    // Fields
     private int input;
 
     public AdminModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, LendEntityControllerRemote LEC) {
@@ -72,7 +74,6 @@ public class AdminModule {
             case 4:
                 MainMenuModIn.start();
         }
-
     }
 
     private void setBackInstance() {
@@ -81,7 +82,7 @@ public class AdminModule {
         staffManageMod.setAdminModIn(this);
     }
 
-//    Settter ..........
+    // Setter
     public MainMenuModule getMainMenuModIn() {
         return MainMenuModIn;
     }

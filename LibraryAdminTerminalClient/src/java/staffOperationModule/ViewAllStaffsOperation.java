@@ -7,7 +7,6 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.InvalidInputException;
 
 public class ViewAllStaffsOperation {
     
@@ -75,7 +74,7 @@ public class ViewAllStaffsOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.staffManageModIn.start();
     }
     
     public boolean displayAllStaffs() {
