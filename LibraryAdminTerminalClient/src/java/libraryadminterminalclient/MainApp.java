@@ -32,10 +32,11 @@ public class MainApp {
     }
 
     public boolean checkDay() {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Singapore"));
+        // Sunday is 1
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-      
-        if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+
+        if (dayOfWeek >= 2 && dayOfWeek <= 6) {
             return true;
         }
         return false;
@@ -43,6 +44,7 @@ public class MainApp {
     
     public boolean checkTime() {
         int currentHour = LocalTime.now().getHour();
+        
         if (currentHour >= 9 && currentHour <= 17) {
             return true;
         }
