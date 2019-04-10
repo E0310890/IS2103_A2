@@ -11,7 +11,8 @@ import session.stateless.remote.StaffEntityControllerRemote;
 public class SSKRootModule {
 
     private Scanner sc = new Scanner(System.in);
-    //API
+    
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
@@ -19,11 +20,11 @@ public class SSKRootModule {
     private ReservationEntityControllerRemote REC;
     private PaymentEntityControllerRemote PEC;
 
-    //modules
+    // Modules
     private final RegistrationOperation registerOps;    
     private final LoginOperation loginOps;
 
-    //fields
+    // Fields
     private int input;
 
     public SSKRootModule(StaffEntityControllerRemote SEC, MemberEntityControllerRemote MEC, BookEntityControllerRemote BEC, 

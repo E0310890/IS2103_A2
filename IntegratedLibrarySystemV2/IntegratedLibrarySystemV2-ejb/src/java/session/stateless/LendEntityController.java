@@ -78,19 +78,19 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
     @WebMethod(exclude = true)
     @Override
-    public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException,
+    public Date lendBook(String identityNumber, Long bookID) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException,
             LoanLimitHitException, FineNotPaidException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
-            BookEntity bookE = BEC.viewBookE(bookId);
+            BookEntity bookE = BEC.viewBookE(bookID);
             LendingEntity lendingE = new LendingEntity(new Date(), memberE, bookE);
 
-            //check for outstanding fine
+            // Check for outstanding fine
             if (!memberE.getPayment().isEmpty()) {
                 throw new FineNotPaidException("Fail to borrow. You need to pay your outstanding fines first!");
             }
 
-            //check for lend < 3
+            // Check for lend amount less than 3
             if (memberE.getLending().size() >= lendThreshold) {
                 throw new LoanLimitHitException("Fail to borrow. You have already borrowed 3 books (Max loan is 3).");
             }
@@ -101,15 +101,26 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                 throw new BookAlreadyLendedException("This book is currently lended by someone or you.");
             }
 
-            //check for not reserved 
+            // Check for not reserved 
+            boolean isReserved = REC.retrieveByBookID(bookID).stream().anyMatch(r -> r.getBook().getBookID().equals(bookE.getBookID()));
+            if (isReserved) {
+                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
+            }
+            
+            /* boolean isReservedBySelf = REC.retrieveByMemberIdentityNumber(memberE).stream().anyMatch(m -> m.getBook().getBookID().equals(bookE.getBookID()));
+            if (isReservedBySelf) {
+                em.remove(REC.retrieveByMemberIdentityNumber(memberE));
+            } */
+
+
 //            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
 //                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
 //            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
 //                bookE.getReservedList().removeFirst();
 //            }
-            //check for book not already lend
-            //use the table unqiue propety to check this, catched with Exceptio
-            //no problem, lend book
+            // Check for book not already lend
+            // Use the table unqiue propety to check this, catched with Exceptio
+            // No problem, lend book
             em.persist(lendingE);
             return lendingE.getDueDate();
 
@@ -181,7 +192,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(member.getIdentityNumber());
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            // if book have overdued
+            // If book have overdued
             if (isOverDue(currentLendCtx)) {
                 PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
@@ -205,7 +216,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(identityNumber);
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            // if book have overdued
+            // If book have overdued
             if (isOverDue(currentLendCtx)) {
                 PEC.createFine(currentLendCtx);
                 remove(currentLendCtx);
@@ -236,7 +247,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             MemberEntity memberE = MEC.viewMember(identityNumber);
             LendingEntity currentLendCtx = getMemberLendCtx(memberE, lendId);
 
-            //Check If the book is already overdue
+            // Check If the book is already overdue
             validateLendOverDue(currentLendCtx);
 //            if (isOverDue(currentLendCtx)) {
 //                throw new BookOverDueException("Unable to extend. Book is overdue.");
@@ -293,7 +304,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         Date dueDate = currentLendCtx.getDueDate();
         Date currentDate = new Date();
         Boolean isOverDue = currentDate.after(dueDate);
-        //test for payment
+        // Test for payment
 //        Boolean isOverDue = currentDate.before(dueDate);
 
         if (isOverDue) {

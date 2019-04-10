@@ -7,10 +7,6 @@ import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.PaymentEntityControllerRemote;
 import session.stateless.remote.ReservationEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.FineNotFoundException;
-import util.exception.FineNotPaidException;
-import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 public class MainApp {
 

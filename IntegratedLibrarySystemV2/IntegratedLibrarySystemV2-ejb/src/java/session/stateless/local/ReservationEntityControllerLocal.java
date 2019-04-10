@@ -7,5 +7,6 @@ import javax.persistence.PersistenceException;
 public interface ReservationEntityControllerLocal {
     
     public List<ReservationEntity> retrieveAll() throws PersistenceException;
-    
+    public List<ReservationEntity> retrieveByBookID(Long bookID) throws PersistenceException;
+    // public List<ReservationEntity> retrieveByMemberIdentityNumber(String identityNumber) throws PersistenceException;
 }

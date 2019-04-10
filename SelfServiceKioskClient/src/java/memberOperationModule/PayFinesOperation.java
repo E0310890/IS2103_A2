@@ -17,16 +17,17 @@ public class PayFinesOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     private PaymentEntityControllerRemote PEC;
-    //modules
+    
+    // Modules
     private MemberMenuModule MemberMenuModIn;
 
-    //fields
+    // Fields
     public Member member;
     private List<Fine> fineList;
     private long input;
@@ -103,7 +104,7 @@ public class PayFinesOperation {
         this.MemberMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }  

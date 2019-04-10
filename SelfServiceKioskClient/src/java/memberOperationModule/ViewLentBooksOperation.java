@@ -15,16 +15,16 @@ public class ViewLentBooksOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
     
-    //modules
+    // Modules
     private MemberMenuModule MemberMenuModIn;
 
-    //fields
+    // Fields
     public Member member;    
     private String identityNumber;
     private List<Lend> lendList;
@@ -82,7 +82,7 @@ public class ViewLentBooksOperation {
          this.MemberMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }  

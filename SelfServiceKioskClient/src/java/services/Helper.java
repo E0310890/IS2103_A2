@@ -21,7 +21,7 @@ public class Helper {
             return;
         }
         System.out.println("Search Results:");
-        System.out.println("Id  | Title                   | Availability ");
+        System.out.println("Book ID   |   Title   |   Availability ");
         bookList.forEach((bl) -> {
             System.out.println(bl.getBookID() + " | " + bl.getTitle() + " | " + bl.getStatus());
         });
@@ -32,12 +32,12 @@ public class Helper {
     public static void displayFine(List<Fine> fineList) {
 
         if (fineList.isEmpty()) {
-            System.out.println("===== You do not have any outstand fine.=======");
+            System.out.println("===== You do not have any outstanding fine.=======");
             return;
         }
 
         System.out.println("Unpaid Fines for Member:");
-        System.out.println("Id   |  Amount");
+        System.out.println("Fine ID   |   Fine Amount");
 
         for (Fine f : fineList) {
             System.out.println(f.getLendID() + "   |  $" + f.getFineAmount());
@@ -66,9 +66,9 @@ public class Helper {
         String[] idSpacing = new String[]{" ", "  "};
 
         System.out.println("Currently Lent Books:");
-        System.out.println("Id |Title"
+        System.out.println("Book ID   |   Title"
                 + spacing.substring(3)
-                + "| Due Date");
+                + "|   Due Date");
 
         for (Lend l : lendList) {
             String lendId = l.getLendID().toString();

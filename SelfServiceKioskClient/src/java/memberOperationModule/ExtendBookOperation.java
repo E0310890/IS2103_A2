@@ -20,16 +20,19 @@ public class ExtendBookOperation {
     
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberMenuModule MemberMenuModIn;
-    //Dependecies
+    
+    // Dependecies
     private ViewLentBooksOperation viewLentBookOps;
-    //fields
+    
+    // Fields
     private Member member;        
     private Long bookId;
     private Date dueDate;
@@ -105,7 +108,7 @@ public class ExtendBookOperation {
         this.MemberMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }  

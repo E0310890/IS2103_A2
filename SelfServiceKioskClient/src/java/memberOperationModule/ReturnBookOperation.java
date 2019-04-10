@@ -2,9 +2,6 @@ package memberOperationModule;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import memberOperationModule.MemberMenuModule;
 import model.Lend;
 import model.Member;
 import services.Helper;
@@ -12,26 +9,26 @@ import session.stateless.remote.BookEntityControllerRemote;
 import session.stateless.remote.LendEntityControllerRemote;
 import session.stateless.remote.MemberEntityControllerRemote;
 import session.stateless.remote.StaffEntityControllerRemote;
-import util.exception.LendNotFoundException;
 import util.exception.MemberNotFoundException;
 
 public class ReturnBookOperation {
 
     private Scanner sc = new Scanner(System.in);
 
-    //API
+    // API
     private StaffEntityControllerRemote SEC;
     private MemberEntityControllerRemote MEC;
     private BookEntityControllerRemote BEC;
     private LendEntityControllerRemote LEC;
-    //modules
+    
+    // Modules
     private MemberMenuModule MemberMenuModIn;
-    //Dependecies
+    
+    // Dependecies
     private ViewLentBooksOperation viewLentBookOps;
 
-    //fields
+    // Fields
     private Member member;    
-    // private String identityNumber;
     private Long bookId;
     private List<Lend> lendList;
 
@@ -105,7 +102,7 @@ public class ReturnBookOperation {
         this.MemberMenuModIn.start();
     }
 
-    //    Settter ..........
+    // Setter
     public void setMember(Member member) {
         this.member = member;
     }  
@@ -117,8 +114,4 @@ public class ReturnBookOperation {
     public MemberMenuModule getMemberMenuOpsIn() {
         return MemberMenuModIn;
     }
-    
-    /* public String getIdentityNumber() {
-        return identityNumber;
-    } */
 }
