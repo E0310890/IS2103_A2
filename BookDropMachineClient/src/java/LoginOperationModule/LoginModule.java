@@ -17,7 +17,7 @@ public class LoginModule {
     }
 
     private void displayMenu() {
-        System.out.println("*** Welcome to Library Admin Terminal ***");
+        System.out.println("*** Welcome to BDM Client ***");
         System.out.println("1: Login\n" + "2: Exit");
 
         System.out.print("> ");

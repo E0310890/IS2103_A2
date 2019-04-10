@@ -31,12 +31,12 @@ public interface ReservationEntityController {
      * @param arg0
      * @return
      *     returns boolean
-     * @throws BookNotFoundException_Exception
-     * @throws ReserveBySelfException_Exception
-     * @throws FineNotPaidException_Exception
      * @throws LendBySelfException_Exception
+     * @throws BookNotFoundException_Exception
      * @throws MemberNotFoundException_Exception
+     * @throws ReserveBySelfException_Exception
      * @throws BookNotLendException_Exception
+     * @throws FineNotPaidException_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")

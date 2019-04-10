@@ -93,10 +93,18 @@ public class PayFineOperation {
     }
 
     private void onOperationSuccessNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){  
+        }
         this.memMenuModIn.start();
     }
 
     private void onOperationFailNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){  
+        }
         this.memMenuModIn.start();
     }
 

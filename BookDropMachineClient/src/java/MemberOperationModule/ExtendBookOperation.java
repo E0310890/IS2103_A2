@@ -81,11 +81,19 @@ public class ExtendBookOperation {
         return result;
     }
     
-    private void onOperationSuccessNavigate() {
+    private void onOperationSuccessNavigate(){
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){  
+        }
         this.memberMenuModIn.start();
     }
     
     private void onOperationFailNavigate() {
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException ex){  
+        }
         this.memberMenuModIn.start();
     }
 

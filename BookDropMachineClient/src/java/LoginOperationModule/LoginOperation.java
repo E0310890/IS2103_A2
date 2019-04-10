@@ -72,7 +72,7 @@ public class LoginOperation {
     }
 
     private void onOperationFailNavigate() {
-        start();
+        this.memMenuMod.start();
     }
 
     private void setBackInstance() {
