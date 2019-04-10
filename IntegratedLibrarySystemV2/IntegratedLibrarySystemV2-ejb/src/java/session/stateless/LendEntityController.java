@@ -136,7 +136,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException | ReservedByOthersException ex) {
             throw ex;
         } catch (Exception e) {
-            throw new BookAlreadyLendedException("This book is currently lended by someone");
+            throw new BookAlreadyLendedException("This book is currently lent by someone");
         }
     }
 
@@ -294,7 +294,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                     .get();
 
         } catch (NoSuchElementException ex) {
-            throw new LendNotFoundException("Member did not lend book with id: " + lendId.toString());
+            throw new LendNotFoundException("Member did not lend book with ID: " + lendId.toString());
         }
     }
 
