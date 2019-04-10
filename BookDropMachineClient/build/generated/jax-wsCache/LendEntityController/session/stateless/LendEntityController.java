@@ -78,10 +78,10 @@ public interface LendEntityController {
      * @param arg0
      * @return
      *     returns javax.xml.datatype.XMLGregorianCalendar
-     * @throws BookOverDueException_Exception
      * @throws ReservedByOthersException_Exception
-     * @throws LendNotFoundException_Exception
      * @throws FineNotPaidException_Exception
+     * @throws LendNotFoundException_Exception
+     * @throws BookOverDueException_Exception
      * @throws MemberNotFoundException_Exception
      */
     @WebMethod(operationName = "ExtendLendBook")

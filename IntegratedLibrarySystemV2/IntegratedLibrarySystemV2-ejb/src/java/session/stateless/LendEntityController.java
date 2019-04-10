@@ -3,7 +3,6 @@ package session.stateless;
 import entity.BookEntity;
 import entity.LendingEntity;
 import entity.MemberEntity;
-import entity.PaymentEntity;
 import entity.ReservationEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import model.Book;
 import model.Lend;
 import model.Lendws;
 import model.Member;
@@ -31,7 +29,6 @@ import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
 import session.stateless.local.PaymentEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
-// import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.LendEntityControllerRemote;
 import util.exception.BookAlreadyLendedException;
 import util.exception.BookNotFoundException;
@@ -121,12 +118,6 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
                 }
             }
             
-//            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
-//                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
-//            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
-//                bookE.getReservedList().removeFirst();
-//            }
-
             // Check for book not already lend
             // Use the table unqiue propety to check this, catched with Exceptio
             // No problem, lend book
@@ -258,9 +249,6 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
 
             // Check If the book is already overdue
             validateLendOverDue(currentLendCtx);
-//            if (isOverDue(currentLendCtx)) {
-//                throw new BookOverDueException("Unable to extend. Book is overdue.");
-//            }
 
             //Member has unpaid fines
             if (!memberE.getPayment().isEmpty()) {

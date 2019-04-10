@@ -24,7 +24,6 @@ import session.stateless.local.BookEntityControllerLocal;
 import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.MemberEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
-// import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.ReservationEntityControllerRemote;
 import util.exception.BookNotFoundException;
 import util.exception.BookNotLendException;

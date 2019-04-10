@@ -12,7 +12,7 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.LibraryAdminTerminalClient-1.j2ee-module-car}</file>
+                    <file>${reference.LibraryAdminTerminalClient.j2ee-module-car}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
@@ -43,7 +43,7 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-                <foreign-project>LibraryAdminTerminalClient-1</foreign-project>
+                <foreign-project>LibraryAdminTerminalClient</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>

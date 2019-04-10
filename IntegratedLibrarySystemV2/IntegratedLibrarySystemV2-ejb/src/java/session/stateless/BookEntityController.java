@@ -1,7 +1,6 @@
 package session.stateless;
 
 import entity.BookEntity;
-import entity.LendingEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.ejb.Remote;
-import javax.ejb.Remove;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
@@ -31,10 +29,8 @@ import session.stateless.local.LendEntityControllerLocal;
 import session.stateless.local.ReservationEntityControllerLocal;
 import session.stateless.remote.BookEntityControllerRemote;
 import util.exception.InvalidInputException;
-import util.exception.InvalidLoginCredentialException;
 import util.exception.BookNotFoundException;
 import util.exception.MemberNotFoundException;
-import util.exception.ReservedByOthersException;
 
 @Stateless
 @LocalBean
