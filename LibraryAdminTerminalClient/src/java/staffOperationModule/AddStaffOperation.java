@@ -35,16 +35,16 @@ public class AddStaffOperation {
     }
 
     private void getInput() {
-        System.out.println("Enter First Name> ");
+        System.out.print("Enter First Name> ");
         String firstName = sc.nextLine();
         
-        System.out.println("Enter Last Name> ");
+        System.out.print("Enter Last Name> ");
         String lastName = sc.nextLine();
         
-        System.out.println("Enter Username> ");
+        System.out.print("Enter Username> ");
         String userName = sc.nextLine();
         
-        System.out.println("Enter Password> ");
+        System.out.print("Enter Password> ");
         String password = sc.nextLine();
         
         this.staff = new Staff(firstName, lastName, userName, password);

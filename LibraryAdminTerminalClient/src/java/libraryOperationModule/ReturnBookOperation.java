@@ -85,11 +85,19 @@ public class ReturnBookOperation {
     }
 
     private void onOperationSuccessNavigate() {
-        this.LibModIn.start();
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.LibModIn.start();        
     }
 
     private void onOperationFailNavigate() {
-        this.LibModIn.start();
+        try{
+            Thread.sleep(1000);
+        }catch (InterruptedException ex){
+        }
+        this.LibModIn.start();  
     }
 
     // Setter

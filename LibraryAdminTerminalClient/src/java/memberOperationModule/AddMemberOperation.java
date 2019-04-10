@@ -55,6 +55,7 @@ public class AddMemberOperation {
         System.out.print("Enter Age> ");
         int age = sc.nextInt();
         
+        sc.nextLine();
         System.out.print("Enter Phone> ");
         String phone = sc.nextLine();     
                 
