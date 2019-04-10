@@ -4,6 +4,7 @@ import entity.BookEntity;
 import entity.LendingEntity;
 import entity.MemberEntity;
 import entity.PaymentEntity;
+import entity.ReservationEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,7 +70,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     @WebMethod(exclude = true)
     @Override
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException,
-            LoanLimitHitException, FineNotPaidException {
+            LoanLimitHitException, FineNotPaidException, ReservedByOthersException {
         String identityNumber = member.getIdentityNumber();
         return lendBook(identityNumber, bookId);
     }
@@ -77,7 +78,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
     @WebMethod(exclude = true)
     @Override
     public Date lendBook(String identityNumber, Long bookID) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException,
-            LoanLimitHitException, FineNotPaidException {
+            LoanLimitHitException, FineNotPaidException, ReservedByOthersException {
         try {
             MemberEntity memberE = MEC.viewMember(identityNumber);
             BookEntity bookE = BEC.viewBookE(bookID);
@@ -98,19 +99,28 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             if (isLended) {
                 throw new BookAlreadyLendedException("This book is currently lended by someone or you.");
             }
-
-            // Check for not reserved 
-            boolean isReserved = REC.retrieveByBookID(bookID).stream().anyMatch(r -> r.getBook().getBookID().equals(bookE.getBookID()));
-            if (isReserved) {
-                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
+            
+            List reservationByBookID = REC.retrieveAll().stream().filter(r -> r.getBook().getBookID().equals(bookID)).collect(Collectors.toList());
+            
+            if (!reservationByBookID.isEmpty()) {
+                // ReservationEntity with the smallest ID
+                ReservationEntity smallestID = (ReservationEntity) reservationByBookID.get(0);
+                for (Object r : reservationByBookID) {
+                    ReservationEntity re = (ReservationEntity) r;
+                    if (smallestID.getReservationID() > re.getReservationID()) {
+                        smallestID = re;
+                    }
+                    boolean isReservedBySelf = smallestID.getMember().getIdentityNumber().equals(identityNumber);
+                        if (isReservedBySelf) {
+                            em.remove(smallestID);
+                        }
+                        // Check for not reserved by others
+                        else {
+                            throw new ReservedByOthersException("Fail to borrow. This book had been reserved by another member!");
+                        }
+                }
             }
             
-            // Remove the reservation record
-            boolean isReservedBySelf = REC.retrieveByMemberID(memberE.getMemberID()).stream().anyMatch(r -> r.getBook().getBookID().equals(bookE.getBookID()));
-            if (isReservedBySelf) {
-                em.remove(REC.retrieveByMemberID(memberE.getMemberID()));
-            }
-
 //            if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() != memberE.getIdentityNumber()){
 //                throw new ReservedByOthersException("Fail to borrow. This book had been reserved!");
 //            }else if(!bookE.getReservedList().isEmpty() && bookE.getReservedList().getFirst().getMember().getIdentityNumber() == memberE.getIdentityNumber()){
@@ -123,7 +133,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
             em.persist(lendingE);
             return lendingE.getDueDate();
 
-        } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException ex) {
+        } catch (MemberNotFoundException | BookNotFoundException | FineNotPaidException | LoanLimitHitException | ReservedByOthersException ex) {
             throw ex;
         } catch (Exception e) {
             throw new BookAlreadyLendedException("This book is currently lended by someone");
@@ -288,7 +298,7 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         }
     }
 
-    private boolean isOverDue(LendingEntity currentLendCtx) {
+    public boolean isOverDue(LendingEntity currentLendCtx) {
         Date dueDate = currentLendCtx.getDueDate();
         currentDate = new Date();
         // FOR TESTING PURPOSE, SET currentDate = yyyy-mm-dd
@@ -333,7 +343,8 @@ public class LendEntityController implements LendEntityControllerRemote, LendEnt
         }
     }
 
-    private List<LendingEntity> retrieveAll() throws PersistenceException {
+    @Override
+    public List<LendingEntity> retrieveAll() {
         String jpql = "SELECT l FROM LendingEntity l";
         Query query = em.createQuery(jpql);
         List<LendingEntity> lend;

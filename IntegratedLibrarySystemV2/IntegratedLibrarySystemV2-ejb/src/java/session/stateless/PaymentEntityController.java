@@ -3,6 +3,7 @@ package session.stateless;
 import entity.LendingEntity;
 import entity.MemberEntity;
 import entity.PaymentEntity;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import model.Fine;
 import model.Member;
 import session.stateless.local.BookEntityControllerLocal;
@@ -67,6 +69,36 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
         }
         return paymentE;
     }
+    
+    @Override
+    public PaymentEntity updateFine(LendingEntity lendingE) {
+        MemberEntity memberE = lendingE.getMember();
+        PaymentEntity paymentE = new PaymentEntity();
+        
+        String jpql = "SELECT p FROM PaymentEntity p WHERE p.lendID =:lendID";
+        Query query = em.createQuery(jpql);
+        query.setParameter("lendID", lendingE.getLendID());  
+        
+        paymentE = (PaymentEntity) query.getSingleResult();
+                                
+        Date dueDate = lendingE.getDueDate();
+        
+        long numberer = 1559318400000L;
+        
+        // Date currentDate = new Date(numberer);
+
+        Date currentDate = new Date();
+        
+        long difference =  (currentDate.getTime()-dueDate.getTime())/86400000;
+        int differenceInt = (int) difference;
+        
+        if (differenceInt != paymentE.getAmount()) {
+            paymentE.setAmount(differenceInt);
+            em.merge(paymentE);
+            em.flush();
+        }
+        return paymentE;
+    }    
 
     @WebMethod(exclude = true)
     @Override
@@ -78,6 +110,15 @@ public class PaymentEntityController implements PaymentEntityControllerRemote, P
         return true;
     }
 
+    @Override
+    public boolean initFine(LendingEntity lendingE) {
+        MemberEntity memberE = lendingE.getMember();
+        if (memberE.getPayment().stream().anyMatch(p -> p.getLendID().equals(lendingE.getLendID()))) {
+            return true;
+        }
+        return false;
+    }
+    
     @WebMethod(exclude = true)
     @Override
     public boolean payFine(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException, FineNotFoundException {

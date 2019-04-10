@@ -16,9 +16,9 @@ import util.exception.ReservedByOthersException;
 public interface LendEntityControllerRemote {
     
     public Date lendBook(Member member, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
-            LoanLimitHitException, FineNotPaidException;
+            LoanLimitHitException, FineNotPaidException, ReservedByOthersException;
     public Date lendBook(String identityNumber, Long bookId) throws MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, 
-            MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, LoanLimitHitException, FineNotPaidException;
+            MemberNotFoundException, BookNotFoundException, BookAlreadyLendedException, LoanLimitHitException, FineNotPaidException, ReservedByOthersException;
     public List<Lend> ViewLendBooks(Member member) throws MemberNotFoundException;
     public List<Lend> ViewLendBooks(String identityNumber) throws MemberNotFoundException;
     public boolean ReturnLendBook(Member member, Long lendId) throws MemberNotFoundException, LendNotFoundException;

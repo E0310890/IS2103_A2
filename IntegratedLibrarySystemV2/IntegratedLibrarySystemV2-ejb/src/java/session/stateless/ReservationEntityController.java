@@ -149,33 +149,7 @@ public class ReservationEntityController implements ReservationEntityControllerR
         }
         return reservation;
     }
-
-    public List<ReservationEntity> retrieveByBookID(Long bookID) throws PersistenceException {
-        String jpql = "SELECT r FROM ReservationEntity r WHERE r.bookID = :bookID";
-        Query query = em.createQuery(jpql);
-        query.setParameter("bookID", bookID);
-        List<ReservationEntity> reservation;
-        try {
-            reservation = query.getResultList();
-        } catch (PersistenceException ex) {
-            throw ex;
-        }
-        return reservation;
-    }
-    
-    public List<ReservationEntity> retrieveByMemberID(Long memberID) throws PersistenceException {
-        String jpql = "SELECT r FROM ReservationEntity r WHERE r.memberID = :memberID";
-        Query query = em.createQuery(jpql);
-        query.setParameter("memberID", memberID);
-        List<ReservationEntity> reservation;
-        try {
-            reservation = query.getResultList();
-        } catch (PersistenceException ex) {
-            throw ex;
-        }
-        return reservation;
-    }
-    
+         
     public ReservationEntity retrieveByReservationID(Long reservationID) throws PersistenceException {
         String jpql = "SELECT r FROM ReservationEntity r WHERE r.reservationID = :reservationID";
         Query query = em.createQuery(jpql);

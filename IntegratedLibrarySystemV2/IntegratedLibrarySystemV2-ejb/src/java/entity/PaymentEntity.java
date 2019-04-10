@@ -50,6 +50,10 @@ public class PaymentEntity implements Serializable {
     public Integer getAmount() {
         return amount;
     }  
+    
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public Long getLendID() {
         return lendID;
